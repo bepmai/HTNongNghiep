@@ -11,10 +11,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import tlu.edu.vn.ht63.htnongnghiep.R;
-import tlu.edu.vn.ht63.htnongnghiep.container.login.LogInActivity;
+import tlu.edu.vn.ht63.htnongnghiep.component.BackActivity;
 
 public class LoginSignupActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +26,8 @@ public class LoginSignupActivity extends AppCompatActivity {
         });
         Button btnLogin = findViewById(R.id.logIn_button);
         btnLogin.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginSignupActivity.this, LogInActivity.class);
+            Intent intent = new Intent(LoginSignupActivity.this, BackActivity.class);
+            intent.putExtra("action", "login");
             startActivity(intent);
         });
 
