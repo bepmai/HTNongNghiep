@@ -86,9 +86,14 @@ public class SignUpActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignUpActivity.this, MessageSignUpSucessActivity.class);
-                startActivity(intent);
-                finish();
+                if (signin_username.getText().length()>0
+                        & signin_password.getText().length()>0
+                        & re_signin_password.getText().length()>0
+                        & checkBox.isChecked()) {
+                    Intent intent = new Intent(SignUpActivity.this, MessageSignUpSucessActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
     }
