@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import tlu.edu.vn.ht63.htnongnghiep.MainActivity;
 import tlu.edu.vn.ht63.htnongnghiep.R;
+import tlu.edu.vn.ht63.htnongnghiep.container.LoginSignupActivity;
 
 public class SlpashActivity extends AppCompatActivity {
 
@@ -28,7 +29,7 @@ public class SlpashActivity extends AppCompatActivity {
         new  Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SlpashActivity.this, MainActivity.class);
+                Intent intent = new Intent(SlpashActivity.this, LoginSignupActivity.class);
                 startActivity(intent);
                 finish();
             }

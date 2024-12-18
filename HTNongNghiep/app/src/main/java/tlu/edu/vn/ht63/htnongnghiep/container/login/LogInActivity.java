@@ -1,8 +1,6 @@
-package tlu.edu.vn.ht63.htnongnghiep.container;
+package tlu.edu.vn.ht63.htnongnghiep.container.login;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,25 +9,19 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import tlu.edu.vn.ht63.htnongnghiep.R;
-import tlu.edu.vn.ht63.htnongnghiep.container.login.LogInActivity;
 
-public class LoginSignupActivity extends AppCompatActivity {
+public class LogInActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login_signup);
+        setContentView(R.layout.activity_log_in);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        Button btnLogin = findViewById(R.id.logIn_button);
-        btnLogin.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginSignupActivity.this, LogInActivity.class);
-            startActivity(intent);
-        });
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }
