@@ -13,19 +13,19 @@
         android:theme="@style/Theme.HTNongNghiep"
         tools:targetApi="31">
         <activity
-            android:name=".container.signup.MessageSucessActivity"
+            android:name=".Container.signup.MessageSucessActivity"
             android:exported="false" />
         <activity
-            android:name=".container.signup.SignUpActivity"
+            android:name=".Container.signup.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".container.login.LogInActivity"
+            android:name=".Container.login.LogInActivity"
             android:exported="false" />
         <activity
-            android:name=".container.LoginSignupActivity"
+            android:name=".Container.LoginSignupActivity"
             android:exported="false" />
         <activity
-            android:name=".container.SlpashScreen.SlpashActivity"
+            android:name=".Container.SlpashScreen.SlpashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

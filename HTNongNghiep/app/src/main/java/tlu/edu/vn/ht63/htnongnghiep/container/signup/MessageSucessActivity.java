@@ -1,4 +1,4 @@
-package tlu.edu.vn.ht63.htnongnghiep.container.signup;
+package tlu.edu.vn.ht63.htnongnghiep.Container.signup;
 
 import android.os.Bundle;
 

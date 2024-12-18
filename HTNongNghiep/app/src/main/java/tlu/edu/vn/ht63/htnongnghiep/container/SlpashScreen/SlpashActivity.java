@@ -1,4 +1,4 @@
-package tlu.edu.vn.ht63.htnongnghiep.container.SlpashScreen;
+package tlu.edu.vn.ht63.htnongnghiep.Container.SlpashScreen;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import tlu.edu.vn.ht63.htnongnghiep.MainActivity;
 import tlu.edu.vn.ht63.htnongnghiep.R;
-import tlu.edu.vn.ht63.htnongnghiep.container.LoginSignupActivity;
+import tlu.edu.vn.ht63.htnongnghiep.Container.LoginSignupActivity;
 
 public class SlpashActivity extends AppCompatActivity {
 
