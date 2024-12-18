@@ -7,4 +7,125 @@
     android:layout_height="match_parent"
     tools:context=".container.LoginSignupActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="90dp"
+        app:srcCompat="@drawable/Group260" />
+
+    <Button
+        android:id="@+id/logIn_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đăng nhập"
+        android:textSize="18sp"
+        android:backgroundTint="@color/green"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logIn_button">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_toStartOf="@+id/orText"
+            android:background="@color/black" />
+
+        <TextView
+            android:id="@+id/orText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Hoặc"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_toEndOf="@+id/orText"
+            android:background="@color/black" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/logInGoogle_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/gray"
+        android:text="Tiếp tục bằng Goodle"
+        android:textSize="18sp"
+        android:drawableLeft="@drawable/ic_google"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+
+    <Button
+        android:id="@+id/logInFacebook_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/blue"
+        android:text="Tiếp tục bằng Facebook"
+        android:textSize="18sp"
+        android:drawableLeft="@drawable/ic_facebook"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logInGoogle_button" />
+
+    <LinearLayout
+        android:id="@+id/changeToSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logInFacebook_button">
+
+        <TextView
+            android:id="@+id/dontHaveAccountText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bạn chưa có tài khoản? "
+            android:textColor="#000000"
+            android:textSize="15sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Đăng ký"
+            android:textColor="@color/green"
+            android:textSize="15sp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
