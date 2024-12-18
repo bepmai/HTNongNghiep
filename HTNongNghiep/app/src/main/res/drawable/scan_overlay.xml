@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:right="0dp" android:bottom="0dp">
+        <shape android:shape="rectangle">
+            <size android:width="250dp" android:height="250dp"/>
+            <solid android:color="@android:color/transparent"/>
+        </shape>
+    </item>
+<!--    tren trai-->
+    <item android:left="0dp" android:top="0dp" android:bottom="200dp" android:right="245dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white"/>
+            <stroke android:color="@android:color/white" android:width="1dp"/>
+            <corners android:radius="10dp"/>
+        </shape>
+    </item>
+    <item android:left="0dp" android:top="0dp" android:bottom="245dp" android:right="200dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white"/>
+            <stroke android:color="@android:color/white" android:width="1dp"/>
+            <corners android:radius="10dp"/>
+        </shape>
+    </item>
+
+<!--    tren phai-->
+    <item android:left="200dp" android:top="0dp" android:bottom="245dp" android:right="0dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white"/>
+            <stroke android:color="@android:color/white" android:width="1dp"/>
+            <corners android:radius="10dp"/>
+        </shape>
+    </item>
+    <item android:left="245dp" android:top="0dp" android:bottom="200dp" android:right="0dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white"/>
+            <stroke android:color="@android:color/white" android:width="1dp"/>
+            <corners android:radius="10dp"/>
+        </shape>
+    </item>
+
+    <!--    duoi trai-->
+    <item android:left="0dp" android:top="245dp" android:bottom="0dp" android:right="200dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white"/>
+            <stroke android:color="@android:color/white" android:width="1dp"/>
+            <corners android:radius="10dp"/>
+        </shape>
+    </item>
+    <item android:left="0dp" android:top="200dp" android:bottom="0dp" android:right="245dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white"/>
+            <stroke android:color="@android:color/white" android:width="1dp"/>
+            <corners android:radius="10dp"/>
+        </shape>
+    </item>
+    <!--    duoi phai-->
+    <item android:left="200dp" android:top="245dp" android:bottom="0dp" android:right="0dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white"/>
+            <stroke android:color="@android:color/white" android:width="1dp"/>
+            <corners android:radius="10dp"/>
+        </shape>
+    </item>
+    <item android:left="245dp" android:top="200dp" android:bottom="0dp" android:right="0dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white"/>
+            <stroke android:color="@android:color/white" android:width="1dp"/>
+            <corners android:radius="10dp"/>
+        </shape>
+    </item>
+</layer-list>
