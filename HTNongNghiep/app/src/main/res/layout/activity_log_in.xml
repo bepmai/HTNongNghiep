@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".container.login.LogInActivity">
+    tools:context=".Container.login.LogInActivity">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -92,6 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tiếp tục"
+                android:clickable="false"
                 android:layout_marginTop="40dp"
                 android:backgroundTint="@color/white_gray"/>
         </LinearLayout>
