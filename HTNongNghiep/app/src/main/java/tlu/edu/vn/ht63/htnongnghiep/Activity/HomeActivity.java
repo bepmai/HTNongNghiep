@@ -25,16 +25,16 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home);
-//        if (savedInstanceState == null) {
-//            // Tạo một Fragment mới
-//            Fragment imageAnalysisFragment = new ImageAnalysis_view();
-//
-//            // Thêm Fragment vào Activity
-//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//            transaction.replace(R.id.main, imageAnalysisFragment);
-//            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-//            transaction.commit();
-//        }
+        if (savedInstanceState == null) {
+            // Tạo một Fragment mới
+            Fragment imageAnalysisFragment = new ImageAnalysis_view();
+
+            // Thêm Fragment vào Activity
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.main, imageAnalysisFragment);
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            transaction.commit();
+        }
         homeBar = findViewById(R.id.home);
         communityBar = findViewById(R.id.community);
         shopBar = findViewById(R.id.shop);

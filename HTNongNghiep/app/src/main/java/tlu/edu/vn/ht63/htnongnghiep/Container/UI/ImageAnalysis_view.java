@@ -12,23 +12,18 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureException;
@@ -46,14 +41,11 @@ import com.google.common.util.concurrent.ListenableFuture;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 import androidx.camera.view.PreviewView;
-import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
-import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 
 public class ImageAnalysis_view extends Fragment {
@@ -124,7 +116,7 @@ public class ImageAnalysis_view extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.d("Camera", "CreateView");
-        View view = inflater.inflate(R.layout.fragment_image_analys, container, false);
+        View view = inflater.inflate(R.layout.fragment_image_analysis_view, container, false);
         previewView = view.findViewById(R.id.previewView);
         // Kiểm tra quyền truy cập camera
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
@@ -327,6 +319,10 @@ public class ImageAnalysis_view extends Fragment {
                 if (outputStream != null) {
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
                     Toast.makeText(requireContext(), "Ảnh đã được lưu vào Thư viện!", Toast.LENGTH_SHORT).show();
+                    Fragment analysisResultView = new AnalysisResult_view();
+                    FragmentTransaction fragmentTransaction =  requireActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.add(R.id.main,analysisResultView);
+                    fragmentTransaction.commit();
                 }
             } catch (Exception e) {
                 Log.e(TAG, "Error saving image to Pictures directory: ", e);

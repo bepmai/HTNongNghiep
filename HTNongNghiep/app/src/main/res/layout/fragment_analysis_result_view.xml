@@ -2,7 +2,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Container.UI.AnalysisResult_view">
-
+    android:layout_height="580dp"
+    android:layout_gravity="bottom"
+    tools:context=".Container.UI.AnalysisResult_view"
+    android:backgroundTint="@android:color/black"
+    android:background="@drawable/border_radius_top_10dp"
+    android:padding="100dp">
 </FrameLayout>
