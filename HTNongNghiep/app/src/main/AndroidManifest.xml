@@ -18,7 +18,7 @@
         android:theme="@style/Theme.HTNongNghiep"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.AnalysisActivity"
+            android:name=".Activity.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
