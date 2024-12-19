@@ -13,13 +13,16 @@
         android:theme="@style/Theme.HTNongNghiep"
         tools:targetApi="31">
         <activity
+            android:name=".Container.OnboardingWalkthroughScreen.NavigationActivity"
+            android:exported="false" />
+        <activity
             android:name=".Container.login.AddInfoUserActivity"
             android:exported="false" />
         <activity
             android:name=".Container.signup.MessageSignUpSucessActivity"
             android:exported="false" />
         <activity
-            android:name=".Container.signup.SignUpActivity"
+            android:name=".Container.signup.signUpActivity"
             android:exported="false" />
         <activity
             android:name=".Container.login.LogInActivity"

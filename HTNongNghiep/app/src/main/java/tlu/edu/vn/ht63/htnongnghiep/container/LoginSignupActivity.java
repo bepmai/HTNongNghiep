@@ -14,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import tlu.edu.vn.ht63.htnongnghiep.R;
 import tlu.edu.vn.ht63.htnongnghiep.Container.login.LogInActivity;
-import tlu.edu.vn.ht63.htnongnghiep.Container.signup.SignUpActivity;
+import tlu.edu.vn.ht63.htnongnghiep.Container.signup.signUpActivity;
 
 public class LoginSignupActivity extends AppCompatActivity {
     LinearLayout changeToSignUp;
@@ -41,7 +41,7 @@ public class LoginSignupActivity extends AppCompatActivity {
         changeToSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginSignupActivity.this, SignUpActivity.class);
+                Intent intent = new Intent(LoginSignupActivity.this, signUpActivity.class);
                 startActivity(intent);
             }
         });

@@ -2,4 +2,22 @@
     <string name="app_name">HTNongNghiep</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="gender_array">
+        <item>Giới tính</item>
+        <item>Nam</item>
+        <item>Nữ</item>
+        <item>Khác</item>
+    </string-array>
+    <string-array name="plante_array">
+        <item>Chọn loại cây</item>
+        <item>cây xương rồng</item>
+        <item>cây bonsai</item>
+        <item>cây cảnh</item>
+    </string-array>
+    <string name="title_screen1">Kết nối cộng đồng</string>
+    <string name="title_screen2">Quản lý cây trồng</string>
+    <string name="title_screen3">Cập nhật kiến thức</string>
+    <string name="screen1desc">Giao lưu, chia sẻ và cùng nhau tạo nên một cộng đồng yêu thiên nhiên gắn kết vững mạnh</string>
+    <string name="screen2desc">Tạo lập cách chăm sóc, quản lý cây trồng hiệu quả, cùng mọi người phát triển vườn cây của mình</string>
+    <string name="screen3desc">Học hỏi những kiến thức bổ ích về cây trồng, giao lưu chia sẻ kiến thức với moi người xung quanh</string>
 </resources>

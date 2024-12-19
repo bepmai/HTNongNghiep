@@ -17,7 +17,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import tlu.edu.vn.ht63.htnongnghiep.R;
-import tlu.edu.vn.ht63.htnongnghiep.Container.signup.SignUpActivity;
+import tlu.edu.vn.ht63.htnongnghiep.Container.signup.signUpActivity;
 
 public class LogInActivity extends AppCompatActivity {
     ImageButton backButton;
@@ -52,7 +52,7 @@ public class LogInActivity extends AppCompatActivity {
         changeToSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LogInActivity.this, SignUpActivity.class);
+                Intent intent = new Intent(LogInActivity.this, signUpActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -10,6 +10,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import tlu.edu.vn.ht63.htnongnghiep.Container.OnboardingWalkthroughScreen.NavigationActivity;
 import tlu.edu.vn.ht63.htnongnghiep.MainActivity;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 import tlu.edu.vn.ht63.htnongnghiep.Container.LoginSignupActivity;
@@ -29,7 +30,7 @@ public class SlpashActivity extends AppCompatActivity {
         new  Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SlpashActivity.this, LoginSignupActivity.class);
+                Intent intent = new Intent(SlpashActivity.this, NavigationActivity.class);
                 startActivity(intent);
                 finish();
             }

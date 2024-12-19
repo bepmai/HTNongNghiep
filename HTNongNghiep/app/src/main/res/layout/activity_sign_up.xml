@@ -6,11 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Container.signup.SignUpActivity">
+    android:background="@color/white"
+    tools:context=".Container.signup.signUpActivity">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:layout_height="wrap_content">
 
         <ImageButton
             android:id="@+id/backButton"
@@ -72,6 +72,7 @@
                 android:background="@drawable/edittext_whitegray_border"
                 android:drawableLeft="@drawable/ic_baseline_lock_24"
                 android:drawablePadding="8dp"
+                android:inputType="textPassword"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:hint="Mật khẩu"
@@ -82,6 +83,7 @@
                 android:id="@+id/re_signin_password"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
+                android:inputType="textPassword"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edittext_whitegray_border"
                 android:drawableLeft="@drawable/ic_baseline_lock_24"
