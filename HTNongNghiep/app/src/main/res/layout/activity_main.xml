@@ -5,8 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     tools:context=".MainActivity">
 
 
 
+=======
+    tools:context=".Activity.AnalysisActivity">
+>>>>>>> 88cb91c06cf768649ea620ddca7566499caf6f1c
 </androidx.constraintlayout.widget.ConstraintLayout>
