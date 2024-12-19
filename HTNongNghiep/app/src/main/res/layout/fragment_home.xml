@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Container.UI.inftree">
+    tools:context=".Container.UI.home">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="450px"
@@ -167,5 +166,4 @@
                 android:gravity="center"/>
         </LinearLayout>
     </LinearLayout>
-
 </FrameLayout>
