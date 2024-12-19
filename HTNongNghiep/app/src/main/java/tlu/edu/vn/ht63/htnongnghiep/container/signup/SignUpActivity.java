@@ -21,7 +21,7 @@ import androidx.core.view.WindowInsetsCompat;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 import tlu.edu.vn.ht63.htnongnghiep.Container.login.LogInActivity;
 
-public class signUpActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
     ImageButton backButton;
     LinearLayout changeToLogIn;
     EditText signin_username,signin_password,re_signin_password;
@@ -57,7 +57,7 @@ public class signUpActivity extends AppCompatActivity {
         changeToLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(signUpActivity.this, LogInActivity.class);
+                Intent intent = new Intent(SignUpActivity.this, LogInActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -90,7 +90,7 @@ public class signUpActivity extends AppCompatActivity {
                         & signin_password.getText().length()>0
                         & re_signin_password.getText().length()>0
                         & checkBox.isChecked()) {
-                    Intent intent = new Intent(signUpActivity.this, MessageSignUpSucessActivity.class);
+                    Intent intent = new Intent(SignUpActivity.this, MessageSignUpSucessActivity.class);
                     startActivity(intent);
                     finish();
                 }
