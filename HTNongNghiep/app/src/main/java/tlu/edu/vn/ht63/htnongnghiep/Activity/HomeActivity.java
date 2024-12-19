@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.ImageAnalysis_view;
+import tlu.edu.vn.ht63.htnongnghiep.Container.UI.home;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class HomeActivity extends AppCompatActivity {
@@ -23,18 +24,15 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        EdgeToEdge.enable(this);
+
         setContentView(R.layout.activity_home);
-//        if (savedInstanceState == null) {
-//            // Tạo một Fragment mới
-//            Fragment imageAnalysisFragment = new ImageAnalysis_view();
-//
-//            // Thêm Fragment vào Activity
-//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//            transaction.replace(R.id.main, imageAnalysisFragment);
-//            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-//            transaction.commit();
-//        }
+        if (savedInstanceState == null) {
+            Fragment homeFragment = new home();
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.main, homeFragment);
+            transaction.commit();
+        }
         homeBar = findViewById(R.id.home);
         communityBar = findViewById(R.id.community);
         shopBar = findViewById(R.id.shop);
