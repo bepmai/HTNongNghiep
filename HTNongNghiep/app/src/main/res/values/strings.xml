@@ -20,6 +20,25 @@
     <string name="screen1desc">Giao lưu, chia sẻ và cùng nhau tạo nên một cộng đồng yêu thiên nhiên gắn kết vững mạnh</string>
     <string name="screen2desc">Tạo lập cách chăm sóc, quản lý cây trồng hiệu quả, cùng mọi người phát triển vườn cây của mình</string>
     <string name="screen3desc">Học hỏi những kiến thức bổ ích về cây trồng, giao lưu chia sẻ kiến thức với moi người xung quanh</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="browse_title">Videos by Your Company</string>
+    <string name="related_movies">Related Videos</string>
+    <string name="grid_view">Grid View</string>
+    <string name="error_fragment">Error Fragment</string>
+    <string name="personal_settings">Personal Settings</string>
+    <string name="watch_trailer_1">Watch trailer</string>
+    <string name="watch_trailer_2">FREE</string>
+    <string name="rent_1">Rent By Day</string>
+    <string name="rent_2">From $1.99</string>
+    <string name="buy_1">Buy and Own</string>
+    <string name="buy_2">AT $9.99</string>
+    <string name="movie">Movie</string>
+
+    <!-- Error messages -->
+    <string name="error_fragment_message">An error occurred</string>
+    <string name="dismiss_error">Dismiss</string>
+    <string name="title_activity_main">MainActivity</string>
+    <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
@@ -61,5 +80,4 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
-    <!-- TODO: Remove or change this placeholder text -->
 </resources>

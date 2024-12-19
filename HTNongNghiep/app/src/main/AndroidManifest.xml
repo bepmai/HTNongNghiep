@@ -47,6 +47,9 @@
         <activity
             android:name=".Activity.AnalysisActivity"
             android:exported="false" />
+        <activity
+            android:name=".Activity.HomeActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
