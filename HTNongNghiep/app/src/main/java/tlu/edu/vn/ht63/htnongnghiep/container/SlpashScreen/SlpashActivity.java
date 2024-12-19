@@ -11,7 +11,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import tlu.edu.vn.ht63.htnongnghiep.Container.OnboardingWalkthroughScreen.NavigationActivity;
-import tlu.edu.vn.ht63.htnongnghiep.MainActivity;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 import tlu.edu.vn.ht63.htnongnghiep.Container.LoginSignupActivity;
 
