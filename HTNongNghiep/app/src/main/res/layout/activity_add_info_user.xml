@@ -151,6 +151,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button
+                android:id="@+id/addInfoBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tiếp tục"

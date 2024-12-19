@@ -1,10 +1,12 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.login;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -21,12 +23,15 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 
+import tlu.edu.vn.ht63.htnongnghiep.Activity.HomeActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Container.login.Adapter.CustomAdapter;
+import tlu.edu.vn.ht63.htnongnghiep.Container.signup.SignUpActivity;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class AddInfoUserActivity extends AppCompatActivity {
     Spinner genderSpinner,plantsSpinner;
     EditText datePickerEditText;
+    Button addInfoBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +47,7 @@ public class AddInfoUserActivity extends AppCompatActivity {
         genderSpinner = findViewById(R.id.genderSpinner);
         plantsSpinner = findViewById(R.id.plantsSpinner);
         datePickerEditText = findViewById(R.id.datePickerEditText);
+        addInfoBtn = findViewById(R.id.addInfoBtn);
 
         datePickerEditText.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
@@ -110,6 +116,15 @@ public class AddInfoUserActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        addInfoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddInfoUserActivity.this, HomeActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
