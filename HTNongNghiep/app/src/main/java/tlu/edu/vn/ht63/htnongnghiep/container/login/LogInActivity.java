@@ -67,6 +67,7 @@ public class LogInActivity extends AppCompatActivity {
                 if (signin_username.getText().length()>0 & signin_password.getText().length()>0){
                     Intent intent = new Intent(LogInActivity.this, AddInfoUserActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         });

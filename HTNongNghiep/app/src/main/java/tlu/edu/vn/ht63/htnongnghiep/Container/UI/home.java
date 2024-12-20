@@ -1,5 +1,6 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -60,22 +63,42 @@ public class home extends Fragment {
         }
     }
 
+    private WebView webView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        // Inflate the layout for this fragment
-        WebView webView = view.findViewById(R.id.webView);
+        webView = view.findViewById(R.id.webView);
 
-        // Kích hoạt JavaScript nếu biểu đồ cần
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-
-        // Để mở URL trong WebView thay vì trình duyệt
+        // Cấu hình WebView
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setDomStorageEnabled(true);
+        webView.getSettings().setLoadWithOverviewMode(true); // Phóng to nội dung trang web
+        webView.getSettings().setUseWideViewPort(true); // Hỗ trợ chế độ viewport
+        webView.getSettings().setAllowFileAccess(true); // Cho phép truy cập tệp cục bộ nếu cần
+        webView.getSettings().setAllowContentAccess(true); // Cho phép truy cập nội dung
+        webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW); // Hỗ trợ tải nội dung HTTP và HTTPS
+        webView.setWebChromeClient(new WebChromeClient());
         webView.setWebViewClient(new WebViewClient());
 
-        // Tải URL của biểu đồ Superset
-        webView.loadUrl("http://192.168.56.1:8088/superset/explore/p/RewWOgDvXVG/");
+        webView.loadUrl("http://192.168.55.106:8088/superset/dashboard/p/27Wlg0RLPkE/");
+
+        // Chạy JavaScript sau khi trang tải xong
+//        webView.setWebViewClient(new WebViewClient() {
+//            @Override
+//            public void onPageFinished(WebView view, String url) {
+//                // JavaScript để chỉ lấy phần tử cụ thể
+//                webView.evaluateJavascript(
+//                        "var element = document.querySelector('div[data-test-chart-id=\"72\"]');" +
+//                                "if (element) {" +
+//                                "    document.body.innerHTML = element.outerHTML;" + // Thay thế nội dung WebView bằng phần tử này
+//                                "} else {" +
+//                                "    document.body.innerHTML = '<p>Element not found</p>';" +
+//                                "}", null);
+//            }
+//        });
+
         return view;
     }
 }
