@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
@@ -60,7 +63,19 @@ public class home extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        WebView webView = view.findViewById(R.id.webView);
+
+        // Kích hoạt JavaScript nếu biểu đồ cần
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+
+        // Để mở URL trong WebView thay vì trình duyệt
+        webView.setWebViewClient(new WebViewClient());
+
+        // Tải URL của biểu đồ Superset
+        webView.loadUrl("http://192.168.56.1:8088/superset/explore/p/RewWOgDvXVG/");
+        return view;
     }
 }
