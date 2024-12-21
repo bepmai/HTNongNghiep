@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <!-- Quyền -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-feature android:name="android.hardware.camera.any" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- Hỗ trợ Leanback -->
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="false" /> <!-- Features khác -->
+    <uses-feature
+        android:name="android.hardware.camera.any"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+
     <application
         android:allowBackup="true"
+        android:banner="@drawable/group260"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -17,6 +30,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HTNongNghiep"
         tools:targetApi="31">
+        <activity
+            android:name=".Container.UI.InfUserDetail"
+            android:exported="false" >
+        </activity>
+        <activity
+            android:name=".Container.UI.DetailPlant"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Container.OnboardingWalkthroughScreen.NavigationActivity"
             android:exported="false" />
@@ -37,13 +66,7 @@
             android:exported="false" />
         <activity
             android:name=".Container.SlpashScreen.SlpashActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".Activity.AnalysisActivity"
             android:exported="false" />
@@ -51,5 +74,4 @@
             android:name=".Activity.HomeActivity"
             android:exported="false" />
     </application>
-
 </manifest>
