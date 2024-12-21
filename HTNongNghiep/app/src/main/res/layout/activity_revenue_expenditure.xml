@@ -73,7 +73,6 @@
                 android:layout_height="wrap_content"
                 android:text="Báo cáo thu"
                 android:textColor="@color/green"
-                android:textStyle="bold"
                 android:textSize="18sp"
                 android:backgroundTint="@color/white"/>
             <View
@@ -92,7 +91,6 @@
                 android:text="Báo cáo chi"
                 android:textColor="@color/white_black"
                 android:layout_weight="1"
-                android:textStyle="bold"
                 android:textSize="18sp"
                 android:backgroundTint="@color/white"/>
             <View
@@ -106,14 +104,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
-            android:id="@+id/frameLayout3"
+        <ListView
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/listview"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/list_item_revenue_expenditure"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10.0sp"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"

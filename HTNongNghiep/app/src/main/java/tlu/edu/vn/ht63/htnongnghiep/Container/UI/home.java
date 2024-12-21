@@ -1,5 +1,6 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -13,7 +14,12 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.TextView;
 
+import tlu.edu.vn.ht63.htnongnghiep.Container.RevenueExpenditure.RevenueExpenditureActivity;
+import tlu.edu.vn.ht63.htnongnghiep.Container.login.LogInActivity;
+import tlu.edu.vn.ht63.htnongnghiep.Container.signup.SignUpActivity;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 /**
@@ -63,13 +69,15 @@ public class home extends Fragment {
         }
     }
 
-    private WebView webView;
+    WebView webView;
+    TextView detailButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         webView = view.findViewById(R.id.webView);
+        detailButton = view.findViewById(R.id.detailButton);
 
         // Cấu hình WebView
         webView.getSettings().setJavaScriptEnabled(true);
@@ -83,6 +91,14 @@ public class home extends Fragment {
         webView.setWebViewClient(new WebViewClient());
 
         webView.loadUrl("http://192.168.55.106:8088/superset/dashboard/p/27Wlg0RLPkE/");
+
+        detailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireContext(), RevenueExpenditureActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // Chạy JavaScript sau khi trang tải xong
 //        webView.setWebViewClient(new WebViewClient() {
