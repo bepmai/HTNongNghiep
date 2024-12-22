@@ -88,7 +88,7 @@ public class RevenueFragment extends Fragment {
                 "image_url_here",             // productImage
                 "Nguyễn Đức Anh",               // nameSeller
                 new Date(),                   // date (hiện tại)
-                "Đã thanh toán",              // status
+                "Chưa thanh toán",              // status
                 "Cây Bonsai 20 năm",                      // nameProduct
                 10,                           // total (số lượng)
                 101,                          // idProduct

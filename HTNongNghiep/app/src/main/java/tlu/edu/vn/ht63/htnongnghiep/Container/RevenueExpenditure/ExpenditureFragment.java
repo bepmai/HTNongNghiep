@@ -80,7 +80,7 @@ public class ExpenditureFragment extends Fragment {
                 "https://example.com/image1.png", // productImage
                 "Seller A", // nameSeller
                 new Date(), // date
-                "Completed", // status
+                "Đã thanh toán", // status
                 "Product A", // nameProduct
                 10, // total
                 101, // idProduct
@@ -93,7 +93,7 @@ public class ExpenditureFragment extends Fragment {
                 "https://example.com/image2.png", // productImage
                 "Seller B", // nameSeller
                 new Date(), // date
-                "Pending", // status
+                "Chưa thanh toán", // status
                 "Product B", // nameProduct
                 5, // total
                 102, // idProduct
@@ -106,7 +106,7 @@ public class ExpenditureFragment extends Fragment {
                 "https://example.com/image3.png", // productImage
                 "Seller C", // nameSeller
                 new Date(), // date
-                "In Progress", // status
+                "Đã thanh toán", // status
                 "Product C", // nameProduct
                 20, // total
                 103, // idProduct

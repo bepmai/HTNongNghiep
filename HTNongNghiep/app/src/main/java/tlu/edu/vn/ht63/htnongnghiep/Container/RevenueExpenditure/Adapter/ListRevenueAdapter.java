@@ -30,6 +30,7 @@ public class ListRevenueAdapter extends ArrayAdapter<Revenue> {
         }
 
         TextView listNameSeller = view.findViewById(R.id.listNameSeller);
+        TextView listStatus = view.findViewById(R.id.listStatus);
         ImageView imageView4 = view.findViewById(R.id.imageView4);
         TextView listNameProduct = view.findViewById(R.id.listNameProduct);
         TextView listTotal = view.findViewById(R.id.listTotal);
@@ -38,6 +39,12 @@ public class ListRevenueAdapter extends ArrayAdapter<Revenue> {
         TextView listTotalPayment = view.findViewById(R.id.listTotalPayment);
 
         listNameSeller.setText("  "+data.getNameSeller());
+        listStatus.setText(data.getStatus());
+        if(data.getStatus().equals("Đã thanh toán")){
+            listStatus.setTextColor(getContext().getResources().getColor(R.color.red));
+        }else {
+            listStatus.setTextColor(getContext().getResources().getColor(R.color.search_opaque));
+        }
 //        imageView4.setImageURI();
         listNameProduct.setText(data.getNameProduct());
         listTotal.setText("Số lượng: "+data.getTotal()+" cây");

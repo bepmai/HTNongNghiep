@@ -1,6 +1,7 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.RevenueExpenditure.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,11 +65,12 @@ public class ListExpenditureAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     // ViewHolder for Seller
     static class SellerViewHolder extends RecyclerView.ViewHolder {
-        TextView listNameSeller,listNameProduct,listTotal,listPayment,listTime,listTotalPayment;
+        TextView listNameSeller,listStatus,listNameProduct,listTotal,listPayment,listTime,listTotalPayment;
         ImageView imageView4;
 
         public SellerViewHolder(@NonNull View itemView) {
             super(itemView);
+            listStatus = itemView.findViewById(R.id.listStatus);
             listNameSeller = itemView.findViewById(R.id.listNameSeller);
             imageView4 = itemView.findViewById(R.id.imageView4);
             listNameProduct = itemView.findViewById(R.id.listNameProduct);
@@ -80,13 +82,19 @@ public class ListExpenditureAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         public void bind(Expenditure expenditure) {
             listNameSeller.setText("  "+expenditure.getNameSeller());
+            listStatus.setText(expenditure.getStatus());
+            if(expenditure.getStatus().equals("Đã thanh toán")){
+                listStatus.setTextColor(Color.parseColor("#FF6F69"));
+            }else {
+                listStatus.setTextColor(Color.parseColor("#ffaa3f"));
+            }
 //        imageView4.setImageURI();
             listNameProduct.setText(expenditure.getNameProduct());
             listTotal.setText("Số lượng: "+expenditure.getTotal()+" cây");
             listPayment.setText("Số tiền: đ"+expenditure.getProductCost());
             SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             listTime.setText(dateTimeFormat.format(expenditure.getDate()));
-            listTotalPayment.setText("Tổng số tiền ("+expenditure.getTotal()+" ): đ"+expenditure.getTotalPayment());
+            listTotalPayment.setText("Tổng số tiền ("+expenditure.getTotal()+" cây): đ"+expenditure.getTotalPayment());
         }
     }
 
