@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/super_white_gray"
     tools:context=".Container.RevenueExpenditure.RevenueExpenditureActivity">
 
     <com.google.android.flexbox.FlexboxLayout
@@ -19,9 +20,17 @@
         app:flexDirection="row"
         app:justifyContent="flex_start">
 
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="8dp"
+            app:srcCompat="@drawable/ic_back_white" />
+
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/search"
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:background="@drawable/border_radius_5dp"
@@ -42,24 +51,10 @@
                 android:text="Tìm kiếm"
                 android:textColor="#817E7E"/>
         </com.google.android.flexbox.FlexboxLayout>
-
-        <ImageButton
-            android:id="@+id/notification"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@android:color/transparent"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/notification"/>
-        <ImageButton
-            android:id="@+id/message"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@android:color/transparent"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/message"/>
     </com.google.android.flexbox.FlexboxLayout>
 
     <LinearLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -69,6 +64,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
             <Button
+                android:id="@+id/revenueBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Báo cáo thu"
@@ -76,6 +72,7 @@
                 android:textSize="18sp"
                 android:backgroundTint="@color/white"/>
             <View
+                android:id="@+id/revenueBottomBolder"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:background="@color/green"/>
@@ -86,6 +83,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
             <Button
+                android:id="@+id/expenditureBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Báo cáo chi"
@@ -94,6 +92,7 @@
                 android:textSize="18sp"
                 android:backgroundTint="@color/white"/>
             <View
+                android:id="@+id/expenditureBottomBolder"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:background="@color/white"/>
@@ -104,15 +103,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ListView
-            android:layout_margin="10dp"
+        <FrameLayout
+            android:id="@+id/frameLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/listview"
-            android:scrollbars="vertical"
-            tools:listitem="@layout/list_item_revenue_expenditure"
-            android:divider="@android:color/transparent"
-            android:dividerHeight="10.0sp"/>
+            android:layout_height="match_parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
