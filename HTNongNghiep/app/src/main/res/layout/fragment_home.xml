@@ -8,6 +8,7 @@ android:layout_height="match_parent"
 tools:context=".Container.UI.home">
 
     <LinearLayout
+        android:id="@+id/formweather"
         android:layout_width="match_parent"
         android:layout_height="450px"
         android:orientation="vertical"
@@ -132,7 +133,7 @@ tools:context=".Container.UI.home">
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
-                android:id="@+id/humidity"
+                android:id="@+id/idTVHumidity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -141,7 +142,7 @@ tools:context=".Container.UI.home">
                 android:gravity="center"/>
 
             <TextView
-                android:id="@+id/temperature"
+                android:id="@+id/idTVTemperature"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -150,7 +151,7 @@ tools:context=".Container.UI.home">
                 android:gravity="center"/>
 
             <TextView
-                android:id="@+id/wind"
+                android:id="@+id/idTVWindSpeed"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -159,7 +160,7 @@ tools:context=".Container.UI.home">
                 android:gravity="center"/>
 
             <TextView
-                android:id="@+id/location"
+                android:id="@+id/idTVCityName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

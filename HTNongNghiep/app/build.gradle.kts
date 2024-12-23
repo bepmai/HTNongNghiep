@@ -65,6 +65,12 @@ dependencies {
     implementation ("com.google.android.material:material:1.6.1")
     implementation ("androidx.activity:activity-ktx:1.7.0")
     implementation ("com.google.android.flexbox:flexbox:3.0.0")
+//    thoi tiet
+    implementation ("androidx.core:core:1.12.0")
+    implementation ("com.squareup.picasso:picasso:2.71828")
+    implementation ("com.android.volley:volley:1.2.1")
+    implementation("com.google.android.gms:play-services-location:21.3.0")
+//
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -74,4 +80,5 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
+
 }
