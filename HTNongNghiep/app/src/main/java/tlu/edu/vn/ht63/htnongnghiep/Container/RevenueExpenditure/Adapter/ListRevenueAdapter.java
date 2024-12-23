@@ -49,8 +49,8 @@ public class ListRevenueAdapter extends ArrayAdapter<Revenue> {
         listNameProduct.setText(data.getNameProduct());
         listTotal.setText("Số lượng: "+data.getTotal()+" cây");
         listPayment.setText("Số tiền: đ"+data.getProductCost());
-        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        listTime.setText(dateTimeFormat.format(data.getDate()));
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
+        listTime.setText("Ngày bán: "+dateTimeFormat.format(data.getDate()));
         listTotalPayment.setText("Tổng số tiền ("+data.getTotal()+" cây): đ"+data.getTotalPayment());
 
         return view;

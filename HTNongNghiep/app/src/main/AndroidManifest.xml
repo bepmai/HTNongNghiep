@@ -28,11 +28,23 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Container.RevenueExpenditure.ProductDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Container.RevenueExpenditure.ExpenditureDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".Container.RevenueExpenditure.RevenueDetailActivity"
             android:exported="false" />
         <activity
             android:name=".Container.RevenueExpenditure.RevenueExpenditureActivity"
-            android:exported="false" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Container.OnboardingWalkthroughScreen.NavigationActivity"
             android:exported="false" />
@@ -53,19 +65,15 @@
             android:exported="false" />
         <activity
             android:name=".Container.SlpashScreen.SlpashActivity"
-            android:exported="false" />
+            android:exported="false">
+
+        </activity>
         <activity
             android:name=".Activity.AnalysisActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.HomeActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
     </application>
 
 </manifest>

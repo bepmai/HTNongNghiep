@@ -6,10 +6,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/green"
     android:orientation="vertical"
-    tools:context=".Container.RevenueExpenditure.RevenueDetailActivity">
-
+    android:background="@color/green"
+    tools:context=".Container.RevenueExpenditure.ExpenditureDetailActivity">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
@@ -57,11 +56,10 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
         app:layout_constraintVertical_bias="1.0"
         android:fillViewport="true">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:scrollbars="vertical"
             android:paddingBottom="15dp">
 
             <androidx.cardview.widget.CardView
@@ -101,7 +99,7 @@
                     android:background="@drawable/edittext_green_border"
                     android:drawableLeft="@drawable/ic_name_green"
                     android:drawablePadding="8dp"
-                    android:hint="Tên người mua"
+                    android:hint="Tên người bán"
                     android:padding="10dp"
                     android:textColor="@color/black"
                     android:textSize="16sp"
@@ -117,7 +115,7 @@
                     android:background="@color/white"
                     android:paddingLeft="8sp"
                     android:paddingRight="8sp"
-                    android:text="Tên người mua"
+                    android:text="Tên người bán"
                     android:textColor="@color/green"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -341,6 +339,7 @@
                     android:hint="Tổng tiền"
                     android:padding="10dp"
                     android:text="0 vnđ"
+                    android:enabled="false"
                     android:textAlignment="textEnd"
                     android:textColor="@color/black"
                     android:textSize="16sp"

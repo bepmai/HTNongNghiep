@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,13 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import tlu.edu.vn.ht63.htnongnghiep.Component.OnItemClickListener;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
-import tlu.edu.vn.ht63.htnongnghiep.Model.Revenue;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class ListExpenditureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final Context context;
     private final ArrayList<Expenditure> dataList;
+    private OnItemClickListener listener;
 
     public ListExpenditureAdapter(Context context, ArrayList<Expenditure> dataList) {
         this.context = context;
@@ -32,6 +32,10 @@ public class ListExpenditureAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public int getItemViewType(int position) {
         return dataList.get(position).getViewType();
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -56,6 +60,12 @@ public class ListExpenditureAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         } else if (holder instanceof ProductViewHolder) {
             ((ProductViewHolder) holder).bind(expenditure);
         }
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(expenditure);
+            }
+        });
     }
 
     @Override
@@ -92,8 +102,8 @@ public class ListExpenditureAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             listNameProduct.setText(expenditure.getNameProduct());
             listTotal.setText("Số lượng: "+expenditure.getTotal()+" cây");
             listPayment.setText("Số tiền: đ"+expenditure.getProductCost());
-            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            listTime.setText(dateTimeFormat.format(expenditure.getDate()));
+            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
+            listTime.setText("Ngày bán: "+dateTimeFormat.format(expenditure.getDate()));
             listTotalPayment.setText("Tổng số tiền ("+expenditure.getTotal()+" cây): đ"+expenditure.getTotalPayment());
         }
     }

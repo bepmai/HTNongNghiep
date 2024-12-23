@@ -7,6 +7,7 @@ public class Revenue implements Serializable {
     private int id;
     private String productImage;
     private String nameSeller;
+    private String adress;
     private Date date;
     private String status;
     private String nameProduct;
@@ -18,10 +19,11 @@ public class Revenue implements Serializable {
     public Revenue() {
     }
 
-    public Revenue(int id, String productImage, String nameSeller, Date date, String status, String nameProduct, int total, int idProduct, Float productCost, Float totalPayment) {
+    public Revenue(int id, String productImage, String nameSeller, String adress, Date date, String status, String nameProduct, int total, int idProduct, Float productCost, Float totalPayment) {
         this.id = id;
         this.productImage = productImage;
         this.nameSeller = nameSeller;
+        this.adress = adress;
         this.date = date;
         this.status = status;
         this.nameProduct = nameProduct;
@@ -109,5 +111,13 @@ public class Revenue implements Serializable {
 
     public void setProductImage(String productImage) {
         this.productImage = productImage;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
     }
 }

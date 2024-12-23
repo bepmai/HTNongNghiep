@@ -1,5 +1,6 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.RevenueExpenditure;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.Date;
 
+import tlu.edu.vn.ht63.htnongnghiep.Component.OnItemClickListener;
 import tlu.edu.vn.ht63.htnongnghiep.Container.RevenueExpenditure.Adapter.ListExpenditureAdapter;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
 import tlu.edu.vn.ht63.htnongnghiep.R;
@@ -79,6 +81,7 @@ public class ExpenditureFragment extends Fragment {
                 Expenditure.TYPE_BUY, // viewType
                 "https://example.com/image1.png", // productImage
                 "Seller A", // nameSeller
+                "Hà Nội",
                 new Date(), // date
                 "Đã thanh toán", // status
                 "Product A", // nameProduct
@@ -92,6 +95,7 @@ public class ExpenditureFragment extends Fragment {
                 Expenditure.TYPE_PRODUCT, // viewType
                 "https://example.com/image2.png", // productImage
                 "Seller B", // nameSeller
+                "Hà Nội",
                 new Date(), // date
                 "Chưa thanh toán", // status
                 "Product B", // nameProduct
@@ -105,8 +109,9 @@ public class ExpenditureFragment extends Fragment {
                 Expenditure.TYPE_BUY, // viewType
                 "https://example.com/image3.png", // productImage
                 "Seller C", // nameSeller
+                "Hà Nội",
                 new Date(), // date
-                "Đã thanh toán", // status
+                "Chưa thanh toán", // status
                 "Product C", // nameProduct
                 20, // total
                 103, // idProduct
@@ -116,6 +121,21 @@ public class ExpenditureFragment extends Fragment {
 
         ListExpenditureAdapter adapter = new ListExpenditureAdapter(getContext(), expenditureList);
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(Expenditure expenditure) {
+                if (expenditure.getViewType() == Expenditure.TYPE_BUY){
+                    Intent intent = new Intent(getContext(), ExpenditureDetailActivity.class);
+                    intent.putExtra("item_id", expenditure.getId());
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(getContext(), ProductDetailActivity.class);
+                    intent.putExtra("item_id", expenditure.getId());
+                    startActivity(intent);
+                }
+            }
+        });
 
         return view;
     }

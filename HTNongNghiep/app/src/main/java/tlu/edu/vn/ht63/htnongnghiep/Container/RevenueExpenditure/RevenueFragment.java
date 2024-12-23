@@ -1,5 +1,6 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.RevenueExpenditure;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,7 +8,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -75,6 +78,7 @@ public class RevenueFragment extends Fragment {
                 1,                            // id
                 "image_url_here",             // productImage
                 "Nguyễn Văn Anh",               // nameSeller
+                "Hà Nội",
                 new Date(),                   // date (hiện tại)
                 "Đã thanh toán",              // status
                 "Cây Bonsai 20 năm",                      // nameProduct
@@ -87,6 +91,7 @@ public class RevenueFragment extends Fragment {
                 2,                            // id
                 "image_url_here",             // productImage
                 "Nguyễn Đức Anh",               // nameSeller
+                "Hà Nội",
                 new Date(),                   // date (hiện tại)
                 "Chưa thanh toán",              // status
                 "Cây Bonsai 20 năm",                      // nameProduct
@@ -97,6 +102,26 @@ public class RevenueFragment extends Fragment {
         ));
         ListRevenueAdapter adapter = new ListRevenueAdapter(getContext(), revenueList);
         listview.setAdapter(adapter);
+
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Lấy item được click
+                Revenue clickedItem = adapter.getItem(position);
+
+                // Hiển thị thông tin (ví dụ Toast)
+//                if (clickedItem != null) {
+//                    Toast.makeText(getContext(),
+//                            "Clicked: " + clickedItem.getNameProduct(),
+//                            Toast.LENGTH_SHORT).show();
+//                }
+
+                // Hoặc chuyển sang một màn hình khác với dữ liệu
+                Intent intent = new Intent(getContext(), RevenueDetailActivity.class);
+                intent.putExtra("item_id", clickedItem.getId()); // Truyền ID hoặc dữ liệu cần thiết
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
