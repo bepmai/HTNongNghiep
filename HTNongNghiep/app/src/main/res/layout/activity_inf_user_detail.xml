@@ -8,6 +8,13 @@
     android:background="@color/white"
     tools:context=".Container.UI.InfUserDetail">
 
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:id="@+id/left_admin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/ic_left" />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,8 +24,8 @@
             android:layout_width="0dp"
             android:layout_height="55dp"
             android:id="@+id/amazonName"
-            android:text="Farmer"
-            android:textSize="50sp"
+            android:text="Nông dân"
+            android:textSize="40sp"
             android:textColor="@color/green"
             android:layout_marginStart="18dp"
             android:layout_marginTop="40dp"
@@ -29,7 +36,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/amazonDesc"
-            android:text="Farmer Information details"
+            android:text="Thông tin của bạn"
             android:textSize="16sp"
             android:layout_marginStart="18dp"
             android:textColor="@color/green"
@@ -190,7 +197,7 @@
                     android:layout_marginStart="5dp"
                     android:textStyle="bold"
                     android:textSize="13dp"
-                    android:text="Update" />
+                    android:text="Sửa" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_delete"
@@ -202,7 +209,7 @@
                     android:layout_marginStart="5dp"
                     android:textStyle="bold"
                     android:textSize="13dp"
-                    android:text="Delete" />
+                    android:text="Xóa" />
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
