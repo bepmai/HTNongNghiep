@@ -1,16 +1,10 @@
-package tlu.edu.vn.ht63.htnongnghiep.Container.login.Adapter;
+package tlu.edu.vn.ht63.htnongnghiep.Adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-
-import java.util.ArrayList;
 
 import tlu.edu.vn.ht63.htnongnghiep.R;
 

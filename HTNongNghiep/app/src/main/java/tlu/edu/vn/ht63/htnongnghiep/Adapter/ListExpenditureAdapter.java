@@ -1,7 +1,8 @@
-package tlu.edu.vn.ht63.htnongnghiep.Container.RevenueExpenditure.Adapter;
+package tlu.edu.vn.ht63.htnongnghiep.Adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
@@ -18,6 +22,7 @@ import java.util.ArrayList;
 import tlu.edu.vn.ht63.htnongnghiep.Component.OnItemClickListener;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
 import tlu.edu.vn.ht63.htnongnghiep.R;
+import tlu.edu.vn.ht63.htnongnghiep.ViewModel.ExpenditureViewModel;
 
 public class ListExpenditureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final Context context;
@@ -64,6 +69,25 @@ public class ListExpenditureAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onItemClick(expenditure);
+            }
+        });
+
+        ExpenditureViewModel expenditureViewModel = new ViewModelProvider(
+                (ViewModelStoreOwner) context.getApplicationContext()).get(ExpenditureViewModel.class);
+
+        expenditureViewModel.getLiveData(expenditure).observe((LifecycleOwner) context, new Observer<Expenditure>() {
+            @Override
+            public void onChanged(Expenditure expenditureEntity) {
+                Log.d("test", "onChanged: checkcheck");
+                if (expenditureEntity != null) {
+                    if(expenditureEntity.getId() == expenditure.getId()){
+                        if (holder instanceof SellerViewHolder) {
+                            ((SellerViewHolder) holder).bind(expenditure);
+                        } else if (holder instanceof ProductViewHolder) {
+                            ((ProductViewHolder) holder).bind(expenditure);
+                        }
+                    }
+                }
             }
         });
     }

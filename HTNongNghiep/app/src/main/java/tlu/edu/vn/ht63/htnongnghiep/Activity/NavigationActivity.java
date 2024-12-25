@@ -1,4 +1,4 @@
-package tlu.edu.vn.ht63.htnongnghiep.Container.OnboardingWalkthroughScreen;
+package tlu.edu.vn.ht63.htnongnghiep.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,8 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager.widget.ViewPager;
 
-import tlu.edu.vn.ht63.htnongnghiep.Container.LoginSignupActivity;
-import tlu.edu.vn.ht63.htnongnghiep.Container.OnboardingWalkthroughScreen.Adapter.ViewPagerAdapter;
+import tlu.edu.vn.ht63.htnongnghiep.Adapter.ViewPagerAdapter;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class NavigationActivity extends AppCompatActivity {

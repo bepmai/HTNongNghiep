@@ -1,4 +1,4 @@
-package tlu.edu.vn.ht63.htnongnghiep.Container.RevenueExpenditure;
+package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,12 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-import tlu.edu.vn.ht63.htnongnghiep.Container.RevenueExpenditure.Adapter.ListRevenueAdapter;
+import tlu.edu.vn.ht63.htnongnghiep.Activity.RevenueDetailActivity;
+import tlu.edu.vn.ht63.htnongnghiep.Adapter.ListRevenueAdapter;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Revenue;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 

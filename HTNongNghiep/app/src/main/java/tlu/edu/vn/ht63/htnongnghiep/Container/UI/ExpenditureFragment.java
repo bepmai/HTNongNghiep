@@ -1,4 +1,4 @@
-package tlu.edu.vn.ht63.htnongnghiep.Container.RevenueExpenditure;
+package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,8 +14,10 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.Date;
 
+import tlu.edu.vn.ht63.htnongnghiep.Activity.ExpenditureDetailActivity;
+import tlu.edu.vn.ht63.htnongnghiep.Activity.ProductDetailActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Component.OnItemClickListener;
-import tlu.edu.vn.ht63.htnongnghiep.Container.RevenueExpenditure.Adapter.ListExpenditureAdapter;
+import tlu.edu.vn.ht63.htnongnghiep.Adapter.ListExpenditureAdapter;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
@@ -66,18 +68,21 @@ public class ExpenditureFragment extends Fragment {
         }
     }
 
+    RecyclerView recyclerView;
+    ListExpenditureAdapter adapter;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_expenditure, container, false);
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         ArrayList<Expenditure> expenditureList = new ArrayList<>();
 
         expenditureList.add(new Expenditure(
-                1, // id
                 Expenditure.TYPE_BUY, // viewType
                 "https://example.com/image1.png", // productImage
                 "Seller A", // nameSeller
@@ -91,7 +96,6 @@ public class ExpenditureFragment extends Fragment {
                 50000.0f // totalPayment
         ));
         expenditureList.add(new Expenditure(
-                2, // id
                 Expenditure.TYPE_PRODUCT, // viewType
                 "https://example.com/image2.png", // productImage
                 "Seller B", // nameSeller
@@ -105,7 +109,6 @@ public class ExpenditureFragment extends Fragment {
                 15000.0f // totalPayment
         ));
         expenditureList.add(new Expenditure(
-                3, // id
                 Expenditure.TYPE_BUY, // viewType
                 "https://example.com/image3.png", // productImage
                 "Seller C", // nameSeller
@@ -119,7 +122,7 @@ public class ExpenditureFragment extends Fragment {
                 50000.0f // totalPayment
         ));
 
-        ListExpenditureAdapter adapter = new ListExpenditureAdapter(getContext(), expenditureList);
+        adapter = new ListExpenditureAdapter(getContext(), expenditureList);
         recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
@@ -127,11 +130,11 @@ public class ExpenditureFragment extends Fragment {
             public void onItemClick(Expenditure expenditure) {
                 if (expenditure.getViewType() == Expenditure.TYPE_BUY){
                     Intent intent = new Intent(getContext(), ExpenditureDetailActivity.class);
-                    intent.putExtra("item_id", expenditure.getId());
+                    intent.putExtra("expenditure", expenditure);
                     startActivity(intent);
                 }else {
                     Intent intent = new Intent(getContext(), ProductDetailActivity.class);
-                    intent.putExtra("item_id", expenditure.getId());
+                    intent.putExtra("expenditure", expenditure);
                     startActivity(intent);
                 }
             }

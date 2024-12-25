@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/green"
-    tools:context=".Container.RevenueExpenditure.ProductDetailActivity">
+    tools:context=".Activity.ProductDetailActivity">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"

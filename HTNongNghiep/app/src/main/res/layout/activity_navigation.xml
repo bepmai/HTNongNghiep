@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Container.OnboardingWalkthroughScreen.NavigationActivity">
+    tools:context=".Activity.NavigationActivity">
 
     <Button
         android:id="@+id/skipButton"

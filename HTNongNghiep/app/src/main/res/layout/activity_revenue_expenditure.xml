@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/super_white_gray"
-    tools:context=".Container.RevenueExpenditure.RevenueExpenditureActivity">
+    tools:context=".Activity.RevenueExpenditureActivity">
 
     <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/statusBar"

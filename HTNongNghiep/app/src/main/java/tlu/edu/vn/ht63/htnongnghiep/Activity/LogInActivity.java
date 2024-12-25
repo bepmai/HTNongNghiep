@@ -1,4 +1,4 @@
-package tlu.edu.vn.ht63.htnongnghiep.Container.login;
+package tlu.edu.vn.ht63.htnongnghiep.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +17,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import tlu.edu.vn.ht63.htnongnghiep.R;
-import tlu.edu.vn.ht63.htnongnghiep.Container.signup.SignUpActivity;
 
 public class LogInActivity extends AppCompatActivity {
     ImageButton backButton;

@@ -1,4 +1,4 @@
-package tlu.edu.vn.ht63.htnongnghiep.Container.login;
+package tlu.edu.vn.ht63.htnongnghiep.Activity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -18,14 +18,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 
-import tlu.edu.vn.ht63.htnongnghiep.Activity.HomeActivity;
-import tlu.edu.vn.ht63.htnongnghiep.Container.login.Adapter.CustomAdapter;
-import tlu.edu.vn.ht63.htnongnghiep.Container.signup.SignUpActivity;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class AddInfoUserActivity extends AppCompatActivity {

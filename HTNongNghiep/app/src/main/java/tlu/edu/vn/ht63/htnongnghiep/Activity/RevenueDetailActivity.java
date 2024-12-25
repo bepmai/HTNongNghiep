@@ -1,4 +1,4 @@
-package tlu.edu.vn.ht63.htnongnghiep.Container.RevenueExpenditure;
+package tlu.edu.vn.ht63.htnongnghiep.Activity;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -18,7 +18,7 @@ import java.util.Locale;
 
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
-public class ProductDetailActivity extends AppCompatActivity {
+public class RevenueDetailActivity extends AppCompatActivity {
     EditText date_edt;
     ImageButton backButton;
 
@@ -26,7 +26,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_product_detail);
+        setContentView(R.layout.activity_revenue_detail);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

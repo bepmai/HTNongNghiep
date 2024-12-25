@@ -1,4 +1,4 @@
-package tlu.edu.vn.ht63.htnongnghiep.Container.RevenueExpenditure;
+package tlu.edu.vn.ht63.htnongnghiep.Activity;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -14,7 +14,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,14 +25,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-import java.util.Date;
-
-import tlu.edu.vn.ht63.htnongnghiep.Container.RevenueExpenditure.Adapter.ListRevenueAdapter;
-import tlu.edu.vn.ht63.htnongnghiep.Container.UI.home;
-import tlu.edu.vn.ht63.htnongnghiep.Container.login.AddInfoUserActivity;
-import tlu.edu.vn.ht63.htnongnghiep.Container.login.LogInActivity;
-import tlu.edu.vn.ht63.htnongnghiep.Model.Revenue;
+import tlu.edu.vn.ht63.htnongnghiep.Container.UI.ExpenditureFragment;
+import tlu.edu.vn.ht63.htnongnghiep.Container.UI.RevenueFragment;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class RevenueExpenditureActivity extends AppCompatActivity {

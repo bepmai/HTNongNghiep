@@ -1,7 +1,6 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,17 +8,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.TextView;
 
-import tlu.edu.vn.ht63.htnongnghiep.Container.RevenueExpenditure.RevenueExpenditureActivity;
-import tlu.edu.vn.ht63.htnongnghiep.Container.login.LogInActivity;
-import tlu.edu.vn.ht63.htnongnghiep.Container.signup.SignUpActivity;
+import tlu.edu.vn.ht63.htnongnghiep.Activity.RevenueExpenditureActivity;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 /**
