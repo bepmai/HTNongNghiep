@@ -1,124 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/super_white_gray"
+    android:background="@color/green"
     tools:context=".Activity.RevenueExpenditureActivity">
 
-    <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/statusBar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#3CC18E"
-        android:padding="10dp"
-        app:alignItems="center"
-        app:flexDirection="row"
-        app:justifyContent="flex_start">
-
-        <ImageButton
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:padding="8dp"
-            app:srcCompat="@drawable/ic_back_white" />
-
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/search"
+            android:id="@+id/statusBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/border_radius_5dp"
-            android:backgroundTint="@color/white"
+            android:background="#3CC18E"
             android:padding="10dp"
             app:alignItems="center"
-            app:flexDirection="row">
+            app:flexDirection="row"
+            app:justifyContent="flex_start">
 
-            <ImageView
+            <ImageButton
+                android:id="@+id/backButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:src="@drawable/search" />
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                app:srcCompat="@drawable/ic_back_white" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/search"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tìm kiếm"
-                android:textColor="#817E7E"/>
+                android:layout_marginStart="10dp"
+                android:background="@drawable/border_radius_5dp"
+                android:backgroundTint="@color/white"
+                android:padding="10dp"
+                app:alignItems="center"
+                app:flexDirection="row">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/search" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tìm kiếm"
+                    android:textColor="#817E7E"/>
+            </com.google.android.flexbox.FlexboxLayout>
         </com.google.android.flexbox.FlexboxLayout>
-    </com.google.android.flexbox.FlexboxLayout>
 
-    <LinearLayout
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
         <LinearLayout
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-            <Button
-                android:id="@+id/revenueBtn"
+            android:orientation="horizontal">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Báo cáo thu"
-                android:textColor="@color/green"
-                android:textSize="18sp"
-                android:backgroundTint="@color/white"/>
-            <View
-                android:id="@+id/revenueBottomBolder"
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/green"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-            <Button
-                android:id="@+id/expenditureBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Báo cáo chi"
-                android:textColor="@color/white_black"
                 android:layout_weight="1"
-                android:textSize="18sp"
-                android:backgroundTint="@color/white"/>
-            <View
-                android:id="@+id/expenditureBottomBolder"
+                android:orientation="vertical">
+                <Button
+                    android:id="@+id/revenueBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Báo cáo thu"
+                    android:textColor="@color/green"
+                    android:textSize="18sp"
+                    android:backgroundTint="@color/white"/>
+                <View
+                    android:id="@+id/revenueBottomBolder"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/green"/>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/white"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <Button
+                    android:id="@+id/expenditureBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Báo cáo chi"
+                    android:textColor="@color/white_black"
+                    android:layout_weight="1"
+                    android:textSize="18sp"
+                    android:backgroundTint="@color/white"/>
+                <View
+                    android:id="@+id/expenditureBottomBolder"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/white"/>
+            </LinearLayout>
+
         </LinearLayout>
-
-    </LinearLayout>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <FrameLayout
-            android:id="@+id/frameLayout"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="40dp"
-            android:backgroundTint="@color/green"
-            android:src="@drawable/ic_baseline_add_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:tint="@color/white" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</LinearLayout>
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/super_white_gray"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="40dp"
+                android:backgroundTint="@color/green"
+                android:src="@drawable/ic_baseline_add_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:tint="@color/white" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</FrameLayout>

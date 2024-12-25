@@ -1,25 +1,26 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-import tlu.edu.vn.ht63.htnongnghiep.Activity.ExpenditureDetailActivity;
-import tlu.edu.vn.ht63.htnongnghiep.Activity.ProductDetailActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Component.OnItemClickListener;
 import tlu.edu.vn.ht63.htnongnghiep.Adapter.ListExpenditureAdapter;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
 import tlu.edu.vn.ht63.htnongnghiep.R;
+import tlu.edu.vn.ht63.htnongnghiep.ViewModel.ExpenditureViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,7 +83,7 @@ public class ExpenditureFragment extends Fragment {
 
         ArrayList<Expenditure> expenditureList = new ArrayList<>();
 
-        expenditureList.add(new Expenditure(
+        expenditureList.add(new Expenditure(1,
                 Expenditure.TYPE_BUY, // viewType
                 "https://example.com/image1.png", // productImage
                 "Seller A", // nameSeller
@@ -95,7 +96,7 @@ public class ExpenditureFragment extends Fragment {
                 5000.0f, // productCost
                 50000.0f // totalPayment
         ));
-        expenditureList.add(new Expenditure(
+        expenditureList.add(new Expenditure(2,
                 Expenditure.TYPE_PRODUCT, // viewType
                 "https://example.com/image2.png", // productImage
                 "Seller B", // nameSeller
@@ -108,34 +109,43 @@ public class ExpenditureFragment extends Fragment {
                 3000.0f, // productCost
                 15000.0f // totalPayment
         ));
-        expenditureList.add(new Expenditure(
+        expenditureList.add(new Expenditure(3,
                 Expenditure.TYPE_BUY, // viewType
-                "https://example.com/image3.png", // productImage
-                "Seller C", // nameSeller
+                "https://example.com/image5.png", // productImage
+                "Seller D", // nameSeller
                 "Hà Nội",
                 new Date(), // date
                 "Chưa thanh toán", // status
                 "Product C", // nameProduct
-                20, // total
-                103, // idProduct
-                2500.0f, // productCost
-                50000.0f // totalPayment
+                2, // total
+                1033, // idProduct
+                25400.0f, // productCost
+                500050.0f // totalPayment
         ));
 
-        adapter = new ListExpenditureAdapter(getContext(), expenditureList);
+        ExpenditureViewModel expenditureViewModel =
+                new ViewModelProvider(requireActivity()).get(ExpenditureViewModel.class);
+
+        adapter = new ListExpenditureAdapter(getContext(),expenditureViewModel);
         recyclerView.setAdapter(adapter);
+
+        expenditureViewModel.setData(expenditureList);
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(Expenditure expenditure) {
                 if (expenditure.getViewType() == Expenditure.TYPE_BUY){
-                    Intent intent = new Intent(getContext(), ExpenditureDetailActivity.class);
-                    intent.putExtra("expenditure", expenditure);
-                    startActivity(intent);
+                    Fragment expenditureDetailFragment = new ExpenditureDetailFragment(expenditure);
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.main, expenditureDetailFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
                 }else {
-                    Intent intent = new Intent(getContext(), ProductDetailActivity.class);
-                    intent.putExtra("expenditure", expenditure);
-                    startActivity(intent);
+                    Fragment productDetailFragment = new ProductDetailFragment(expenditure);;
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.main, productDetailFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
                 }
             }
         });

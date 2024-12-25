@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import tlu.edu.vn.ht63.htnongnghiep.Component.OnItemClickListener;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
@@ -26,12 +27,23 @@ import tlu.edu.vn.ht63.htnongnghiep.ViewModel.ExpenditureViewModel;
 
 public class ListExpenditureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final Context context;
-    private final ArrayList<Expenditure> dataList;
+    private final ArrayList<Expenditure> dataList = new ArrayList<>();
+    private final ExpenditureViewModel expenditureViewModel;
     private OnItemClickListener listener;
 
-    public ListExpenditureAdapter(Context context, ArrayList<Expenditure> dataList) {
+    public ListExpenditureAdapter(Context context, ExpenditureViewModel expenditureViewModel) {
         this.context = context;
-        this.dataList = dataList;
+        this.expenditureViewModel = expenditureViewModel;
+
+        expenditureViewModel.getListMutableLiveData().observe((LifecycleOwner) context, new Observer<List<Expenditure>>() {
+            @Override
+            public void onChanged(List<Expenditure> expenditureList) {
+                if (expenditureList != null) {
+                    dataList.clear();
+                    dataList.addAll(expenditureList);
+                }
+            }
+        });
     }
 
     @Override
@@ -72,19 +84,17 @@ public class ListExpenditureAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             }
         });
 
-        ExpenditureViewModel expenditureViewModel = new ViewModelProvider(
-                (ViewModelStoreOwner) context.getApplicationContext()).get(ExpenditureViewModel.class);
-
-        expenditureViewModel.getLiveData(expenditure).observe((LifecycleOwner) context, new Observer<Expenditure>() {
+        expenditureViewModel.getListMutableLiveData().observe((LifecycleOwner) context, new Observer<List<Expenditure>>() {
             @Override
-            public void onChanged(Expenditure expenditureEntity) {
-                Log.d("test", "onChanged: checkcheck");
-                if (expenditureEntity != null) {
-                    if(expenditureEntity.getId() == expenditure.getId()){
-                        if (holder instanceof SellerViewHolder) {
-                            ((SellerViewHolder) holder).bind(expenditure);
-                        } else if (holder instanceof ProductViewHolder) {
-                            ((ProductViewHolder) holder).bind(expenditure);
+            public void onChanged(List<Expenditure> expenditureList) {
+                if (expenditureList != null) {
+                    for (Expenditure expenditureEntity : expenditureList){
+                        if(expenditureEntity.getId() == expenditure.getId()){
+                            if (holder instanceof SellerViewHolder) {
+                                ((SellerViewHolder) holder).bind(expenditure);
+                            } else if (holder instanceof ProductViewHolder) {
+                                ((ProductViewHolder) holder).bind(expenditure);
+                            }
                         }
                     }
                 }

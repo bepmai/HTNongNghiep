@@ -14,16 +14,20 @@ import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
 public class ExpenditureViewModel extends ViewModel {
 
     private MutableLiveData<List<Expenditure>> listMutableLiveData;
-    private List<Expenditure> expenditureList;
+    private ArrayList<Expenditure> expenditureList;
 
     public ExpenditureViewModel(){
         listMutableLiveData = new MutableLiveData<>();
         initData();
     }
 
-    private void initData(){
+    public void initData(){
         expenditureList = new ArrayList<>();
+        listMutableLiveData.setValue(expenditureList);
+    }
 
+    public void setData(ArrayList<Expenditure> expenditureList){
+        this.expenditureList = expenditureList;
         listMutableLiveData.setValue(expenditureList);
     }
 

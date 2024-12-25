@@ -1,13 +1,10 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
-import static android.content.Intent.getIntent;
-
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,10 +24,10 @@ import tlu.edu.vn.ht63.htnongnghiep.ViewModel.ExpenditureViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ExpenditureDetailFragment#newInstance} factory method to
+ * Use the {@link ProductDetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ExpenditureDetailFragment extends Fragment {
+public class ProductDetailFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,20 +39,29 @@ public class ExpenditureDetailFragment extends Fragment {
     private String mParam2;
     private Expenditure expenditure;
 
-    public ExpenditureDetailFragment(Expenditure expenditure) {
+    public ProductDetailFragment() {
+        // Required empty public constructor
+    }
+
+    public ProductDetailFragment(Expenditure expenditure) {
         // Required empty public constructor
         this.expenditure = expenditure;
     }
 
-    public ExpenditureDetailFragment() {
-        // Required empty public constructor
-    }
-
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment ProductDetailFragment.
+     */
     // TODO: Rename and change types and number of parameters
-    public static ExpenditureDetailFragment newInstance(Expenditure expenditure) {
-        ExpenditureDetailFragment fragment = new ExpenditureDetailFragment();
+    public static ProductDetailFragment newInstance(String param1, String param2) {
+        ProductDetailFragment fragment = new ProductDetailFragment();
         Bundle args = new Bundle();
-        args.putSerializable("expenditure", expenditure);
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -67,13 +73,9 @@ public class ExpenditureDetailFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        if (getArguments() != null) {
-            expenditure = (Expenditure) getArguments().getSerializable("expenditure");
-        }
     }
 
-    EditText date_edt,buyer_edt,plant_edt,adress_edt,total_edt,payment_edt,totalPayment_edt;
+    EditText date_edt,plant_edt,adress_edt,total_edt,payment_edt,totalPayment_edt;
     ImageButton backButton;
     Button saveBtn;
 
@@ -81,10 +83,9 @@ public class ExpenditureDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_expenditure_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_product_detail, container, false);
 
         date_edt = view.findViewById(R.id.date_edt);
-        buyer_edt = view.findViewById(R.id.buyer_edt);
         plant_edt = view.findViewById(R.id.plant_edt);
         adress_edt = view.findViewById(R.id.adress_edt);
         total_edt = view.findViewById(R.id.total_edt);
@@ -105,7 +106,8 @@ public class ExpenditureDetailFragment extends Fragment {
         date_edt.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
 
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    getContext(),
                     (view1, year, month, dayOfMonth) -> {
                         calendar.set(Calendar.YEAR, year);
                         calendar.set(Calendar.MONTH, month);
@@ -121,7 +123,6 @@ public class ExpenditureDetailFragment extends Fragment {
         });
 
         if (expenditure!=null){
-            buyer_edt.setText(expenditure.getNameSeller());
             plant_edt.setText(expenditure.getNameProduct());
             adress_edt.setText(expenditure.getAdress());
             date_edt.setText(dateFormat.format(expenditure.getDate()));
@@ -137,7 +138,7 @@ public class ExpenditureDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Expenditure expenditure_new = new Expenditure(3,
-                        Expenditure.TYPE_BUY,
+                        Expenditure.TYPE_PRODUCT,
                         "https://example.com/image1.png",
                         "Seller A",
                         "Hà Nội",

@@ -25,7 +25,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import tlu.edu.vn.ht63.htnongnghiep.Container.UI.ExpenditureDetailFragment;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.ExpenditureFragment;
+import tlu.edu.vn.ht63.htnongnghiep.Container.UI.ProductDetailFragment;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.RevenueFragment;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
@@ -134,8 +136,11 @@ public class RevenueExpenditureActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                Intent intent = new Intent(RevenueExpenditureActivity.this, ExpenditureDetailActivity.class);
-                startActivity(intent);
+                Fragment expenditureDetailFragment = new ExpenditureDetailFragment();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, expenditureDetailFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
 //                Toast.makeText(MainActivity.this,"Upload a Video is clicked",Toast.LENGTH_SHORT).show();
             }
         });
@@ -144,8 +149,11 @@ public class RevenueExpenditureActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                Intent intent = new Intent(RevenueExpenditureActivity.this, ProductDetailActivity.class);
-                startActivity(intent);
+                Fragment productDetailFragment = new ProductDetailFragment();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, productDetailFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
 //                Toast.makeText(MainActivity.this,"Create a short is Clicked",Toast.LENGTH_SHORT).show();
             }
         });

@@ -3,12 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/green"
-    tools:context=".Activity.ProductDetailActivity">
+    tools:context=".Container.UI.ProductDetailFragment">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
@@ -80,7 +79,7 @@
                     android:background="@drawable/edittext_green_border"
                     android:drawableLeft="@drawable/ic_plant_green"
                     android:drawablePadding="8dp"
-                    android:hint="Tên cây"
+                    android:hint="Tên sản phẩm"
                     android:padding="10dp"
                     android:textColor="@color/black"
                     android:textSize="16sp"
@@ -96,7 +95,7 @@
                     android:background="@color/white"
                     android:paddingLeft="8sp"
                     android:paddingRight="8sp"
-                    android:text="Tên cây"
+                    android:text="Tên sản phẩm"
                     android:textColor="@color/green"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -202,7 +201,7 @@
                     android:layout_weight="1.5">
 
                     <EditText
-                        android:id="@+id/tootal_edt"
+                        android:id="@+id/total_edt"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="16dp"
@@ -304,7 +303,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button
-                android:id="@+id/addInfoBtn"
+                android:id="@+id/saveBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/green"
@@ -317,4 +316,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
 </LinearLayout>
