@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Date;
 
-import tlu.edu.vn.ht63.htnongnghiep.Activity.RevenueDetailActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Adapter.ListRevenueAdapter;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Revenue;
 import tlu.edu.vn.ht63.htnongnghiep.R;
@@ -107,7 +107,7 @@ public class RevenueFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Lấy item được click
-                Revenue clickedItem = adapter.getItem(position);
+                Revenue revenue = adapter.getItem(position);
 
                 // Hiển thị thông tin (ví dụ Toast)
 //                if (clickedItem != null) {
@@ -117,9 +117,11 @@ public class RevenueFragment extends Fragment {
 //                }
 
                 // Hoặc chuyển sang một màn hình khác với dữ liệu
-                Intent intent = new Intent(getContext(), RevenueDetailActivity.class);
-                intent.putExtra("item_id", clickedItem.getId()); // Truyền ID hoặc dữ liệu cần thiết
-                startActivity(intent);
+                Fragment revenueDetailFragment = new RevenueDetailFragment(revenue);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, revenueDetailFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 

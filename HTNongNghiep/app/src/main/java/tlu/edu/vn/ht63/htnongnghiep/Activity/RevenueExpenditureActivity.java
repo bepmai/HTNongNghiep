@@ -28,6 +28,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.ExpenditureDetailFragment;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.ExpenditureFragment;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.ProductDetailFragment;
+import tlu.edu.vn.ht63.htnongnghiep.Container.UI.RevenueDetailFragment;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.RevenueFragment;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
@@ -79,8 +80,11 @@ public class RevenueExpenditureActivity extends AppCompatActivity {
                 floatingActionButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(RevenueExpenditureActivity.this, RevenueDetailActivity.class);
-                        startActivity(intent);
+                        Fragment revenueDetailFragment = new RevenueDetailFragment();
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.main, revenueDetailFragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
                     }
                 });
             }
@@ -111,8 +115,11 @@ public class RevenueExpenditureActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RevenueExpenditureActivity.this, RevenueDetailActivity.class);
-                startActivity(intent);
+                Fragment revenueDetailFragment = new RevenueDetailFragment();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, revenueDetailFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
