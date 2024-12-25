@@ -1,0 +1,240 @@
+{ 
+    "_id" : "cou_pcdqAANKAWN0CvKv", 
+    "mtime" : NumberLong(1733765996), 
+    "dtime" : NumberLong(0), 
+    "code" : "nguyen.trai.c1", 
+    "branch_id" : "bra_VDzWZqpqdGfsJXuy", 
+    "name" : "nguyen.trai.c1", 
+    "cnum" : "1", 
+    "dev_addr" : NumberInt(1), 
+    "services" : [
+        "s_Wi4hm9GpCJj6PrMA", 
+        "s_kySjf319HUcbXxmG", 
+        "s_13BRLGJ0tU9Vmv59", 
+        "s_06JXZv19gzxtjYSU", 
+        "s_S7XFkpnThm2MPYXs", 
+        "s_UdOdcdgqRFtZx13a", 
+        "s_ifm19GHnOpk0up7f", 
+        "s_PWZzLQep8NPM21g7", 
+        "s_eqm1eUVyoeoITpzw"
+    ], 
+    "pservices" : [
+
+    ], 
+    "normal_service" : [
+        {
+            "id" : "s_Wi4hm9GpCJj6PrMA", 
+            "text" : "Văn Hóa & Xã Hội", 
+            "vn_name" : "Văn Hóa & Xã Hội", 
+            "en_name" : "Văn Hóa & Xã Hội", 
+            "jp_name" : "Văn Hóa & Xã Hội", 
+            "cn_name" : "Văn Hóa & Xã Hội", 
+            "sp_name" : "Văn Hóa & Xã Hội"
+        }, 
+        {
+            "id" : "s_kySjf319HUcbXxmG", 
+            "text" : "Hộ Tịch, Sơ yếu lý lịch, Khai Sinh", 
+            "vn_name" : "Hộ Tịch, Sơ yếu lý lịch, Khai Sinh", 
+            "en_name" : "Hộ Tịch, Sơ yếu lý lịch, Khai Sinh", 
+            "jp_name" : "Hộ Tịch, Sơ yếu lý lịch, Khai Sinh", 
+            "cn_name" : "Hộ Tịch, Sơ yếu lý lịch, Khai Sinh", 
+            "sp_name" : "Hộ Tịch, Sơ yếu lý lịch, Khai Sinh"
+        }, 
+        {
+            "id" : "s_13BRLGJ0tU9Vmv59", 
+            "text" : "An Ninh, Công An, Quân Đội, Tạm Trú An Ninh, Công An, Quân Đội, Tạm Trú", 
+            "vn_name" : "An Ninh, Công An, Quân Đội, Tạm Trú An Ninh, Công An, Quân Đội, Tạm Trú", 
+            "en_name" : "An Ninh, Công An, Quân Đội, Tạm Trú An Ninh, Công An, Quân Đội, Tạm Trú", 
+            "jp_name" : "An Ninh, Công An, Quân Đội, Tạm Trú", 
+            "cn_name" : "An Ninh, Công An, Quân Đội, Tạm Trú", 
+            "sp_name" : "An Ninh, Công An, Quân Đội, Tạm Trú"
+        }, 
+        {
+            "id" : "s_06JXZv19gzxtjYSU", 
+            "text" : "Hướng dẫn dịch vụ công trực tuyến", 
+            "vn_name" : "Hướng dẫn dịch vụ công trực tuyến", 
+            "en_name" : "Hướng dẫn dịch vụ công trực tuyến", 
+            "jp_name" : "Hướng dẫn dịch vụ công trực tuyến", 
+            "cn_name" : "Hướng dẫn dịch vụ công trực tuyến", 
+            "sp_name" : "Hướng dẫn dịch vụ công trực tuyến"
+        }, 
+        {
+            "id" : "s_S7XFkpnThm2MPYXs", 
+            "text" : "Y Tế, Bảo hiểm", 
+            "vn_name" : "Y Tế, Bảo hiểm", 
+            "en_name" : "Y Tế, Bảo hiểm", 
+            "jp_name" : "Y Tế, Bảo hiểm", 
+            "cn_name" : "Y Tế, Bảo hiểm", 
+            "sp_name" : "Y Tế, Bảo hiểm"
+        }, 
+        {
+            "id" : "s_UdOdcdgqRFtZx13a", 
+            "text" : "Tài chính, lương hưu người cao tuổi", 
+            "vn_name" : "Tài chính, lương hưu người cao tuổi", 
+            "en_name" : "Tài chính, lương hưu người cao tuổi", 
+            "jp_name" : "Tài chính, lương hưu người cao tuổi", 
+            "cn_name" : "Tài chính, lương hưu người cao tuổi", 
+            "sp_name" : "Tài chính, lương hưu người cao tuổi"
+        }, 
+        {
+            "id" : "s_ifm19GHnOpk0up7f", 
+            "text" : "Đóng tiền dịch vụ điện nước", 
+            "vn_name" : "Đóng tiền dịch vụ điện nước", 
+            "en_name" : "Đóng tiền dịch vụ điện nước", 
+            "jp_name" : "Đóng tiền dịch vụ điện nước", 
+            "cn_name" : "Đóng tiền dịch vụ điện nước", 
+            "sp_name" : "Đóng tiền dịch vụ điện nước"
+        }, 
+        {
+            "id" : "s_PWZzLQep8NPM21g7", 
+            "text" : "dich_vu_H VN", 
+            "vn_name" : "dich_vu_H VN", 
+            "en_name" : "dich_vu_H EN", 
+            "jp_name" : "dich_vu_H", 
+            "cn_name" : "dich_vu_H", 
+            "sp_name" : "dich_vu_H"
+        }, 
+        {
+            "id" : "s_eqm1eUVyoeoITpzw", 
+            "text" : "dich_vu_P VN", 
+            "vn_name" : "dich_vu_P VN", 
+            "en_name" : "dich_vu_P EN", 
+            "jp_name" : "dich_vu_P", 
+            "cn_name" : "dich_vu_P", 
+            "sp_name" : "dich_vu_P"
+        }
+    ], 
+    "priority_service" : [
+
+    ]
+}
+{ 
+    "_id" : "cou_gZY1XWfKnEtWiAGt", 
+    "mtime" : NumberLong(1733765988), 
+    "dtime" : NumberLong(0), 
+    "code" : "nguyen.trai.c2", 
+    "branch_id" : "bra_VDzWZqpqdGfsJXuy", 
+    "name" : "nguyen.trai.c2", 
+    "cnum" : "2", 
+    "dev_addr" : NumberInt(2), 
+    "services" : [
+        "s_Wi4hm9GpCJj6PrMA", 
+        "s_kySjf319HUcbXxmG", 
+        "s_13BRLGJ0tU9Vmv59", 
+        "s_06JXZv19gzxtjYSU"
+    ], 
+    "pservices" : [
+
+    ], 
+    "normal_service" : [
+        {
+            "id" : "s_Wi4hm9GpCJj6PrMA", 
+            "text" : "Văn Hóa & Xã Hội", 
+            "vn_name" : "Văn Hóa & Xã Hội", 
+            "en_name" : "Văn Hóa & Xã Hội", 
+            "jp_name" : "Văn Hóa & Xã Hội", 
+            "cn_name" : "Văn Hóa & Xã Hội", 
+            "sp_name" : "Văn Hóa & Xã Hội"
+        }, 
+        {
+            "id" : "s_kySjf319HUcbXxmG", 
+            "text" : "Hộ Tịch, Sơ yếu lý lịch, Khai Sinh", 
+            "vn_name" : "Hộ Tịch, Sơ yếu lý lịch, Khai Sinh", 
+            "en_name" : "Hộ Tịch, Sơ yếu lý lịch, Khai Sinh", 
+            "jp_name" : "Hộ Tịch, Sơ yếu lý lịch, Khai Sinh", 
+            "cn_name" : "Hộ Tịch, Sơ yếu lý lịch, Khai Sinh", 
+            "sp_name" : "Hộ Tịch, Sơ yếu lý lịch, Khai Sinh"
+        }, 
+        {
+            "id" : "s_13BRLGJ0tU9Vmv59", 
+            "text" : "An Ninh, Công An, Quân Đội, Tạm Trú An Ninh, Công An, Quân Đội, Tạm Trú", 
+            "vn_name" : "An Ninh, Công An, Quân Đội, Tạm Trú An Ninh, Công An, Quân Đội, Tạm Trú", 
+            "en_name" : "An Ninh, Công An, Quân Đội, Tạm Trú An Ninh, Công An, Quân Đội, Tạm Trú", 
+            "jp_name" : "An Ninh, Công An, Quân Đội, Tạm Trú", 
+            "cn_name" : "An Ninh, Công An, Quân Đội, Tạm Trú", 
+            "sp_name" : "An Ninh, Công An, Quân Đội, Tạm Trú"
+        }, 
+        {
+            "id" : "s_06JXZv19gzxtjYSU", 
+            "text" : "Hướng dẫn dịch vụ công trực tuyến", 
+            "vn_name" : "Hướng dẫn dịch vụ công trực tuyến", 
+            "en_name" : "Hướng dẫn dịch vụ công trực tuyến", 
+            "jp_name" : "Hướng dẫn dịch vụ công trực tuyến", 
+            "cn_name" : "Hướng dẫn dịch vụ công trực tuyến", 
+            "sp_name" : "Hướng dẫn dịch vụ công trực tuyến"
+        }
+    ], 
+    "priority_service" : [
+
+    ]
+}
+{ 
+    "_id" : "cou_a25fbQOoGhII5RMZ", 
+    "mtime" : NumberLong(1733766016), 
+    "dtime" : NumberLong(0), 
+    "code" : "nguyen.trai.c3", 
+    "branch_id" : "bra_VDzWZqpqdGfsJXuy", 
+    "name" : "nguyen.trai.c3", 
+    "cnum" : "3", 
+    "dev_addr" : NumberInt(3), 
+    "services" : [
+        "s_S7XFkpnThm2MPYXs", 
+        "s_UdOdcdgqRFtZx13a", 
+        "s_ifm19GHnOpk0up7f", 
+        "s_PWZzLQep8NPM21g7", 
+        "s_eqm1eUVyoeoITpzw"
+    ], 
+    "pservices" : [
+
+    ], 
+    "normal_service" : [
+        {
+            "id" : "s_S7XFkpnThm2MPYXs", 
+            "text" : "Y Tế, Bảo hiểm", 
+            "vn_name" : "Y Tế, Bảo hiểm", 
+            "en_name" : "Y Tế, Bảo hiểm", 
+            "jp_name" : "Y Tế, Bảo hiểm", 
+            "cn_name" : "Y Tế, Bảo hiểm", 
+            "sp_name" : "Y Tế, Bảo hiểm"
+        }, 
+        {
+            "id" : "s_UdOdcdgqRFtZx13a", 
+            "text" : "Tài chính, lương hưu người cao tuổi", 
+            "vn_name" : "Tài chính, lương hưu người cao tuổi", 
+            "en_name" : "Tài chính, lương hưu người cao tuổi", 
+            "jp_name" : "Tài chính, lương hưu người cao tuổi", 
+            "cn_name" : "Tài chính, lương hưu người cao tuổi", 
+            "sp_name" : "Tài chính, lương hưu người cao tuổi"
+        }, 
+        {
+            "id" : "s_ifm19GHnOpk0up7f", 
+            "text" : "Đóng tiền dịch vụ điện nước", 
+            "vn_name" : "Đóng tiền dịch vụ điện nước", 
+            "en_name" : "Đóng tiền dịch vụ điện nước", 
+            "jp_name" : "Đóng tiền dịch vụ điện nước", 
+            "cn_name" : "Đóng tiền dịch vụ điện nước", 
+            "sp_name" : "Đóng tiền dịch vụ điện nước"
+        }, 
+        {
+            "id" : "s_PWZzLQep8NPM21g7", 
+            "text" : "dich_vu_H VN", 
+            "vn_name" : "dich_vu_H VN", 
+            "en_name" : "dich_vu_H EN", 
+            "jp_name" : "dich_vu_H", 
+            "cn_name" : "dich_vu_H", 
+            "sp_name" : "dich_vu_H"
+        }, 
+        {
+            "id" : "s_eqm1eUVyoeoITpzw", 
+            "text" : "dich_vu_P VN", 
+            "vn_name" : "dich_vu_P VN", 
+            "en_name" : "dich_vu_P EN", 
+            "jp_name" : "dich_vu_P", 
+            "cn_name" : "dich_vu_P", 
+            "sp_name" : "dich_vu_P"
+        }
+    ], 
+    "priority_service" : [
+
+    ]
+}

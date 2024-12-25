@@ -41,14 +41,13 @@ import com.google.common.util.concurrent.ListenableFuture;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 import androidx.camera.view.PreviewView;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.concurrent.ExecutorService;
 
-public class ImageAnalysis_view extends Fragment {
+public class analysis_ImageAnalysis_view extends Fragment {
 
     private static final String TAG = "CameraX";
     private PreviewView previewView;
@@ -68,8 +67,8 @@ public class ImageAnalysis_view extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public static ImageAnalysis_view newInstance(String param1, String param2) {
-        ImageAnalysis_view fragment = new ImageAnalysis_view();
+    public static analysis_ImageAnalysis_view newInstance(String param1, String param2) {
+        analysis_ImageAnalysis_view fragment = new analysis_ImageAnalysis_view();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -108,7 +107,7 @@ public class ImageAnalysis_view extends Fragment {
                 }
             });
 
-    public ImageAnalysis_view() {
+    public analysis_ImageAnalysis_view() {
         // Required empty public constructor
     }
 
@@ -319,9 +318,16 @@ public class ImageAnalysis_view extends Fragment {
                 if (outputStream != null) {
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
                     Toast.makeText(requireContext(), "Ảnh đã được lưu vào Thư viện!", Toast.LENGTH_SHORT).show();
-                    Fragment analysisResultView = new AnalysisResult_view();
+                    Fragment analysisResultView = new analysis_AnalysisResult_view();
                     FragmentTransaction fragmentTransaction =  requireActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.setCustomAnimations(
+                            R.anim.enter_from_bottom,
+                            R.anim.exit_to_bottom,
+                            R.anim.enter_from_bottom,
+                            R.anim.exit_to_bottom
+                    );
                     fragmentTransaction.add(R.id.main,analysisResultView);
+                    fragmentTransaction.addToBackStack("resultTree");
                     fragmentTransaction.commit();
                 }
             } catch (Exception e) {

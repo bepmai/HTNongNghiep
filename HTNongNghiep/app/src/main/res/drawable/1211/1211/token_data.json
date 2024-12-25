@@ -1,0 +1,190 @@
+{ 
+    "_id" : "token__tEx4Qi8JS0fu3uJ0", 
+    "mtime" : NumberLong(1733938569), 
+    "dtime" : NumberLong(0), 
+    "username" : "admin", 
+    "access_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM5Mzk0NjksInVzZXJuYW1lIjoiYWRtaW4ifQ.DaB8BSIKm-e1LD_DZJMnMxsBKbc4NmUS0pQDxcJ9BEs", 
+    "refresh_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ1NDMzNjksInVzZXJuYW1lIjoiYWRtaW4ifQ.qspsWQnomaHihTIvv2Rll28OFeJK7e_iLsldGUrWHeQ", 
+    "expires_at" : ISODate("2024-12-11T17:51:09.495+0000"), 
+    "created_at" : ISODate("2024-12-11T17:36:09.496+0000")
+}
+{ 
+    "_id" : "token__KO5BfqZfwP0buDzI", 
+    "mtime" : NumberLong(1733938602), 
+    "dtime" : NumberLong(0), 
+    "username" : "admin", 
+    "access_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM5Mzk1MDIsInVzZXJuYW1lIjoiYWRtaW4ifQ.6eVXw3UIf4IWOX_FBtgAeU6gdWJERXFKAcnkj4kJAvU", 
+    "refresh_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ1NDM0MDIsInVzZXJuYW1lIjoiYWRtaW4ifQ.LxGhmwSdAJK814O7lcdLA9GFkxX8qCcyJuwZ652sdcU", 
+    "expires_at" : ISODate("2024-12-11T17:51:42.960+0000"), 
+    "created_at" : ISODate("2024-12-11T17:36:42.960+0000")
+}
+{ 
+    "_id" : "token__6QU9a9sNZfQC13hz", 
+    "mtime" : NumberLong(1733938630), 
+    "dtime" : NumberLong(0), 
+    "username" : "admin", 
+    "access_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM5Mzk1MDgsInVzZXJuYW1lIjoiYWRtaW4ifQ.Ked7t7btRrJTho7uUpRACjMvU6S2g36yrodIBqng7tI", 
+    "refresh_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ1NDM0MDksInVzZXJuYW1lIjoiYWRtaW4ifQ.d59wxeUPumuZ7f42Jhcry0_T5rVZlFkzn1JmeHsN0g4", 
+    "expires_at" : ISODate("2024-12-11T17:51:48.884+0000"), 
+    "created_at" : ISODate("2024-12-11T17:36:57.840+0000")
+}
+{ 
+    "_id" : "token__ZiT725Izjk80r6ox", 
+    "mtime" : NumberLong(1733939129), 
+    "dtime" : NumberLong(0), 
+    "username" : "admin", 
+    "access_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM5NDAwMjksInVzZXJuYW1lIjoiYWRtaW4ifQ.zl0cUtldujNX9hFS2NA0tA6C6bbHtfGM5TvL2i54eRU", 
+    "refresh_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ1NDM5MjksInVzZXJuYW1lIjoiYWRtaW4ifQ.uLhWUR52fii-OkfIYAZiUCZhMjI89_2jgtJeF--YDTs", 
+    "expires_at" : ISODate("2024-12-11T18:00:29.070+0000"), 
+    "created_at" : ISODate("2024-12-11T17:45:29.070+0000")
+}
+{ 
+    "_id" : "token__CZ6J09KjXAVp3Ut3", 
+    "mtime" : NumberLong(1733939168), 
+    "dtime" : NumberLong(0), 
+    "username" : "admin", 
+    "access_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM5NDAwNjgsInVzZXJuYW1lIjoiYWRtaW4ifQ.mlBkV9T-B_Mp_KlPzIJrEDVEjjo-LCPCQUYJ4kIc3I0", 
+    "refresh_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ1NDM5NjgsInVzZXJuYW1lIjoiYWRtaW4ifQ.iFLfAd_cqmLVKgrvSrWs1cEy84G3YivfEZh9gzC3AKU", 
+    "expires_at" : ISODate("2024-12-11T18:01:08.183+0000"), 
+    "created_at" : ISODate("2024-12-11T17:46:08.183+0000")
+}
+{ 
+    "_id" : "token__KhyElMhUrD9wZwks", 
+    "mtime" : NumberLong(1733939211), 
+    "dtime" : NumberLong(0), 
+    "username" : "admin", 
+    "access_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM5NDAxMTEsInVzZXJuYW1lIjoiYWRtaW4ifQ.aaFnJtddvPyQZRkmoPf09dru1Dq-4s5T5A0qSqoqsfc", 
+    "refresh_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ1NDQwMTEsInVzZXJuYW1lIjoiYWRtaW4ifQ.QwAUL9D_QBi6oraee_ytiKIxtWtrLzfpjfwtUbvPEY4", 
+    "expires_at" : ISODate("2024-12-11T18:01:51.840+0000"), 
+    "created_at" : ISODate("2024-12-11T17:46:51.840+0000")
+}
+{ 
+    "_id" : "token__9PXkCk0bH16ppGH3", 
+    "mtime" : NumberLong(1733940145), 
+    "dtime" : NumberLong(0), 
+    "username" : "admin", 
+    "access_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM5NDEwNDUsInVzZXJuYW1lIjoiYWRtaW4ifQ.5N1Ycb5hxFLbRdePFI2vmLse0LWAWBybI2tAqxYa0U4", 
+    "refresh_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ1NDQ5NDUsInVzZXJuYW1lIjoiYWRtaW4ifQ.g9KhS4fCAug1-iiq90KS_3XBcnmOTDoTGP9q8Pc78bY", 
+    "expires_at" : ISODate("2024-12-11T18:17:25.830+0000"), 
+    "created_at" : ISODate("2024-12-11T18:02:25.830+0000")
+}
+{ 
+    "_id" : "token__gltia0h5PfyrwgtL", 
+    "mtime" : NumberLong(1733940234), 
+    "dtime" : NumberLong(0), 
+    "username" : "admin", 
+    "access_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM5NDExMzQsInVzZXJuYW1lIjoiYWRtaW4ifQ.Ksm8zBdVJUvWQeDIlR-NL16jrN9kFa8rz5Pi6O0116o", 
+    "refresh_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ1NDUwMzQsInVzZXJuYW1lIjoiYWRtaW4ifQ.VUk2XsjQkmtwO_Au9-xa-vygpu5bviBS4VYQE2BgNTU", 
+    "expires_at" : ISODate("2024-12-11T18:18:54.839+0000"), 
+    "created_at" : ISODate("2024-12-11T18:03:54.840+0000")
+}
+{ 
+    "_id" : "token__jG0cmx0JEsFx9mG7", 
+    "mtime" : NumberLong(1733940951), 
+    "dtime" : NumberLong(0), 
+    "username" : "admin", 
+    "access_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM5NDEyNTEsInVzZXJuYW1lIjoiYWRtaW4ifQ.o0QxcWewubCZXicfIwhK-lvnoXIm1QGbxlsEevvu_fY", 
+    "refresh_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ1NDU3NTEsInVzZXJuYW1lIjoiYWRtaW4ifQ.mrA7t7n818KPg1ZpvH-kQ27sUE6Bn4ZuQdV_bTrYscY", 
+    "expires_at" : ISODate("2024-12-11T18:20:51.358+0000"), 
+    "created_at" : ISODate("2024-12-11T18:15:51.358+0000")
+}
+{ 
+    "_id" : "token__AwQzK9J2vIdTaW6F", 
+    "mtime" : NumberLong(1733992905), 
+    "dtime" : NumberLong(0), 
+    "username" : "admin", 
+    "access_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM5OTMyMDUsInVzZXJuYW1lIjoiYWRtaW4ifQ.6GTLZoCN148-AeLuikyNMLss_3QIBZC3XXy6Rc8qdmE", 
+    "refresh_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ1OTc3MDUsInVzZXJuYW1lIjoiYWRtaW4ifQ.-GpuYPHNBBZduE3UAlaa57FbEGGWV28WZH9dH5HbcUQ", 
+    "expires_at" : ISODate("2024-12-12T08:46:45.230+0000"), 
+    "created_at" : ISODate("2024-12-12T08:41:45.230+0000")
+}
+{ 
+    "_id" : "token__tC6X2W82EDMDD0MI", 
+    "mtime" : NumberLong(1733992997), 
+    "dtime" : NumberLong(0), 
+    "username" : "admin", 
+    "access_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM5OTMyOTcsInVzZXJuYW1lIjoiYWRtaW4ifQ.VE4dKP00YouMqtKJmgpbi5EF8nabQAMSz5SXa0hfOaU", 
+    "refresh_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ1OTc3OTcsInVzZXJuYW1lIjoiYWRtaW4ifQ.O-A30kKpqTVaEvJCz9IBOx06qTlCe-5QGKXFQ2Xnoj0", 
+    "expires_at" : ISODate("2024-12-12T08:48:17.968+0000"), 
+    "created_at" : ISODate("2024-12-12T08:43:17.968+0000")
+}
+{ 
+    "_id" : "token__IQxgc6yG87yMbUoq", 
+    "mtime" : NumberLong(1733993120), 
+    "dtime" : NumberLong(0), 
+    "username" : "admin", 
+    "access_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM5OTM0MjAsInVzZXJuYW1lIjoiYWRtaW4ifQ.mYvmzmu0dttuDNh73su2kXfjtnmgV3hQUmfXy9aMXek", 
+    "refresh_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ1OTc5MjAsInVzZXJuYW1lIjoiYWRtaW4ifQ.aQw_QFB9_pd8njOGYV9R9HJ49xv549fLcwNynpPcr-o", 
+    "expires_at" : ISODate("2024-12-12T08:50:20.052+0000"), 
+    "created_at" : ISODate("2024-12-12T08:45:20.052+0000")
+}
+{ 
+    "_id" : "token__azl5mUVtvbPLtv0G", 
+    "mtime" : NumberLong(1733993428), 
+    "dtime" : NumberLong(0), 
+    "username" : "admin", 
+    "access_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM5OTM3MjgsInVzZXJuYW1lIjoiYWRtaW4ifQ.dCyJ9COlVegrE5szTY50wga7jPrCziUBCkrwjbhj7nE", 
+    "refresh_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ1OTgyMjgsInVzZXJuYW1lIjoiYWRtaW4ifQ.Ukxil9ryEhxrL9w-9tjpdtPzZCWWrHVeIO_8s_lp4Nw", 
+    "expires_at" : ISODate("2024-12-12T08:55:28.620+0000"), 
+    "created_at" : ISODate("2024-12-12T08:50:28.620+0000")
+}
+{ 
+    "_id" : "token__RBls0o0Ypa6BDT66", 
+    "mtime" : NumberLong(1733993447), 
+    "dtime" : NumberLong(0), 
+    "username" : "admin", 
+    "access_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzM5OTM3NDcsInVzZXJuYW1lIjoiYWRtaW4ifQ.-vp5Ov5-wNE0Fi1_N2tVzNn0J9T3GtWwUA_RWB7sPOY", 
+    "refresh_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ1OTgyNDcsInVzZXJuYW1lIjoiYWRtaW4ifQ.BiXmNmtoQD4uZJmQTfxnLJFniuruISyHLMgOhly0ZzY", 
+    "expires_at" : ISODate("2024-12-12T08:55:47.731+0000"), 
+    "created_at" : ISODate("2024-12-12T08:50:47.731+0000")
+}
+{ 
+    "_id" : "token__cFSJ76cR7VyTIM9O", 
+    "mtime" : NumberLong(1734019278), 
+    "dtime" : NumberLong(0), 
+    "username" : "admin", 
+    "access_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQwMTk1NzgsInVzZXJuYW1lIjoiYWRtaW4ifQ.0C9ID1RLvarbAxVc2iNfnRIfbIueqocTvTSoWomgrUM", 
+    "refresh_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ2MjQwNzgsInVzZXJuYW1lIjoiYWRtaW4ifQ.VxSxweMcMnPDevhZusDkWkaKpNdzwhAzmx2wr3g7Fgo", 
+    "expires_at" : ISODate("2024-12-12T16:06:18.890+0000"), 
+    "created_at" : ISODate("2024-12-12T16:01:18.891+0000")
+}
+{ 
+    "_id" : "token__pD0D07P3KYgX4xZe", 
+    "mtime" : NumberLong(1734619828), 
+    "dtime" : NumberLong(0), 
+    "username" : "admin", 
+    "access_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ2MjAxMjgsInVzZXJuYW1lIjoiYWRtaW4ifQ.3IFf04WPAA1u9knYqHoCHfISQ8cj66EMh7kaYyPyBbc", 
+    "refresh_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzUyMjQ2MjgsInVzZXJuYW1lIjoiYWRtaW4ifQ.oDoMI1LYOPay4CrpOF63xt10rwaOZpb_8vY72SRbUT4", 
+    "expires_at" : ISODate("2024-12-19T14:55:28.015+0000"), 
+    "created_at" : ISODate("2024-12-19T14:50:28.015+0000")
+}
+{ 
+    "_id" : "token__y3jaDnr07AR0V0Sv", 
+    "mtime" : NumberLong(1734970162), 
+    "dtime" : NumberLong(0), 
+    "username" : "nguyen.trai.u4", 
+    "access_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ5NzA0NjIsInVzZXJuYW1lIjoibmd1eWVuLnRyYWkudTQifQ.9VaRw2ttL5KBUX1B6vmNqNUJjnbz3sxUuAn5FjXgtew", 
+    "refresh_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzU1NzQ5NjIsInVzZXJuYW1lIjoibmd1eWVuLnRyYWkudTQifQ.h2pk8EZaRbk_Pd7lqRzqNyPgxr2AEFSQYoKj27yhxVA", 
+    "expires_at" : ISODate("2024-12-23T16:14:22.528+0000"), 
+    "created_at" : ISODate("2024-12-23T16:09:22.528+0000")
+}
+{ 
+    "_id" : "token__31JbUIW5x6cddAH2", 
+    "mtime" : NumberLong(1734970233), 
+    "dtime" : NumberLong(0), 
+    "username" : "admin", 
+    "access_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ5NzA1MzMsInVzZXJuYW1lIjoiYWRtaW4ifQ.hnESWFRiArgRkM2ypI2irmau0mbdI00uicj8PCM60Fc", 
+    "refresh_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzU1NzUwMzMsInVzZXJuYW1lIjoiYWRtaW4ifQ.m9Vttm8L2X02arVe0Brtf09ElJH8Z7X1s5-MkRLyIJc", 
+    "expires_at" : ISODate("2024-12-23T16:15:33.267+0000"), 
+    "created_at" : ISODate("2024-12-23T16:10:33.267+0000")
+}
+{ 
+    "_id" : "token__nYnv6WXu45s7glGI", 
+    "mtime" : NumberLong(1734970795), 
+    "dtime" : NumberLong(0), 
+    "username" : "admin", 
+    "access_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzQ5NzEwOTUsInVzZXJuYW1lIjoiYWRtaW4ifQ.Fp1S-ZSYxWsifeXlOhzhL1St1eUcIw4_FHC7pZKvp64", 
+    "refresh_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MzU1NzU1OTUsInVzZXJuYW1lIjoiYWRtaW4ifQ.-GL7Qhmg2I6JyxtL1RzZSovBL7_vldZHZRU4DyTQCj0", 
+    "expires_at" : ISODate("2024-12-23T16:24:55.761+0000"), 
+    "created_at" : ISODate("2024-12-23T16:19:55.761+0000")
+}

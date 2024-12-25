@@ -1,0 +1,23 @@
+{ 
+    "_id" : "eb_fgEj6Hy2XjfPatoM", 
+    "mtime" : NumberLong(1733766058), 
+    "dtime" : NumberLong(0), 
+    "code" : "nguyen.trai.e1", 
+    "branch_id" : "bra_VDzWZqpqdGfsJXuy", 
+    "name" : "nguyen.trai.e1", 
+    "counters" : [
+        "cou_pcdqAANKAWN0CvKv", 
+        "cou_gZY1XWfKnEtWiAGt", 
+        "cou_a25fbQOoGhII5RMZ"
+    ], 
+    "display_videos" : true, 
+    "videos" : [
+
+    ], 
+    "video_volume" : NumberInt(0), 
+    "voice_reading" : "hanoi", 
+    "display_images" : true, 
+    "images" : [
+
+    ]
+}

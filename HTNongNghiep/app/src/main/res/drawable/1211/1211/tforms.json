@@ -1,0 +1,90 @@
+{ 
+    "_id" : "t_jIafVNTGu4zNnx2j", 
+    "mtime" : NumberLong(1700277170), 
+    "dtime" : NumberLong(0), 
+    "code" : "mau_a", 
+    "ctime" : NumberLong(1700277170), 
+    "format" : "A%03d", 
+    "minnum" : NumberLong(1), 
+    "maxnum" : NumberLong(999)
+}
+{ 
+    "_id" : "t_wdjGcZRqPuzQJw44", 
+    "mtime" : NumberLong(1700277170), 
+    "dtime" : NumberLong(0), 
+    "code" : "mau_b", 
+    "ctime" : NumberLong(1700277170), 
+    "format" : "B%03d", 
+    "minnum" : NumberLong(1), 
+    "maxnum" : NumberLong(999)
+}
+{ 
+    "_id" : "t_Pr4SdRG7bOjF2eFz", 
+    "mtime" : NumberLong(1700277170), 
+    "dtime" : NumberLong(0), 
+    "code" : "mau_c", 
+    "ctime" : NumberLong(1700277170), 
+    "format" : "C%03d", 
+    "minnum" : NumberLong(1), 
+    "maxnum" : NumberLong(999)
+}
+{ 
+    "_id" : "t_C1bxrFGGLHC12pnf", 
+    "mtime" : NumberLong(1700277170), 
+    "dtime" : NumberLong(0), 
+    "code" : "mau_d", 
+    "ctime" : NumberLong(1700277170), 
+    "format" : "D%03d", 
+    "minnum" : NumberLong(1), 
+    "maxnum" : NumberLong(999)
+}
+{ 
+    "_id" : "t_V8cSKaRPxEg9jGWH", 
+    "mtime" : NumberLong(1700277170), 
+    "dtime" : NumberLong(0), 
+    "code" : "mau_e", 
+    "ctime" : NumberLong(1700277170), 
+    "format" : "E%03d", 
+    "minnum" : NumberLong(1), 
+    "maxnum" : NumberLong(999)
+}
+{ 
+    "_id" : "t_fNjsH3uWVX4vVEVH", 
+    "mtime" : NumberLong(1700277170), 
+    "dtime" : NumberLong(0), 
+    "code" : "mau_f", 
+    "ctime" : NumberLong(1700277170), 
+    "format" : "F%03d", 
+    "minnum" : NumberLong(1), 
+    "maxnum" : NumberLong(999)
+}
+{ 
+    "_id" : "t_rqK6ywkkd3lR1HbG", 
+    "mtime" : NumberLong(1700277170), 
+    "dtime" : NumberLong(0), 
+    "code" : "mau_g", 
+    "ctime" : NumberLong(1700277170), 
+    "format" : "G%03d", 
+    "minnum" : NumberLong(1), 
+    "maxnum" : NumberLong(999)
+}
+{ 
+    "_id" : "t_UKuGJuoAuUUe6IaF", 
+    "mtime" : NumberLong(1700277170), 
+    "dtime" : NumberLong(0), 
+    "code" : "mau_h", 
+    "ctime" : NumberLong(1700277170), 
+    "format" : "H%03d", 
+    "minnum" : NumberLong(1), 
+    "maxnum" : NumberLong(999)
+}
+{ 
+    "_id" : "t_2D0jDzoQ7IytXT3R", 
+    "mtime" : NumberLong(1700277170), 
+    "dtime" : NumberLong(0), 
+    "code" : "mau_p", 
+    "ctime" : NumberLong(1700277170), 
+    "format" : "P%03d", 
+    "minnum" : NumberLong(1), 
+    "maxnum" : NumberLong(999)
+}

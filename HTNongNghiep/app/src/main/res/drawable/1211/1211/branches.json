@@ -1,0 +1,68 @@
+{ 
+    "_id" : "root", 
+    "code" : "VietNam", 
+    "name" : "Việt Nam", 
+    "level" : NumberInt(3), 
+    "parent" : null, 
+    "mtime" : NumberInt(1514192305), 
+    "dtime" : NumberInt(0)
+}
+{ 
+    "_id" : "bra_V0hmaMNvF4oSRzBrFQAS", 
+    "mtime" : NumberLong(1569214297), 
+    "dtime" : NumberLong(0), 
+    "code" : "ha.noi", 
+    "name" : "TP Hà Nội", 
+    "addr" : "", 
+    "parent" : "vn", 
+    "level" : NumberLong(2), 
+    "address" : "", 
+    "serving_time" : NumberInt(0), 
+    "start_date" : "", 
+    "end_date" : ""
+}
+{ 
+    "_id" : "bra_5cPZeCKArKQbm1Uq", 
+    "mtime" : NumberLong(1733765795), 
+    "dtime" : NumberLong(0), 
+    "code" : "thanh.xuan", 
+    "name" : "thanh.xuan", 
+    "address" : "", 
+    "parent" : "bra_V0hmaMNvF4oSRzBrFQAS", 
+    "level" : NumberLong(1), 
+    "latitude" : 0.0, 
+    "longitude" : 0.0, 
+    "ip_address" : "", 
+    "port_address" : "", 
+    "active" : false
+}
+{ 
+    "_id" : "bra_VDzWZqpqdGfsJXuy", 
+    "mtime" : NumberLong(1733765813), 
+    "dtime" : NumberLong(0), 
+    "code" : "nguyen.trai.1", 
+    "name" : "nguyen.trai.1", 
+    "address" : "nguyen.trai.1", 
+    "parent" : "bra_5cPZeCKArKQbm1Uq", 
+    "level" : NumberLong(0), 
+    "latitude" : 0.0, 
+    "longitude" : 0.0, 
+    "ip_address" : "", 
+    "port_address" : "", 
+    "active" : true
+}
+{ 
+    "_id" : "bra_rd96dEoNBOYpAytf", 
+    "mtime" : NumberLong(1733940154), 
+    "dtime" : NumberLong(0), 
+    "code" : "nguyen.trai.2", 
+    "name" : "nguyen.trai.2", 
+    "address" : "nguyen.trai.2", 
+    "parent" : "bra_5cPZeCKArKQbm1Uq", 
+    "level" : NumberLong(0), 
+    "latitude" : 0.0, 
+    "longitude" : 0.0, 
+    "ip_address" : "", 
+    "port_address" : "", 
+    "active" : true
+}
