@@ -1,4 +1,4 @@
-package tlu.edu.vn.ht63.htnongnghiep;
+package tlu.edu.vn.ht63.htnongnghiep.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,6 +15,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import com.squareup.picasso.Picasso;
+
+import tlu.edu.vn.ht63.htnongnghiep.R;
+import tlu.edu.vn.ht63.htnongnghiep.Model.WeatherRVModal;
 
 public class WeatherRVAdapter extends RecyclerView.Adapter<WeatherRVAdapter.ViewHolder> {
     private Context context;
