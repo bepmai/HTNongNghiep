@@ -20,4 +20,5 @@
     <color name="active_bar">#3CC18E</color>
     <color name="light_gray">#E3E6EA</color>
     <color name="yellow">#FFEB3B</color>
+    <color name="red">#FF0000</color>
 </resources>

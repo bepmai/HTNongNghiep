@@ -15,6 +15,8 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,9 +40,14 @@ import androidx.activity.result.ActivityResultLauncher;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import tlu.edu.vn.ht63.htnongnghiep.Component.Interface.DiaglogEvent;
+import tlu.edu.vn.ht63.htnongnghiep.Component.Subcomponent.DialogFragment;
+import tlu.edu.vn.ht63.htnongnghiep.Component.Subcomponent.ToastFragment;
+import tlu.edu.vn.ht63.htnongnghiep.Container.login.AddInfoUserActivity;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 import androidx.camera.view.PreviewView;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.io.OutputStream;
@@ -275,7 +282,8 @@ public class analysis_ImageAnalysis_view extends Fragment {
                             saveImageToPicture(croppedBitmap);
                             loadLastImage(listImage);
                         } else {
-                            Toast.makeText(requireContext(), "Cắt ảnh không thành công!", Toast.LENGTH_SHORT).show();
+                            ToastFragment toastFragment = new ToastFragment(3, "Cắt ảnh không thành công!");
+                            toastFragment.showToast(requireActivity().getSupportFragmentManager(),R.id.main);
                         }
                     } catch (Exception error) {
                         Log.d(TAG, "onCaptureSuccess: " + error.getMessage());
@@ -317,18 +325,36 @@ public class analysis_ImageAnalysis_view extends Fragment {
             try (OutputStream outputStream = contentResolver.openOutputStream(imageUri)) {
                 if (outputStream != null) {
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-                    Toast.makeText(requireContext(), "Ảnh đã được lưu vào Thư viện!", Toast.LENGTH_SHORT).show();
+                    ToastFragment toastFragment = new ToastFragment(1, "Ảnh đã được lưu vào thư viện!");
+                    toastFragment.showToast(requireActivity().getSupportFragmentManager(),R.id.main);
+//                    toastFragment.showOverlayToast(requireContext());
                     Fragment analysisResultView = new analysis_AnalysisResult_view();
-                    FragmentTransaction fragmentTransaction =  requireActivity().getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.setCustomAnimations(
-                            R.anim.enter_from_bottom,
-                            R.anim.exit_to_bottom,
-                            R.anim.enter_from_bottom,
-                            R.anim.exit_to_bottom
-                    );
-                    fragmentTransaction.add(R.id.main,analysisResultView);
-                    fragmentTransaction.addToBackStack("resultTree");
-                    fragmentTransaction.commit();
+//                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+//                        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.setCustomAnimations(
+//                                R.anim.enter_from_bottom,
+//                                R.anim.exit_to_bottom,
+//                                R.anim.enter_from_bottom,
+//                                R.anim.exit_to_bottom
+//                        );
+//                        fragmentTransaction.add(R.id.main, analysisResultView);
+//                        fragmentTransaction.addToBackStack("resultTree");
+//                        fragmentTransaction.commit();
+//                    }, 2000);
+                    DialogFragment dg= new DialogFragment("Hello", new DiaglogEvent() {
+                        @Override
+                        public void setCloseButtonEvent() {
+                            DiaglogEvent.super.setCloseButtonEvent();
+                            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                            fragmentManager.popBackStack();
+                        }
+
+                        @Override
+                        public void setSubmitButtonEvent() {
+                            DiaglogEvent.super.setSubmitButtonEvent();
+                        }
+                    });
+                    dg.openDialog(requireActivity().getSupportFragmentManager(),R.id.main);
                 }
             } catch (Exception e) {
                 Log.e(TAG, "Error saving image to Pictures directory: ", e);

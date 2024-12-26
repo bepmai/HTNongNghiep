@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Component.Toast">
+    android:id="@+id/layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal|bottom"
+    android:layout_margin="10dp"
+    tools:context=".Component.Subcomponent.ToastFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:padding="10dp"
+        android:background="@drawable/border_line_radius_10dp"
+        android:backgroundTint="@color/white"
+        app:alignItems="center">
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/border_circle"
+            android:src="@drawable/ic_success" />
 
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="match_parent"
+            android:maxWidth="300dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:lineBreakStyle="normal"
+            android:text="message"
+            android:textSize="16sp" />
+    </com.google.android.flexbox.FlexboxLayout>
 </FrameLayout>
