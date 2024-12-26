@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera.any" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
-
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
+        android:banner="@drawable/group260"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -28,26 +21,24 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.ProductDetailActivity"
+            android:name=".Container.UI.AddPlant"
             android:exported="false" />
         <activity
-            android:name=".Activity.ExpenditureDetailActivity"
-            android:exported="false" />
+            android:name=".Container.UI.Weather"
+            android:exported="false"/>
         <activity
-            android:name=".Activity.RevenueDetailActivity"
-            android:exported="false" />
+            android:name=".Container.UI.InfUserDetail"
+            android:exported="false"/>
         <activity
-            android:name=".Activity.RevenueExpenditureActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:name=".Container.UI.DetailPlant"
+            android:exported="false"/>
         <activity
             android:name=".Activity.NavigationActivity"
             android:exported="false" />
+        <activity
+            android:name=".Activity.RevenueExpenditureActivity"
+            android:exported="false" >
+        </activity>
         <activity
             android:name=".Activity.AddInfoUserActivity"
             android:exported="false" />
@@ -58,21 +49,24 @@
             android:name=".Activity.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.LogInActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.LoginSignupActivity"
-            android:exported="false" />
-        <activity
             android:name=".Activity.SlpashActivity"
-            android:exported="false">
-
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Activity.AnalysisActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.HomeActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".Activity.LogInActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.LoginSignupActivity"
             android:exported="false" />
     </application>
 

@@ -1,13 +1,35 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.content.Intent;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -16,61 +38,43 @@ import android.widget.TextView;
 
 import tlu.edu.vn.ht63.htnongnghiep.Activity.RevenueExpenditureActivity;
 import tlu.edu.vn.ht63.htnongnghiep.R;
+import tlu.edu.vn.ht63.htnongnghiep.WeatherRVModal;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link home#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class home extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     public home() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment home.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static home newInstance(String param1, String param2) {
-        home fragment = new home();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+    private TextView humidityTV, windSpeedTV, cityNameTV, temperatureTV;
     WebView webView;
     TextView detailButton;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        humidityTV = view.findViewById(R.id.idTVHumidity);
+        windSpeedTV = view.findViewById(R.id.idTVWindSpeed);
+        cityNameTV = view.findViewById(R.id.idTVCityName);
+        temperatureTV = view.findViewById(R.id.idTVTemperature);
+
+        LinearLayout formWeather = view.findViewById(R.id.formweather);
+
+        // Gán sự kiện onClick cho LinearLayout
+        formWeather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Dùng Intent để chuyển sang ActivityWeather
+                Intent intent = new Intent(getActivity(), Weather.class);
+                startActivity(intent);
+            }
+        });
+
+        getWeatherInfo("Hanoi"); // Gọi API cho thành phố Hà Nội
+
         webView = view.findViewById(R.id.webView);
         detailButton = view.findViewById(R.id.detailButton);
 
@@ -95,21 +99,38 @@ public class home extends Fragment {
             }
         });
 
-        // Chạy JavaScript sau khi trang tải xong
-//        webView.setWebViewClient(new WebViewClient() {
-//            @Override
-//            public void onPageFinished(WebView view, String url) {
-//                // JavaScript để chỉ lấy phần tử cụ thể
-//                webView.evaluateJavascript(
-//                        "var element = document.querySelector('div[data-test-chart-id=\"72\"]');" +
-//                                "if (element) {" +
-//                                "    document.body.innerHTML = element.outerHTML;" + // Thay thế nội dung WebView bằng phần tử này
-//                                "} else {" +
-//                                "    document.body.innerHTML = '<p>Element not found</p>';" +
-//                                "}", null);
-//            }
-//        });
-
         return view;
+    }
+
+    private void getWeatherInfo(String cityName) {
+        String url = "http://api.weatherapi.com/v1/forecast.json?key=dc808a7efddb44c5a7522941242212&q=" + cityName + "&days=1&aqi=yes&alerts=yes";
+        cityNameTV.setText(cityName);
+        RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String humidity = response.getJSONObject("current").getString("humidity");
+                            humidityTV.setText(humidity + "%");
+
+                            String temperature = response.getJSONObject("current").getString("temp_c");
+                            temperatureTV.setText(temperature + "°C");
+
+                            String windSpeed = response.getJSONObject("current").getString("wind_kph");
+                            windSpeedTV.setText(windSpeed + "km/h");
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(requireContext(), "Không thể lấy thông tin thời tiết. Vui lòng kiểm tra lại!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
     }
 }
