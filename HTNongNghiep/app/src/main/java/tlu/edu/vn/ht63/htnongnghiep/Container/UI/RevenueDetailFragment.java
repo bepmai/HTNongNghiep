@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,8 @@ import java.util.Locale;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Revenue;
 import tlu.edu.vn.ht63.htnongnghiep.R;
+import tlu.edu.vn.ht63.htnongnghiep.ViewModel.ExpenditureViewModel;
+import tlu.edu.vn.ht63.htnongnghiep.ViewModel.RevenueViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -132,21 +135,26 @@ public class RevenueDetailFragment extends Fragment {
             totalPayment_edt.setText(revenue.getTotalPayment().toString()+" vnđ");
         }
 
+        RevenueViewModel revenueViewModel =
+                new ViewModelProvider(requireActivity()).get(RevenueViewModel.class);
+
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Revenue expenditure_new = new Expenditure(3,
-//                        "https://example.com/image1.png",
-//                        "Seller A",
-//                        "Hà Nội",
-//                        new Date(),
-//                        "Đã thanh toán",
-//                        "Product A",
-//                        10,
-//                        101,
-//                        5000.0f,
-//                        50000.0f);
-//                expenditureViewModel.addExpenditure(expenditure_new);
+                Revenue revenue_new = new Revenue(
+                        2,                            // id
+                        "image_url_here",             // productImage
+                        "Nguyễn Đức Anh",               // nameSeller
+                        "Hà Nội",
+                        new Date(),                   // date (hiện tại)
+                        "Chưa thanh toán",              // status
+                        "Cây Bonsai 20 năm",                      // nameProduct
+                        10,                           // total (số lượng)
+                        101,                          // idProduct
+                        200000.0f,                     // productCost (giá mỗi sản phẩm)
+                        200000.0f                     // totalPayment (tổng thanh toán)
+                );
+                revenueViewModel.addRevenue(revenue_new);
                 if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
                     requireActivity().getSupportFragmentManager().popBackStack();
                 } else {

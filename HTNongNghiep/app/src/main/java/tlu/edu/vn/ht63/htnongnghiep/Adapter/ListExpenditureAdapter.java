@@ -2,7 +2,6 @@ package tlu.edu.vn.ht63.htnongnghiep.Adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +11,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import tlu.edu.vn.ht63.htnongnghiep.Component.OnItemClickListener;
+import tlu.edu.vn.ht63.htnongnghiep.Component.OnItemExpenditureClickListener;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 import tlu.edu.vn.ht63.htnongnghiep.ViewModel.ExpenditureViewModel;
@@ -29,7 +26,7 @@ public class ListExpenditureAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private final Context context;
     private final ArrayList<Expenditure> dataList = new ArrayList<>();
     private final ExpenditureViewModel expenditureViewModel;
-    private OnItemClickListener listener;
+    private OnItemExpenditureClickListener listener;
 
     public ListExpenditureAdapter(Context context, ExpenditureViewModel expenditureViewModel) {
         this.context = context;
@@ -41,6 +38,7 @@ public class ListExpenditureAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 if (expenditureList != null) {
                     dataList.clear();
                     dataList.addAll(expenditureList);
+                    notifyDataSetChanged();
                 }
             }
         });
@@ -51,7 +49,7 @@ public class ListExpenditureAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         return dataList.get(position).getViewType();
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    public void setOnItemClickListener(OnItemExpenditureClickListener listener) {
         this.listener = listener;
     }
 
@@ -81,23 +79,6 @@ public class ListExpenditureAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onItemClick(expenditure);
-            }
-        });
-
-        expenditureViewModel.getListMutableLiveData().observe((LifecycleOwner) context, new Observer<List<Expenditure>>() {
-            @Override
-            public void onChanged(List<Expenditure> expenditureList) {
-                if (expenditureList != null) {
-                    for (Expenditure expenditureEntity : expenditureList){
-                        if(expenditureEntity.getId() == expenditure.getId()){
-                            if (holder instanceof SellerViewHolder) {
-                                ((SellerViewHolder) holder).bind(expenditure);
-                            } else if (holder instanceof ProductViewHolder) {
-                                ((ProductViewHolder) holder).bind(expenditure);
-                            }
-                        }
-                    }
-                }
             }
         });
     }

@@ -11,12 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-import tlu.edu.vn.ht63.htnongnghiep.Component.OnItemClickListener;
+import tlu.edu.vn.ht63.htnongnghiep.Component.OnItemExpenditureClickListener;
 import tlu.edu.vn.ht63.htnongnghiep.Adapter.ListExpenditureAdapter;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
 import tlu.edu.vn.ht63.htnongnghiep.R;
@@ -131,7 +130,7 @@ public class ExpenditureFragment extends Fragment {
 
         expenditureViewModel.setData(expenditureList);
 
-        adapter.setOnItemClickListener(new OnItemClickListener() {
+        adapter.setOnItemClickListener(new OnItemExpenditureClickListener() {
             @Override
             public void onItemClick(Expenditure expenditure) {
                 if (expenditure.getViewType() == Expenditure.TYPE_BUY){

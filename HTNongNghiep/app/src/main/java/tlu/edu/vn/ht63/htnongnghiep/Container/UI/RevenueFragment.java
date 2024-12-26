@@ -1,23 +1,25 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 import tlu.edu.vn.ht63.htnongnghiep.Adapter.ListRevenueAdapter;
+import tlu.edu.vn.ht63.htnongnghiep.Component.OnItemRevenueClickListener;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Revenue;
 import tlu.edu.vn.ht63.htnongnghiep.R;
+import tlu.edu.vn.ht63.htnongnghiep.ViewModel.RevenueViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,12 +68,16 @@ public class RevenueFragment extends Fragment {
         }
     }
 
+    RecyclerView recyclerView;
+    ListRevenueAdapter adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_revenue, container, false);
-        ListView listview = view.findViewById(R.id.listview);
+        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         ArrayList<Revenue> revenueList = new ArrayList<>();
         revenueList.add(new Revenue(
@@ -100,23 +106,18 @@ public class RevenueFragment extends Fragment {
                 200000.0f,                     // productCost (giá mỗi sản phẩm)
                 200000.0f                     // totalPayment (tổng thanh toán)
         ));
-        ListRevenueAdapter adapter = new ListRevenueAdapter(getContext(), revenueList);
-        listview.setAdapter(adapter);
 
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        RevenueViewModel revenueViewModel =
+                new ViewModelProvider(requireActivity()).get(RevenueViewModel.class);
+
+        adapter = new ListRevenueAdapter(getContext(),revenueViewModel);
+        recyclerView.setAdapter(adapter);
+
+        revenueViewModel.setData(revenueList);
+
+        adapter.setOnItemClickListener(new OnItemRevenueClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Lấy item được click
-                Revenue revenue = adapter.getItem(position);
-
-                // Hiển thị thông tin (ví dụ Toast)
-//                if (clickedItem != null) {
-//                    Toast.makeText(getContext(),
-//                            "Clicked: " + clickedItem.getNameProduct(),
-//                            Toast.LENGTH_SHORT).show();
-//                }
-
-                // Hoặc chuyển sang một màn hình khác với dữ liệu
+            public void onItemClick(Revenue revenue) {
                 Fragment revenueDetailFragment = new RevenueDetailFragment(revenue);
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.main, revenueDetailFragment);
