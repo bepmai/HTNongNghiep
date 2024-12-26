@@ -49,6 +49,8 @@ public class home extends Fragment {
         windSpeedTV = view.findViewById(R.id.idTVWindSpeed);
         cityNameTV = view.findViewById(R.id.idTVCityName);
         temperatureTV = view.findViewById(R.id.idTVTemperature);
+        webView = view.findViewById(R.id.webView);
+        detailButton = view.findViewById(R.id.detailButton);
 
         LinearLayout formWeather = view.findViewById(R.id.formweather);
 
@@ -63,9 +65,6 @@ public class home extends Fragment {
         });
 
         getWeatherInfo("Hanoi"); // Gọi API cho thành phố Hà Nội
-
-        webView = view.findViewById(R.id.webView);
-        detailButton = view.findViewById(R.id.detailButton);
 
         // Cấu hình WebView
         webView.getSettings().setJavaScriptEnabled(true);

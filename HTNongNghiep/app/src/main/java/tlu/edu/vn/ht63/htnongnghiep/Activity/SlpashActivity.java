@@ -32,21 +32,17 @@ public class SlpashActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Dùng Handler để delay việc chuyển Activity
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent intent;
                 if (isFirstTime) {
-                    // Nếu là lần đầu tiên, chuyển tới LogInActivity
                     intent = new Intent(SlpashActivity.this, LoginSignupActivity.class);
-                    // Đặt isFirstTime = false để lần sau chuyển sang NavigationActivity
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putBoolean("isFirstTime", false);
-                    editor.apply();
                 } else {
-                    // Nếu không, chuyển tới NavigationActivity
                     intent = new Intent(SlpashActivity.this, NavigationActivity.class);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putBoolean("isFirstTime", true);
+                    editor.apply();
                 }
                 startActivity(intent);
                 finish();
