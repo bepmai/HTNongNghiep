@@ -43,7 +43,6 @@ import com.google.common.util.concurrent.ListenableFuture;
 import tlu.edu.vn.ht63.htnongnghiep.Component.Interface.DiaglogEvent;
 import tlu.edu.vn.ht63.htnongnghiep.Component.Subcomponent.DialogFragment;
 import tlu.edu.vn.ht63.htnongnghiep.Component.Subcomponent.ToastFragment;
-import tlu.edu.vn.ht63.htnongnghiep.Container.login.AddInfoUserActivity;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 import androidx.camera.view.PreviewView;
