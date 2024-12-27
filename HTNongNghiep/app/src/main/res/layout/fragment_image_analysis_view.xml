@@ -93,7 +93,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center_horizontal|bottom"
-            android:background="@drawable/capture_button"
+            android:background="@drawable/ic_capture_button"
             android:contentDescription="Capture Button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

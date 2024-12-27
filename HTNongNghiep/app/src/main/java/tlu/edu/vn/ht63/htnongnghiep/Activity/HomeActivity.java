@@ -1,18 +1,15 @@
 package tlu.edu.vn.ht63.htnongnghiep.Activity;
 
-import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import tlu.edu.vn.ht63.htnongnghiep.Container.UI.ImageAnalysis_view;
+import tlu.edu.vn.ht63.htnongnghiep.Container.UI.analysis_ImageAnalysis_view;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.home;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
@@ -27,6 +24,7 @@ public class HomeActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_home);
         if (savedInstanceState == null) {
+            // Tạo một Fragment mới
             Fragment homeFragment = new home();
 
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -53,6 +51,11 @@ public class HomeActivity extends AppCompatActivity {
                 homeBar.setColorFilter(getResources().getColor(R.color.active_bar)); // Màu bạn muốn
                 barClick=R.id.home;
 
+                Fragment homeFragment = new home();
+
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, homeFragment);
+                transaction.commit();
             }
         });
 

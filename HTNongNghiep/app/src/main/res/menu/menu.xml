@@ -3,19 +3,19 @@
     <item
         android:id="@+id/home"
         android:title="Trang chủ"
-        android:icon="@drawable/home"/>
+        android:icon="@drawable/ic_home"/>
     <item
         android:id="@+id/community"
         android:title="Cộng đồng"
-        android:icon="@drawable/community"/>
+        android:icon="@drawable/ic_community"/>
     <item android:id="@+id/store"
         android:title="Cửa hàng"
-        android:icon="@drawable/shop"/>
+        android:icon="@drawable/ic_shop"/>
     <item android:id="@+id/analysis"
         android:title="Phân tích"
-        android:icon="@drawable/analysis"/>
+        android:icon="@drawable/ic_analysis"/>
     <item android:id="@+id/farm"
         android:title="Vườn cây"
-        android:icon="@drawable/farm"/>
+        android:icon="@drawable/ic_farm"/>
 
 </menu>
