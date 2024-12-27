@@ -18,6 +18,8 @@
     <color name="selected_background">#ffaa3f</color>
     <color name="default_background">#3d3d3d</color>
     <color name="active_bar">#3CC18E</color>
+    <color name="light_gray">#E3E6EA</color>
+    <color name="yellow">#FFEB3B</color>
     <color name="red">#FF6F69</color>
     <color name="green_white">#6AEDBE</color>
 </resources>

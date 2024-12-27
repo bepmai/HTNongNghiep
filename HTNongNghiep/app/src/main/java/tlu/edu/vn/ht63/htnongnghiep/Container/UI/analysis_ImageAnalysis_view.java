@@ -15,6 +15,8 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,6 +40,9 @@ import androidx.activity.result.ActivityResultLauncher;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
+import tlu.edu.vn.ht63.htnongnghiep.Component.Interface.DiaglogEvent;
+import tlu.edu.vn.ht63.htnongnghiep.Component.Subcomponent.DialogFragment;
+import tlu.edu.vn.ht63.htnongnghiep.Component.Subcomponent.ToastFragment;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 import androidx.camera.view.PreviewView;
@@ -48,7 +53,7 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.concurrent.ExecutorService;
 
-public class ImageAnalysis_view extends Fragment {
+public class analysis_ImageAnalysis_view extends Fragment {
 
     private static final String TAG = "CameraX";
     private PreviewView previewView;
@@ -68,8 +73,8 @@ public class ImageAnalysis_view extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public static ImageAnalysis_view newInstance(String param1, String param2) {
-        ImageAnalysis_view fragment = new ImageAnalysis_view();
+    public static analysis_ImageAnalysis_view newInstance(String param1, String param2) {
+        analysis_ImageAnalysis_view fragment = new analysis_ImageAnalysis_view();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -108,7 +113,7 @@ public class ImageAnalysis_view extends Fragment {
                 }
             });
 
-    public ImageAnalysis_view() {
+    public analysis_ImageAnalysis_view() {
         // Required empty public constructor
     }
 
@@ -276,7 +281,8 @@ public class ImageAnalysis_view extends Fragment {
                             saveImageToPicture(croppedBitmap);
                             loadLastImage(listImage);
                         } else {
-                            Toast.makeText(requireContext(), "Cắt ảnh không thành công!", Toast.LENGTH_SHORT).show();
+                            ToastFragment toastFragment = new ToastFragment(3, "Cắt ảnh không thành công!");
+                            toastFragment.showToast(requireActivity().getSupportFragmentManager(),R.id.main);
                         }
                     } catch (Exception error) {
                         Log.d(TAG, "onCaptureSuccess: " + error.getMessage());
@@ -318,11 +324,36 @@ public class ImageAnalysis_view extends Fragment {
             try (OutputStream outputStream = contentResolver.openOutputStream(imageUri)) {
                 if (outputStream != null) {
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-                    Toast.makeText(requireContext(), "Ảnh đã được lưu vào Thư viện!", Toast.LENGTH_SHORT).show();
-                    Fragment analysisResultView = new AnalysisResult_view();
-                    FragmentTransaction fragmentTransaction =  requireActivity().getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.add(R.id.main,analysisResultView);
-                    fragmentTransaction.commit();
+                    ToastFragment toastFragment = new ToastFragment(1, "Ảnh đã được lưu vào thư viện!");
+                    toastFragment.showToast(requireActivity().getSupportFragmentManager(),R.id.main);
+//                    toastFragment.showOverlayToast(requireContext());
+                    Fragment analysisResultView = new analysis_AnalysisResult_view();
+//                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+//                        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.setCustomAnimations(
+//                                R.anim.enter_from_bottom,
+//                                R.anim.exit_to_bottom,
+//                                R.anim.enter_from_bottom,
+//                                R.anim.exit_to_bottom
+//                        );
+//                        fragmentTransaction.add(R.id.main, analysisResultView);
+//                        fragmentTransaction.addToBackStack("resultTree");
+//                        fragmentTransaction.commit();
+//                    }, 2000);
+                    DialogFragment dg= new DialogFragment("Hello", new DiaglogEvent() {
+                        @Override
+                        public void setCloseButtonEvent() {
+                            DiaglogEvent.super.setCloseButtonEvent();
+                            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                            fragmentManager.popBackStack();
+                        }
+
+                        @Override
+                        public void setSubmitButtonEvent() {
+                            DiaglogEvent.super.setSubmitButtonEvent();
+                        }
+                    });
+                    dg.openDialog(requireActivity().getSupportFragmentManager(),R.id.main);
                 }
             } catch (Exception e) {
                 Log.e(TAG, "Error saving image to Pictures directory: ", e);
