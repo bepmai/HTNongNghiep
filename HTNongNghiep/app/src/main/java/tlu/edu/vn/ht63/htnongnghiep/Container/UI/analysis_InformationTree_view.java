@@ -15,8 +15,8 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-import tlu.edu.vn.ht63.htnongnghiep.Container.Adapter.analysis_featureInforTree_adapter;
-import tlu.edu.vn.ht63.htnongnghiep.Container.Adapter.analysis_imageInfor_adapter;
+import tlu.edu.vn.ht63.htnongnghiep.Adapter.analysis_featureInforTree_adapter;
+import tlu.edu.vn.ht63.htnongnghiep.Adapter.analysis_imageInfor_adapter;
 import tlu.edu.vn.ht63.htnongnghiep.Model.InforTreeFeature;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
