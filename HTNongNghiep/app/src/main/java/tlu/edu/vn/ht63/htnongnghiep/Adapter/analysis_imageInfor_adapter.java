@@ -1,4 +1,4 @@
-package tlu.edu.vn.ht63.htnongnghiep.Container.Adapter;
+package tlu.edu.vn.ht63.htnongnghiep.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
