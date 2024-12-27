@@ -1,14 +1,8 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -24,26 +18,31 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+
+import tlu.edu.vn.ht63.htnongnghiep.Container.Weather.Weather;
+import tlu.edu.vn.ht63.htnongnghiep.Activity.RevenueExpenditureActivity;
 
 import tlu.edu.vn.ht63.htnongnghiep.R;
-import tlu.edu.vn.ht63.htnongnghiep.WeatherRVModal;
 
 /**
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
  */
 public class home extends Fragment {
-
-    private TextView humidityTV, windSpeedTV, cityNameTV, temperatureTV;
-
     public home() {
         // Required empty public constructor
     }
+
+    private TextView humidityTV, windSpeedTV, cityNameTV, temperatureTV;
+    WebView webView;
+    TextView detailButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,6 +51,8 @@ public class home extends Fragment {
         windSpeedTV = view.findViewById(R.id.idTVWindSpeed);
         cityNameTV = view.findViewById(R.id.idTVCityName);
         temperatureTV = view.findViewById(R.id.idTVTemperature);
+        webView = view.findViewById(R.id.webView);
+        detailButton = view.findViewById(R.id.detailButton);
 
         LinearLayout formWeather = view.findViewById(R.id.formweather);
 
@@ -66,6 +67,28 @@ public class home extends Fragment {
         });
 
         getWeatherInfo("Hanoi"); // Gọi API cho thành phố Hà Nội
+
+        // Cấu hình WebView
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setDomStorageEnabled(true);
+        webView.getSettings().setLoadWithOverviewMode(true); // Phóng to nội dung trang web
+        webView.getSettings().setUseWideViewPort(true); // Hỗ trợ chế độ viewport
+        webView.getSettings().setAllowFileAccess(true); // Cho phép truy cập tệp cục bộ nếu cần
+        webView.getSettings().setAllowContentAccess(true); // Cho phép truy cập nội dung
+        webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW); // Hỗ trợ tải nội dung HTTP và HTTPS
+        webView.setWebChromeClient(new WebChromeClient());
+        webView.setWebViewClient(new WebViewClient());
+
+        webView.loadUrl("http://192.168.55.106:8088/superset/dashboard/p/27Wlg0RLPkE/");
+
+        detailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireContext(), RevenueExpenditureActivity.class);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 

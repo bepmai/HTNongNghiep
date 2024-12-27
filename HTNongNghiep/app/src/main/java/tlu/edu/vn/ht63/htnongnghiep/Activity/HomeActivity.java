@@ -53,6 +53,11 @@ public class HomeActivity extends AppCompatActivity {
                 homeBar.setColorFilter(getResources().getColor(R.color.active_bar)); // Màu bạn muốn
                 barClick=R.id.home;
 
+                Fragment homeFragment = new home();
+
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, homeFragment);
+                transaction.commit();
             }
         });
 

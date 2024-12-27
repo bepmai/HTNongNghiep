@@ -1,27 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <!-- Quyền -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera.any" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-    <uses-feature
-        android:name="android.software.leanback"
-        android:required="false" />
-    <uses-feature
-        android:name="android.hardware.camera.any"
-        android:required="false" />
-    <uses-feature
-        android:name="android.hardware.microphone"
-        android:required="false" />
-    <uses-feature
-        android:name="android.hardware.touchscreen"
-        android:required="false" />
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -39,40 +29,8 @@
             android:name=".Container.UI.AddPlant"
             android:exported="false" />
         <activity
-            android:name=".Container.UI.Weather"
-            android:exported="false"></activity>
-        <activity
-            android:name=".Container.UI.InfUserDetail"
-            android:exported="false"></activity>
-        <activity
-            android:name=".Container.UI.DetailPlant"
-            android:exported="false"></activity>
-        <activity
-            android:name=".Container.OnboardingWalkthroughScreen.NavigationActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Container.login.AddInfoUserActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Container.signup.MessageSignUpSucessActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Container.signup.SignUpActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Container.login.LogInActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Container.LoginSignupActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Container.SlpashScreen.SlpashActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.AnalysisActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.HomeActivity"
+
+            android:name=".Container.Weather.Weather"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -85,6 +43,52 @@
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Container.UI.InfUserDetail"
+            android:exported="false">
+
+        </activity>
+        <activity
+            android:name=".Container.UI.DetailPlant"
+            android:exported="false">
+
+        </activity>
+        <activity
+            android:name=".Activity.NavigationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.RevenueExpenditureActivity"
+            android:exported="false" >
+        </activity>
+        <activity
+            android:name=".Activity.AddInfoUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.MessageSignUpSucessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.SlpashActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.AnalysisActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.HomeActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".Activity.LogInActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.LoginSignupActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
