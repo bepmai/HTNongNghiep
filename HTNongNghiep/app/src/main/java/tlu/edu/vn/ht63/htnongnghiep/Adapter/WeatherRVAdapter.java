@@ -1,4 +1,4 @@
-package tlu.edu.vn.ht63.htnongnghiep.Container.Weather;
+package tlu.edu.vn.ht63.htnongnghiep.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -40,19 +40,13 @@ public class WeatherRVAdapter extends RecyclerView.Adapter<WeatherRVAdapter.View
         WeatherRVModal modal = weatherRVModalArrayList.get(position);
         holder.temperatureTV.setText(modal.getTemperature() + "°C");
         Picasso.get().load("http:".concat(modal.getIcon())).into(holder.conditionTV);
-        holder.windTV.setText(modal.getWindSpeed() + "Km/h");
 
-        // Định dạng thời gian với xử lý múi giờ
-        SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        input.setTimeZone(TimeZone.getTimeZone("UTC")); // Dữ liệu gốc theo múi giờ UTC
-
-        SimpleDateFormat output = new SimpleDateFormat("HH:mm aa");
-        output.setTimeZone(TimeZone.getTimeZone("Asia/Hanoi")); // Múi giờ Việt Nam
-
+        holder.windTV.setText(modal.getWindSpeed()+"Km/h");
+        SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // 24-hour format
+        SimpleDateFormat output = new SimpleDateFormat("HH:mm aa");       // 12-hour format (AM/PM)
         try {
-            // Chuyển đổi từ chuỗi thời gian gốc sang định dạng mới
             Date t = input.parse(modal.getTime());
-            holder.timeTV.setText(output.format(t)); // Hiển thị thời gian đã chuyển đổi
+            holder.timeTV.setText(output.format(t));
         } catch (ParseException e) {
             e.printStackTrace();
         }

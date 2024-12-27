@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Container.Weather.Weather">
+    tools:context=".Container.UI.Weather">
 
     <ImageView
         android:layout_width="match_parent"
@@ -68,7 +68,7 @@
             android:layout_weight="0.5"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:src="@drawable/search"
+            android:src="@drawable/ic_search"
             app:tint="@color/green"/>
     </LinearLayout>
     <TextView
@@ -89,7 +89,7 @@
         android:layout_below="@id/idTVTemperature"
         android:layout_centerHorizontal="true"
         android:layout_margin="18dp"
-        android:src="@drawable/farm"/>
+        android:src="@drawable/ic_farm"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

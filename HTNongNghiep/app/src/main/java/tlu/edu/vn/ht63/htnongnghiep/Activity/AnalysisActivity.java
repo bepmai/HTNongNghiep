@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import tlu.edu.vn.ht63.htnongnghiep.Container.UI.ImageAnalysis_view;
+import tlu.edu.vn.ht63.htnongnghiep.Container.UI.analysis_ImageAnalysis_view;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class AnalysisActivity extends AppCompatActivity {
@@ -19,7 +19,7 @@ public class AnalysisActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_home);
         if (savedInstanceState == null) {
             // Tạo một Fragment mới
-            Fragment imageAnalysisFragment = new ImageAnalysis_view();
+            Fragment imageAnalysisFragment = new analysis_ImageAnalysis_view();
 
             // Thêm Fragment vào Activity
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

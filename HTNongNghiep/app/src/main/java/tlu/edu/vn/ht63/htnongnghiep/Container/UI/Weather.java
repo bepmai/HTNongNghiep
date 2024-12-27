@@ -1,4 +1,4 @@
-package tlu.edu.vn.ht63.htnongnghiep.Container.Weather;
+package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -34,11 +34,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import tlu.edu.vn.ht63.htnongnghiep.R;
+
+import tlu.edu.vn.ht63.htnongnghiep.Adapter.WeatherRVAdapter;
 import tlu.edu.vn.ht63.htnongnghiep.Model.WeatherRVModal;
 import android.Manifest;
 
@@ -171,7 +174,10 @@ public class Weather extends AppCompatActivity {
                     JSONObject forecastO = forecastObj.getJSONArray("forecastday").getJSONObject(0);
                     JSONArray hourArray = forecastO.getJSONArray("hour");
 
-                    for (int i=0; i<hourArray.length(); i++){
+                    LocalTime now = LocalTime.now();
+                    int currentHour = now.getHour();
+
+                    for (int i=currentHour+1; i<hourArray.length(); i++){
                         JSONObject hourObj = hourArray.getJSONObject(i);
                         String time = hourObj.getString("time");
                         String temper = hourObj.getString("temp_c");
@@ -180,6 +186,13 @@ public class Weather extends AppCompatActivity {
                         String humidity = hourObj.getString("humidity");
                         weatherRVModalArrayList.add(new WeatherRVModal(time, temper, img, wind, humidity));
                     }
+                    JSONObject hourObj = hourArray.getJSONObject(0);
+                    String time = hourObj.getString("time");
+                    String temper = hourObj.getString("temp_c");
+                    String img = hourObj.getJSONObject("condition").getString("icon");
+                    String wind = hourObj.getString("wind_kph");
+                    String humidity = hourObj.getString("humidity");
+                    weatherRVModalArrayList.add(new WeatherRVModal(time, temper, img, wind, humidity));
                     weatherRVAdapter.notifyDataSetChanged();
                 }catch (JSONException e){
                     e.printStackTrace();

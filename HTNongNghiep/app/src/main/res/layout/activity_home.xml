@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/search" />
+                android:src="@drawable/ic_search" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -52,80 +52,26 @@
             android:layout_height="30dp"
             android:background="@android:color/transparent"
             android:layout_marginStart="8dp"
-            android:src="@drawable/notification"/>
+            android:src="@drawable/ic_notification"/>
         <ImageButton
             android:id="@+id/message"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@android:color/transparent"
             android:layout_marginStart="8dp"
-            android:src="@drawable/message"/>
+            android:src="@drawable/ic_message"/>
     </com.google.android.flexbox.FlexboxLayout>
-
+    <include layout="@layout/component_menu"/>
     <FrameLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/flexboxLayout"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/statusBar" />
 
-    <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/flexboxLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        app:alignItems="center"
-        app:flexDirection="row"
-        app:justifyContent="space_around"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
 
-        <ImageButton
-            android:id="@+id/home"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/home" />
-
-        <ImageButton
-            android:id="@+id/community"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/community" />
-
-        <ImageButton
-            android:id="@+id/shop"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/shop" />
-
-        <ImageButton
-            android:id="@+id/analysis"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/analysis" />
-
-        <ImageButton
-            android:id="@+id/farm"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/farm" />
-
-        <ImageButton
-            android:id="@+id/user"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/user" />
-    </com.google.android.flexbox.FlexboxLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
