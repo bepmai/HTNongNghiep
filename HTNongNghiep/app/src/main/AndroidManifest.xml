@@ -29,18 +29,12 @@
             android:name=".Container.UI.AddPlant"
             android:exported="false" />
         <activity
-
             android:name=".Container.Weather.Weather"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -69,14 +63,7 @@
         <activity
             android:name=".Activity.SignUpActivity"
             android:exported="false" />
-        <activity
-            android:name=".Activity.SlpashActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+
         <activity
             android:name=".Activity.AnalysisActivity"
             android:exported="false" />

@@ -39,7 +39,6 @@ import java.util.List;
 import java.util.Locale;
 
 import tlu.edu.vn.ht63.htnongnghiep.R;
-
 import tlu.edu.vn.ht63.htnongnghiep.Model.WeatherRVModal;
 import android.Manifest;
 
