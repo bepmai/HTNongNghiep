@@ -36,11 +36,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import tlu.edu.vn.ht63.htnongnghiep.R;
+
 import tlu.edu.vn.ht63.htnongnghiep.Adapter.WeatherRVAdapter;
 import tlu.edu.vn.ht63.htnongnghiep.Model.WeatherRVModal;
 import android.Manifest;
@@ -86,15 +86,15 @@ public class Weather extends AppCompatActivity {
         }
 
         Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-//        cityName = getCityTime(location.getLongitude(), location.getLatitude()); lỗi chưa set đc  mặc định tên thành phố
+//        cityName = getCityTime(location.getLongitude(), location.getLatitude());
         if (location != null){
-//            cityName = getCityTime(location.getLongitude(), location.getLatitude());
-//            getWeatherInfo(cityName);
+            cityName = getCityTime(location.getLongitude(), location.getLatitude());
+            getWeatherInfo(cityName);
         } else {
             cityName = "Hanoi";
             getWeatherInfo(cityName);
         }
-        getWeatherInfo(cityName);
+        cityNameTV.setText(cityName);
 
         searcherIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +107,7 @@ public class Weather extends AppCompatActivity {
                     cityNameTV.setText(cityName);
                     getWeatherInfo(city);
                 }
+                cityNameTV.setText(cityName);
             }
         });
     }
