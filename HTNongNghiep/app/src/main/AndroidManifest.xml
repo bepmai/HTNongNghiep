@@ -39,14 +39,29 @@
             android:name=".Container.UI.AddPlant"
             android:exported="false" />
         <activity
-            android:name=".Container.UI.Weather"
-            android:exported="false"></activity>
+            android:name=".Container.Weather.Weather"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Container.UI.InfUserDetail"
-            android:exported="false"></activity>
+            android:exported="false">
+
+        </activity>
         <activity
             android:name=".Container.UI.DetailPlant"
-            android:exported="false"></activity>
+            android:exported="false">
+
+        </activity>
         <activity
             android:name=".Container.OnboardingWalkthroughScreen.NavigationActivity"
             android:exported="false" />
@@ -74,16 +89,6 @@
         <activity
             android:name=".Activity.HomeActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

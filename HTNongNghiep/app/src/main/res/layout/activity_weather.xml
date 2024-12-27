@@ -5,15 +5,22 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Container.UI.Weather">
+    tools:context=".Container.Weather.Weather">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@color/black"
+        android:src="@color/white"
         android:id="@+id/idTVBack"/>
 
+    <ImageView
+        android:layout_marginTop="30dp"
+        android:id="@+id/left_admin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/ic_left" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,7 +57,7 @@
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:singleLine="true"
-                android:textColor="@color/green"
+                android:textColor="#23312A"
                 android:textSize="14sp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,7 +105,7 @@
         android:layout_above="@+id/idRvWeather"
         android:layout_margin="8dp"
         android:layout_marginBottom="18dp"
-        android:text="Today's weather forecast"
+        android:text="Thời tiết trong ngày"
         android:textColor="@color/green"
         android:textStyle="bold"/>
 
@@ -107,6 +114,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/idRvWeather"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 

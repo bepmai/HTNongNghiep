@@ -1,4 +1,4 @@
-package tlu.edu.vn.ht63.htnongnghiep;
+package tlu.edu.vn.ht63.htnongnghiep.Container.Weather;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import java.util.TimeZone;
+
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +17,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import com.squareup.picasso.Picasso;
+
+import tlu.edu.vn.ht63.htnongnghiep.R;
+import tlu.edu.vn.ht63.htnongnghiep.Model.WeatherRVModal;
 
 public class WeatherRVAdapter extends RecyclerView.Adapter<WeatherRVAdapter.ViewHolder> {
     private Context context;
@@ -35,17 +40,24 @@ public class WeatherRVAdapter extends RecyclerView.Adapter<WeatherRVAdapter.View
         WeatherRVModal modal = weatherRVModalArrayList.get(position);
         holder.temperatureTV.setText(modal.getTemperature() + "°C");
         Picasso.get().load("http:".concat(modal.getIcon())).into(holder.conditionTV);
-        holder.windTV.setText(modal.getWindSpeed()+"Km/h");
-        SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        SimpleDateFormat output = new SimpleDateFormat("hh:mm aa");
-        try{
+        holder.windTV.setText(modal.getWindSpeed() + "Km/h");
+
+        // Định dạng thời gian với xử lý múi giờ
+        SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        input.setTimeZone(TimeZone.getTimeZone("UTC")); // Dữ liệu gốc theo múi giờ UTC
+
+        SimpleDateFormat output = new SimpleDateFormat("HH:mm aa");
+        output.setTimeZone(TimeZone.getTimeZone("Asia/Hanoi")); // Múi giờ Việt Nam
+
+        try {
+            // Chuyển đổi từ chuỗi thời gian gốc sang định dạng mới
             Date t = input.parse(modal.getTime());
-            holder.timeTV.setText(output.format(t));
-        }catch (ParseException e){
+            holder.timeTV.setText(output.format(t)); // Hiển thị thời gian đã chuyển đổi
+        } catch (ParseException e) {
             e.printStackTrace();
         }
-
     }
+
 
     @Override
     public int getItemCount() {
