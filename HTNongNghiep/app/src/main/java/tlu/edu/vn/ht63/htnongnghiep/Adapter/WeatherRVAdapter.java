@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import java.util.TimeZone;
+
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,17 +40,18 @@ public class WeatherRVAdapter extends RecyclerView.Adapter<WeatherRVAdapter.View
         WeatherRVModal modal = weatherRVModalArrayList.get(position);
         holder.temperatureTV.setText(modal.getTemperature() + "°C");
         Picasso.get().load("http:".concat(modal.getIcon())).into(holder.conditionTV);
+
         holder.windTV.setText(modal.getWindSpeed()+"Km/h");
-        SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        SimpleDateFormat output = new SimpleDateFormat("hh:mm aa");
-        try{
+        SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // 24-hour format
+        SimpleDateFormat output = new SimpleDateFormat("HH:mm aa");       // 12-hour format (AM/PM)
+        try {
             Date t = input.parse(modal.getTime());
             holder.timeTV.setText(output.format(t));
-        }catch (ParseException e){
+        } catch (ParseException e) {
             e.printStackTrace();
         }
-
     }
+
 
     @Override
     public int getItemCount() {

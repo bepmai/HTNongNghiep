@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     app:cardElevation="6dp"
+    android:layout_marginStart="25dp"
     app:cardCornerRadius="10dp"
     android:background="@color/white">
 
@@ -20,7 +21,7 @@
             android:gravity="center"
             android:padding="4dp"
             android:text="time"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textAlignment="center"/>
         <TextView
             android:layout_width="match_parent"
@@ -31,7 +32,7 @@
             android:textAlignment="center"
             android:textSize="20sp"
             android:layout_below="@+id/idTVTime"
-            android:textColor="@color/black"/>
+            android:textColor="@color/white"/>
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -52,6 +53,6 @@
             android:padding="3dp"
             android:text="13"
             android:textAlignment="center"
-            android:textColor="@color/green"/>
+            android:textColor="@color/white"/>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
