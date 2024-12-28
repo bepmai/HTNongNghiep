@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.LoginSignupActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.RevenueExpenditureActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.SignUpActivity;
+import tlu.edu.vn.ht63.htnongnghiep.Component.Subcomponent.ToastFragment;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 /**
@@ -93,9 +94,12 @@ public class UserRights extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), LoginSignupActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+                ToastFragment toastFragment = new ToastFragment(1, "Đăng xuất thành công!");
+                toastFragment.setOnToastDismissListener(() -> {
+                    Intent intent = new Intent(getContext(), LoginSignupActivity.class);
+                    startActivity(intent);
+                });
+                toastFragment.showToast(getActivity().getSupportFragmentManager(), R.id.main);
             }
         });
 
