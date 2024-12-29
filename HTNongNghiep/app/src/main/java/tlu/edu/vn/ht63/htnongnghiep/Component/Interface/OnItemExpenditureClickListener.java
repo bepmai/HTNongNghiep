@@ -1,4 +1,4 @@
-package tlu.edu.vn.ht63.htnongnghiep.Component;
+package tlu.edu.vn.ht63.htnongnghiep.Component.Interface;
 
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
 

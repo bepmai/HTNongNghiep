@@ -11,10 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/constraintLayout"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="50dp">
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/amazonName"
             android:text="Dành cho bạn"
             android:textSize="35sp"
@@ -49,9 +49,8 @@
             android:layout_height="175dp"
             android:id="@+id/row1"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:padding="10dp"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/amazonImage">
@@ -64,13 +63,14 @@
                 app:cardCornerRadius="20dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border_green">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/clothingName"
                         android:text="Thông tin cá nhân"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textColor="@color/green"
                         android:layout_marginTop="10dp"
                         android:layout_centerHorizontal="true"
@@ -93,12 +93,13 @@
                 app:cardCornerRadius="20dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border_green">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Thư viên cây"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textColor="@color/green"
                         android:layout_marginTop="10dp"
                         android:layout_centerHorizontal="true"
@@ -133,13 +134,14 @@
                 app:cardCornerRadius="20dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border_green">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/homeName"
-                        android:text="Hỗ trợ"
-                        android:textSize="20sp"
+                        android:text="Báo cáo thu/chi"
+                        android:textSize="18sp"
                         android:textColor="@color/green"
                         android:layout_marginTop="10dp"
                         android:layout_centerHorizontal="true"
@@ -148,7 +150,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:id="@+id/homeImage"
-                        android:src="@drawable/ic_phone"
+                        android:src="@drawable/ic_analytics_3"
                         android:layout_marginTop="15dp"
                         android:layout_centerHorizontal="true"/>
                 </RelativeLayout>
@@ -162,13 +164,14 @@
                 app:cardCornerRadius="20dp">
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/border_green">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/beautyName"
                         android:text="Đăng xuất"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textColor="@color/green"
                         android:layout_marginTop="10dp"
                         android:layout_centerHorizontal="true"

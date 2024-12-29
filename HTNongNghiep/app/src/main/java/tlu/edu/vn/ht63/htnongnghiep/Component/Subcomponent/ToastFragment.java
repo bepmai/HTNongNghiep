@@ -21,6 +21,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import tlu.edu.vn.ht63.htnongnghiep.Component.Interface.OnToastDismissListener;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 /**
@@ -45,6 +46,12 @@ public class ToastFragment extends Fragment {
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    private OnToastDismissListener onToastDismissListener;
+
+    public void setOnToastDismissListener(OnToastDismissListener listener) {
+        this.onToastDismissListener = listener;
     }
 
     @Override
@@ -84,7 +91,10 @@ public class ToastFragment extends Fragment {
 
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             fragmentManager.beginTransaction().remove(this).commit();
-        }, 2000);
+            if (onToastDismissListener != null) {
+                onToastDismissListener.onToastDismiss();
+            }
+        }, 1000);
     }
 
     public void showOverlayToast(Context context) {

@@ -21,11 +21,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import tlu.edu.vn.ht63.htnongnghiep.Component.Subcomponent.ToastFragment;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class AddInfoUserActivity extends AppCompatActivity {
     Spinner genderSpinner,plantsSpinner;
-    EditText datePickerEditText;
+    EditText datePickerEditText,nameEditText,adressEditText;
+    TextView genderSpinnerError,plantSpinnerError;
     Button addInfoBtn;
 
     @Override
@@ -43,6 +45,10 @@ public class AddInfoUserActivity extends AppCompatActivity {
         plantsSpinner = findViewById(R.id.plantsSpinner);
         datePickerEditText = findViewById(R.id.datePickerEditText);
         addInfoBtn = findViewById(R.id.addInfoBtn);
+        nameEditText = findViewById(R.id.nameEditText);
+        adressEditText = findViewById(R.id.adressEditText);
+        genderSpinnerError = findViewById(R.id.genderSpinnerError);
+        plantSpinnerError = findViewById(R.id.plantSpinnerError);
 
         datePickerEditText.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
@@ -76,11 +82,13 @@ public class AddInfoUserActivity extends AppCompatActivity {
         genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString();
-                if (!selectedItem.equals("Giới tính")){
-                    ((TextView) view).setTextColor(getResources().getColor(R.color.black)); // Đổi thành màu bạn muốn
+                if (position==0){
+                    ((TextView) view).setTextColor(getResources().getColor(R.color.black));
+                    genderSpinnerError.setText("Bạn phải chọn một giá trị");
+                    genderSpinnerError.setVisibility(View.VISIBLE);
                 }else {
                     ((TextView) view).setTextColor(getResources().getColor(R.color.super_white_black));
+                    genderSpinnerError.setVisibility(View.GONE);
                 }
             }
 
@@ -101,11 +109,13 @@ public class AddInfoUserActivity extends AppCompatActivity {
         plantsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString();
-                if (!selectedItem.equals("Chọn loại cây")){
-                    ((TextView) view).setTextColor(getResources().getColor(R.color.black)); // Đổi thành màu bạn muốn
+                if (position==0){
+                    ((TextView) view).setTextColor(getResources().getColor(R.color.black));
+                    plantSpinnerError.setText("Bạn phải chọn một giá trị");
+                    plantSpinnerError.setVisibility(View.VISIBLE);
                 }else {
                     ((TextView) view).setTextColor(getResources().getColor(R.color.super_white_black));
+                    plantSpinnerError.setVisibility(View.GONE);
                 }
             }
 
@@ -117,10 +127,56 @@ public class AddInfoUserActivity extends AppCompatActivity {
         addInfoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddInfoUserActivity.this, HomeActivity.class);
-                startActivity(intent);
-                finish();
+                if(checkSignUp()){
+                    ToastFragment toastFragment = new ToastFragment(1, "Thêm thông tin thành công!");
+                    toastFragment.setOnToastDismissListener(() -> {
+                        Intent intent = new Intent(AddInfoUserActivity.this, MessageSignUpSucessActivity.class);
+                        startActivity(intent);
+                        finish();
+                    });
+                    toastFragment.showToast(getSupportFragmentManager(),R.id.main);
+                }
             }
         });
+    }
+
+    private boolean checkSignUp(){
+        String name = nameEditText.getText().toString().trim();
+        String date = datePickerEditText.getText().toString().trim();
+        String adress = adressEditText.getText().toString().trim();
+
+        boolean check = true;
+        if (name.isEmpty()){
+            nameEditText.setError("Tên đăng nhập không được để trống");
+            check = false;
+        }
+
+        if (date.isEmpty()){
+            datePickerEditText.setError("Mật khẩu không được để trống");
+            check = false;
+        }
+
+        if (adress.isEmpty()){
+            adressEditText.setError("Mật khẩu nhập lại không được để trống");
+            check = false;
+        }
+
+        if (genderSpinner.getSelectedItemPosition() == 0){
+            genderSpinnerError.setText("Bạn phải chọn một giá trị");
+            genderSpinnerError.setVisibility(View.VISIBLE);
+            check = false;
+        } else {
+            genderSpinnerError.setVisibility(View.GONE);
+        }
+
+        if(plantsSpinner.getSelectedItemPosition() == 0){
+            plantSpinnerError.setText("Bạn phải chọn một giá trị");
+            plantSpinnerError.setVisibility(View.VISIBLE);
+            check = false;
+        }else {
+            plantSpinnerError.setVisibility(View.GONE);
+        }
+
+        return check;
     }
 }
