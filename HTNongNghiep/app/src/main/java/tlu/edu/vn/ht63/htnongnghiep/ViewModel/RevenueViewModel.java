@@ -49,14 +49,4 @@ public class RevenueViewModel extends ViewModel {
         revenueArrayList.add(revenue);
         listMutableLiveData.setValue(revenueArrayList);
     }
-
-    public void updateRevenue(Revenue revenue) {
-        for (int i = 0; i < revenueArrayList.size(); i++) {
-            if (revenueArrayList.get(i).getId().equals(revenue.getId())) {
-                revenueArrayList.set(i, revenue);
-                break;
-            }
-        }
-        listMutableLiveData.setValue(revenueArrayList);
-    }
 }

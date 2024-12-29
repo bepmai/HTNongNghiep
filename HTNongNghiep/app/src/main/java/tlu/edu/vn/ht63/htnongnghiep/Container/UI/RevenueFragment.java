@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import tlu.edu.vn.ht63.htnongnghiep.Adapter.ListRevenueAdapter;
-import tlu.edu.vn.ht63.htnongnghiep.Component.Interface.OnItemRevenueClickListener;
+import tlu.edu.vn.ht63.htnongnghiep.Component.OnItemRevenueClickListener;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Revenue;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 import tlu.edu.vn.ht63.htnongnghiep.ViewModel.RevenueViewModel;
@@ -81,32 +81,30 @@ public class RevenueFragment extends Fragment {
 
         ArrayList<Revenue> revenueList = new ArrayList<>();
         revenueList.add(new Revenue(
-                "REV001",
-                "BUYER001",
-                "PRODUCT001",
-                "https://example.com/image2.jpg",
-                "Nguyễn Văn A",
-                "456 Đường XYZ, Hà Nội",
-                new Date(),
-                0,
-                "Sản phẩm A",
-                1,
-                150.0f,
-                150.0f
+                1,                            // id
+                "image_url_here",             // productImage
+                "Nguyễn Văn Anh",               // nameSeller
+                "Hà Nội",
+                new Date(),                   // date (hiện tại)
+                "Đã thanh toán",              // status
+                "Cây Bonsai 20 năm",                      // nameProduct
+                10,                           // total (số lượng)
+                101,                          // idProduct
+                200000.0f,                     // productCost (giá mỗi sản phẩm)
+                200000.0f                     // totalPayment (tổng thanh toán)
         ));
         revenueList.add(new Revenue(
-                "REV002",
-                "BUYER002",
-                "PRODUCT002",
-                "https://example.com/image2.jpg",
-                "Nguyễn Văn B",
-                "456 Đường XYZ, Hà Nội",
-                new Date(),
-                1,
-                "Sản phẩm B",
-                1,
-                150.0f,
-                150.0f
+                2,                            // id
+                "image_url_here",             // productImage
+                "Nguyễn Đức Anh",               // nameSeller
+                "Hà Nội",
+                new Date(),                   // date (hiện tại)
+                "Chưa thanh toán",              // status
+                "Cây Bonsai 20 năm",                      // nameProduct
+                10,                           // total (số lượng)
+                101,                          // idProduct
+                200000.0f,                     // productCost (giá mỗi sản phẩm)
+                200000.0f                     // totalPayment (tổng thanh toán)
         ));
 
         RevenueViewModel revenueViewModel =

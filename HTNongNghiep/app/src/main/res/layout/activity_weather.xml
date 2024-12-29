@@ -5,14 +5,14 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.Weather">
+    tools:context=".Container.UI.Weather">
 
     <ImageView
-        android:id="@+id/idTVBack"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@color/white" />
+        android:src="@color/white"
+        android:id="@+id/idTVBack"/>
 
     <ImageView
         android:layout_marginTop="30dp"

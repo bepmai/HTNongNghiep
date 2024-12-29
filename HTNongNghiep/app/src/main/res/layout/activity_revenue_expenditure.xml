@@ -120,7 +120,6 @@
                 android:layout_alignParentBottom="true"
                 android:layout_margin="40dp"
                 android:backgroundTint="@color/green"
-                android:visibility="gone"
                 android:src="@drawable/ic_baseline_add_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

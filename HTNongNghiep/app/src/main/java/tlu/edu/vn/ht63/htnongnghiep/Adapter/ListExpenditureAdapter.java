@@ -17,9 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import tlu.edu.vn.ht63.htnongnghiep.Component.Interface.OnItemExpenditureClickListener;
+import tlu.edu.vn.ht63.htnongnghiep.Component.OnItemExpenditureClickListener;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
-import tlu.edu.vn.ht63.htnongnghiep.Model.RevenueExpenditure;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 import tlu.edu.vn.ht63.htnongnghiep.ViewModel.ExpenditureViewModel;
 
@@ -108,22 +107,18 @@ public class ListExpenditureAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         public void bind(Expenditure expenditure) {
             listNameSeller.setText("  "+expenditure.getNameSeller());
-            if(expenditure.getStatus() == RevenueExpenditure.TYPE_NOT_CONFIRMED){
-                listStatus.setTextColor(Color.parseColor("#FF000000"));
-                listStatus.setText("Chưa xác nhận");
-            }else if(expenditure.getStatus() == RevenueExpenditure.TYPE_CONFIRM){
-                listStatus.setTextColor(Color.parseColor("#ffaa3f"));
-                listStatus.setText("Đã xác nhận");
-            }else if(expenditure.getStatus() == RevenueExpenditure.TYPE_SUCCESS){
+            listStatus.setText(expenditure.getStatus());
+            if(expenditure.getStatus().equals("Đã thanh toán")){
                 listStatus.setTextColor(Color.parseColor("#FF6F69"));
-                listStatus.setText("Thành công");
+            }else {
+                listStatus.setTextColor(Color.parseColor("#ffaa3f"));
             }
 //        imageView4.setImageURI();
             listNameProduct.setText(expenditure.getNameProduct());
             listTotal.setText("Số lượng: "+expenditure.getTotal()+" cây");
             listPayment.setText("Số tiền: đ"+expenditure.getProductCost());
-            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
-            listTime.setText(dateTimeFormat.format(expenditure.getDate()));
+            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
+            listTime.setText("Ngày bán: "+dateTimeFormat.format(expenditure.getDate()));
             listTotalPayment.setText("Tổng số tiền ("+expenditure.getTotal()+" cây): đ"+expenditure.getTotalPayment());
         }
     }

@@ -22,10 +22,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
-import tlu.edu.vn.ht63.htnongnghiep.Model.RevenueExpenditure;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 import tlu.edu.vn.ht63.htnongnghiep.ViewModel.ExpenditureViewModel;
-import tlu.edu.vn.ht63.htnongnghiep.ViewModel.RevenueViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,7 +73,7 @@ public class ExpenditureDetailFragment extends Fragment {
         }
     }
 
-    EditText date_edt,buyer_edt,plant_edt,adress_edt,total_edt,payment_edt,totalPayment_edt,status_edt;
+    EditText date_edt,buyer_edt,plant_edt,adress_edt,total_edt,payment_edt,totalPayment_edt;
     ImageButton backButton;
     Button saveBtn;
 
@@ -88,7 +86,6 @@ public class ExpenditureDetailFragment extends Fragment {
         date_edt = view.findViewById(R.id.date_edt);
         buyer_edt = view.findViewById(R.id.buyer_edt);
         plant_edt = view.findViewById(R.id.plant_edt);
-        status_edt = view.findViewById(R.id.status_edt);
         adress_edt = view.findViewById(R.id.adress_edt);
         total_edt = view.findViewById(R.id.total_edt);
         payment_edt = view.findViewById(R.id.payment_edt);
@@ -126,39 +123,40 @@ public class ExpenditureDetailFragment extends Fragment {
         if (expenditure!=null){
             buyer_edt.setText(expenditure.getNameSeller());
             plant_edt.setText(expenditure.getNameProduct());
-            if(expenditure.getStatus() == RevenueExpenditure.TYPE_NOT_CONFIRMED){
-                status_edt.setTextColor(getResources().getColor(R.color.black));
-                status_edt.setText("Chưa xác nhận");
-            }else if(expenditure.getStatus() == RevenueExpenditure.TYPE_CONFIRM){
-                status_edt.setTextColor(getResources().getColor(R.color.search_opaque));
-                status_edt.setText("Đã xác nhận");
-                saveBtn.setBackgroundColor(getResources().getColor(R.color.green));
-                ExpenditureViewModel expenditureViewModel =
-                        new ViewModelProvider(requireActivity()).get(ExpenditureViewModel.class);
-
-                saveBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        expenditure.setStatus(2);
-                        expenditureViewModel.updateExpenditure(expenditure);
-                        if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                            requireActivity().getSupportFragmentManager().popBackStack();
-                        } else {
-                            // Nếu không có fragment trước đó, có thể kết thúc activity
-                            requireActivity().finish();
-                        }
-                    }
-                });
-            }else if(expenditure.getStatus() == RevenueExpenditure.TYPE_SUCCESS){
-                status_edt.setTextColor(getResources().getColor(R.color.red));
-                status_edt.setText("Thành công");
-            }
             adress_edt.setText(expenditure.getAdress());
             date_edt.setText(dateFormat.format(expenditure.getDate()));
-            total_edt.setText(String.valueOf(expenditure.getTotal())+" cây");
-            payment_edt.setText(expenditure.getProductCost().toString()+" vnđ");
+            total_edt.setText(String.valueOf(expenditure.getTotal()));
+            payment_edt.setText(expenditure.getProductCost().toString());
             totalPayment_edt.setText(expenditure.getTotalPayment().toString()+" vnđ");
         }
+
+        ExpenditureViewModel expenditureViewModel =
+                new ViewModelProvider(requireActivity()).get(ExpenditureViewModel.class);
+
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Expenditure expenditure_new = new Expenditure(3,
+                        Expenditure.TYPE_BUY,
+                        "https://example.com/image1.png",
+                        "Seller A",
+                        "Hà Nội",
+                        new Date(),
+                        "Đã thanh toán",
+                        "Product A",
+                        10,
+                        101,
+                        5000.0f,
+                        50000.0f);
+                expenditureViewModel.addExpenditure(expenditure_new);
+                if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    requireActivity().getSupportFragmentManager().popBackStack();
+                } else {
+                    // Nếu không có fragment trước đó, có thể kết thúc activity
+                    requireActivity().finish();
+                }
+            }
+        });
         return view;
     }
 }

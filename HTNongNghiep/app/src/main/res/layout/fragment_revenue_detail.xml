@@ -37,7 +37,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chi tiết hóa đơn thu"
+            android:text="Chi tiết hóa đơn"
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -165,53 +165,13 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout9"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:layout_margin="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
-
-                <EditText
-                    android:id="@+id/status_edt"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/edittext_green_border"
-                    android:drawableLeft="@drawable/ic_status"
-                    android:drawablePadding="8dp"
-                    android:hint="Trạng thái"
-                    android:padding="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
-                    android:background="@color/white"
-                    android:paddingLeft="8sp"
-                    android:paddingRight="8sp"
-                    android:text="Trạng thái"
-                    android:textColor="@color/green"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout5"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
                 android:layout_margin="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout9">
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
 
                 <EditText
                     android:id="@+id/adress_edt"
@@ -309,9 +269,9 @@
                         android:layout_marginTop="16dp"
                         android:background="@drawable/edittext_green_border"
                         android:drawablePadding="8dp"
-                        android:padding="10dp"
-                        android:textAlignment="textEnd"
-                        android:text="0 cây"
+                        android:inputType="number"
+                        android:paddingLeft="15dp"
+                        android:text="0"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -341,9 +301,9 @@
                         android:layout_marginTop="16dp"
                         android:background="@drawable/edittext_green_border"
                         android:drawablePadding="8dp"
-                        android:text="0 vnđ"
-                        android:padding="10dp"
-                        android:textAlignment="textEnd"
+                        android:inputType="number"
+                        android:paddingLeft="15dp"
+                        android:text="0"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -407,10 +367,9 @@
                 android:id="@+id/saveBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/white_gray"
+                android:backgroundTint="@color/green"
                 android:paddingVertical="10dp"
-                android:text="Xác nhận thông tin"
-                android:textSize="18sp"
+                android:text="Lưu thông tin"
                 android:layout_margin="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

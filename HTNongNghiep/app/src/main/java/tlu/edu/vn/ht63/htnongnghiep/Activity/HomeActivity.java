@@ -9,8 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import tlu.edu.vn.ht63.htnongnghiep.Container.UI.GardenFragment;
+import tlu.edu.vn.ht63.htnongnghiep.Container.UI.Garden;
+import tlu.edu.vn.ht63.htnongnghiep.Container.UI.ShopBar;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.UserRights;
+import tlu.edu.vn.ht63.htnongnghiep.Container.UI.analysis_ImageAnalysis_view;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.home;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
@@ -74,6 +76,12 @@ public class HomeActivity extends AppCompatActivity {
                 unsetColorBar();
                 shopBar.setColorFilter(getResources().getColor(R.color.active_bar));
                 barClick=R.id.shop;
+
+
+                Fragment shopBar = new ShopBar();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, shopBar);
+                transaction.commit();
             }
         });
 
@@ -93,7 +101,7 @@ public class HomeActivity extends AppCompatActivity {
                 farmBar.setColorFilter(getResources().getColor(R.color.active_bar));
                 barClick=R.id.farm;
 
-                Fragment garden = new GardenFragment();
+                Fragment garden = new Garden();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.main, garden);
                 transaction.commit();

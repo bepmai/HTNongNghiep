@@ -137,20 +137,18 @@ public class ProductDetailFragment extends Fragment {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Expenditure expenditure_new = new Expenditure(
-                        "EXP002",
-                        2,
-                        "SELLER002",
-                        "PRODUCT002",
-                        "https://example.com/image2.jpg",
-                        "Nguyễn Văn B",
-                        "456 Đường XYZ, Hà Nội",
+                Expenditure expenditure_new = new Expenditure(3,
+                        Expenditure.TYPE_PRODUCT,
+                        "https://example.com/image1.png",
+                        "Seller A",
+                        "Hà Nội",
                         new Date(),
-                        0,
-                        "Sản phẩm B",
-                        1,
-                        200.0f,
-                        200.0f);
+                        "Đã thanh toán",
+                        "Product A",
+                        10,
+                        101,
+                        5000.0f,
+                        50000.0f);
                 expenditureViewModel.addExpenditure(expenditure_new);
                 if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
                     requireActivity().getSupportFragmentManager().popBackStack();

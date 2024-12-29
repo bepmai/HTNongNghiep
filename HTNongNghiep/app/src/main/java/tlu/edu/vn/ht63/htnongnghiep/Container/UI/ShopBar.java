@@ -15,13 +15,7 @@ import tlu.edu.vn.ht63.htnongnghiep.Activity.RevenueExpenditureActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.SignUpActivity;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link UserRights#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class UserRights extends Fragment {
-
+public class ShopBar extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -31,7 +25,7 @@ public class UserRights extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public UserRights() {
+    public ShopBar() {
         // Required empty public constructor
     }
 
@@ -44,8 +38,8 @@ public class UserRights extends Fragment {
      * @return A new instance of fragment UserRights.
      */
     // TODO: Rename and change types and number of parameters
-    public static UserRights newInstance(String param1, String param2) {
-        UserRights fragment = new UserRights();
+    public static ShopBar newInstance(String param1, String param2) {
+        ShopBar fragment = new ShopBar();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -62,42 +56,14 @@ public class UserRights extends Fragment {
         }
     }
 
-    CardView infUser,instruct,support,logout;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_user_rights, container, false);
+        View view = inflater.inflate(R.layout.fragment_shopbar, container, false);
 
-        infUser = view.findViewById(R.id.infUser);
-        instruct = view.findViewById(R.id.instruct);
-        support = view.findViewById(R.id.support);
-        logout = view.findViewById(R.id.logout);
 
-        infUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), InfUserDetail.class);
-                startActivity(intent);
-            }
-        });
-
-        support.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), RevenueExpenditureActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), LoginSignupActivity.class);
-                startActivity(intent);
-                getActivity().finish();
-            }
-        });
 
         return view;
     }

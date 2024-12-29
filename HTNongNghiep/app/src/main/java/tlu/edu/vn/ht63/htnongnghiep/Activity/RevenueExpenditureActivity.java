@@ -77,18 +77,16 @@ public class RevenueExpenditureActivity extends AppCompatActivity {
                 transaction.replace(R.id.frameLayout, revenueFragment);
                 transaction.commit();
 
-                floatingActionButton.setVisibility(View.GONE);
-
-//                floatingActionButton.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Fragment revenueDetailFragment = new RevenueDetailFragment();
-//                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//                        transaction.replace(R.id.main, revenueDetailFragment);
-//                        transaction.addToBackStack(null);
-//                        transaction.commit();
-//                    }
-//                });
+                floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Fragment revenueDetailFragment = new RevenueDetailFragment();
+                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.main, revenueDetailFragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+                    }
+                });
             }
         });
 
@@ -105,19 +103,23 @@ public class RevenueExpenditureActivity extends AppCompatActivity {
                 transaction.replace(R.id.frameLayout, expenditureFragment);
                 transaction.commit();
 
-                floatingActionButton.setVisibility(View.VISIBLE);
-
                 floatingActionButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Fragment productDetailFragment = new ProductDetailFragment();
-                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                        transaction.replace(R.id.main, productDetailFragment);
-                        transaction.addToBackStack(null);
-                        transaction.commit();
-//                        showBottomDialog();
+                        showBottomDialog();
                     }
                 });
+            }
+        });
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment revenueDetailFragment = new RevenueDetailFragment();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, revenueDetailFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 

@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.Date;
 
-import tlu.edu.vn.ht63.htnongnghiep.Component.Interface.OnItemExpenditureClickListener;
+import tlu.edu.vn.ht63.htnongnghiep.Component.OnItemExpenditureClickListener;
 import tlu.edu.vn.ht63.htnongnghiep.Adapter.ListExpenditureAdapter;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
 import tlu.edu.vn.ht63.htnongnghiep.R;
@@ -82,50 +82,44 @@ public class ExpenditureFragment extends Fragment {
 
         ArrayList<Expenditure> expenditureList = new ArrayList<>();
 
-        expenditureList.add(new Expenditure(
-                "EXP002",
-                0,
-                "SELLER002",
-                "PRODUCT002",
-                "https://example.com/image2.jpg",
-                "Nguyễn Văn A",
-                "456 Đường XYZ, Hà Nội",
-                new Date(),
-                0,
-                "Sản phẩm A",
-                1,
-                200.0f,
-                200.0f
+        expenditureList.add(new Expenditure(1,
+                Expenditure.TYPE_BUY, // viewType
+                "https://example.com/image1.png", // productImage
+                "Seller A", // nameSeller
+                "Hà Nội",
+                new Date(), // date
+                "Đã thanh toán", // status
+                "Product A", // nameProduct
+                10, // total
+                101, // idProduct
+                5000.0f, // productCost
+                50000.0f // totalPayment
         ));
-        expenditureList.add(new Expenditure(
-                "EXP003",
-                1,
-                "SELLER003",
-                "PRODUCT003",
-                "https://example.com/image2.jpg",
-                "Nguyễn Văn B",
-                "456 Đường XYZ, Hà Nội",
-                new Date(),
-                2,
-                "Sản phẩm B",
-                1,
-                200.0f,
-                200.0f
+        expenditureList.add(new Expenditure(2,
+                Expenditure.TYPE_PRODUCT, // viewType
+                "https://example.com/image2.png", // productImage
+                "Seller B", // nameSeller
+                "Hà Nội",
+                new Date(), // date
+                "Chưa thanh toán", // status
+                "Product B", // nameProduct
+                5, // total
+                102, // idProduct
+                3000.0f, // productCost
+                15000.0f // totalPayment
         ));
-        expenditureList.add(new Expenditure(
-                "EXP004",
-                0,
-                "SELLER003",
-                "PRODUCT003",
-                "https://example.com/image2.jpg",
-                "Nguyễn Văn C",
-                "456 Đường XYZ, Hà Nội",
-                new Date(),
-                1,
-                "Sản phẩm C",
-                1,
-                200.0f,
-                200.0f
+        expenditureList.add(new Expenditure(3,
+                Expenditure.TYPE_BUY, // viewType
+                "https://example.com/image5.png", // productImage
+                "Seller D", // nameSeller
+                "Hà Nội",
+                new Date(), // date
+                "Chưa thanh toán", // status
+                "Product C", // nameProduct
+                2, // total
+                1033, // idProduct
+                25400.0f, // productCost
+                500050.0f // totalPayment
         ));
 
         ExpenditureViewModel expenditureViewModel =

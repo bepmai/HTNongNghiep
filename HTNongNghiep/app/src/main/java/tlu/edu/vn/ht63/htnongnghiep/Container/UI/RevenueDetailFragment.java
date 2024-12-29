@@ -1,7 +1,6 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
 import android.app.DatePickerDialog;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,7 +20,6 @@ import java.util.Locale;
 
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Revenue;
-import tlu.edu.vn.ht63.htnongnghiep.Model.RevenueExpenditure;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 import tlu.edu.vn.ht63.htnongnghiep.ViewModel.ExpenditureViewModel;
 import tlu.edu.vn.ht63.htnongnghiep.ViewModel.RevenueViewModel;
@@ -70,7 +68,7 @@ public class RevenueDetailFragment extends Fragment {
         return fragment;
     }
 
-    EditText date_edt,buyer_edt,plant_edt,adress_edt,total_edt,payment_edt,totalPayment_edt,status_edt;
+    EditText date_edt,buyer_edt,plant_edt,adress_edt,total_edt,payment_edt,totalPayment_edt;
     ImageButton backButton;
     Button saveBtn;
 
@@ -92,7 +90,6 @@ public class RevenueDetailFragment extends Fragment {
         date_edt = view.findViewById(R.id.date_edt);
         buyer_edt = view.findViewById(R.id.buyer_edt);
         plant_edt = view.findViewById(R.id.plant_edt);
-        status_edt = view.findViewById(R.id.status_edt);
         adress_edt = view.findViewById(R.id.adress_edt);
         total_edt = view.findViewById(R.id.total_edt);
         payment_edt = view.findViewById(R.id.payment_edt);
@@ -129,40 +126,43 @@ public class RevenueDetailFragment extends Fragment {
         });
 
         if (revenue!=null){
-            buyer_edt.setText(revenue.getNameBuyer());
+            buyer_edt.setText(revenue.getNameSeller());
             plant_edt.setText(revenue.getNameProduct());
             adress_edt.setText(revenue.getAdress());
-            if(revenue.getStatus() == RevenueExpenditure.TYPE_NOT_CONFIRMED){
-                status_edt.setTextColor(getResources().getColor(R.color.black));
-                status_edt.setText("Chưa xác nhận");
-                saveBtn.setBackgroundColor(getResources().getColor(R.color.green));
-                RevenueViewModel revenueViewModel =
-                        new ViewModelProvider(requireActivity()).get(RevenueViewModel.class);
-
-                saveBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        revenue.setStatus(1);
-                        revenueViewModel.updateRevenue(revenue);
-                        if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                            requireActivity().getSupportFragmentManager().popBackStack();
-                        } else {
-                            requireActivity().finish();
-                        }
-                    }
-                });
-            }else if(revenue.getStatus() == RevenueExpenditure.TYPE_CONFIRM){
-                status_edt.setTextColor(getResources().getColor(R.color.search_opaque));
-                status_edt.setText("Đã xác nhận");
-            }else if(revenue.getStatus() == RevenueExpenditure.TYPE_SUCCESS){
-                status_edt.setTextColor(getResources().getColor(R.color.red));
-                status_edt.setText("Thành công");
-            }
             date_edt.setText(dateFormat.format(revenue.getDate()));
-            total_edt.setText(String.valueOf(revenue.getTotal())+" cây");
-            payment_edt.setText(revenue.getProductCost().toString()+" vnđ");
+            total_edt.setText(String.valueOf(revenue.getTotal()));
+            payment_edt.setText(revenue.getProductCost().toString());
             totalPayment_edt.setText(revenue.getTotalPayment().toString()+" vnđ");
         }
+
+        RevenueViewModel revenueViewModel =
+                new ViewModelProvider(requireActivity()).get(RevenueViewModel.class);
+
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Revenue revenue_new = new Revenue(
+                        2,                            // id
+                        "image_url_here",             // productImage
+                        "Nguyễn Đức Anh",               // nameSeller
+                        "Hà Nội",
+                        new Date(),                   // date (hiện tại)
+                        "Chưa thanh toán",              // status
+                        "Cây Bonsai 20 năm",                      // nameProduct
+                        10,                           // total (số lượng)
+                        101,                          // idProduct
+                        200000.0f,                     // productCost (giá mỗi sản phẩm)
+                        200000.0f                     // totalPayment (tổng thanh toán)
+                );
+                revenueViewModel.addRevenue(revenue_new);
+                if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    requireActivity().getSupportFragmentManager().popBackStack();
+                } else {
+                    // Nếu không có fragment trước đó, có thể kết thúc activity
+                    requireActivity().finish();
+                }
+            }
+        });
 
         return view;
     }

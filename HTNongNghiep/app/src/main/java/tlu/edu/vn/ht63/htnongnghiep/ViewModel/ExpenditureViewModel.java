@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
-import tlu.edu.vn.ht63.htnongnghiep.Model.Revenue;
 
 public class ExpenditureViewModel extends ViewModel {
 
@@ -49,16 +48,6 @@ public class ExpenditureViewModel extends ViewModel {
 
     public void addExpenditure(Expenditure expenditure){
         expenditureList.add(expenditure);
-        listMutableLiveData.setValue(expenditureList);
-    }
-
-    public void updateExpenditure(Expenditure expenditure) {
-        for (int i = 0; i < expenditureList.size(); i++) {
-            if (expenditureList.get(i).getId().equals(expenditure.getId())) {
-                expenditureList.set(i, expenditure);
-                break;
-            }
-        }
         listMutableLiveData.setValue(expenditureList);
     }
 }

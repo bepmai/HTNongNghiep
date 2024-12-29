@@ -16,7 +16,7 @@
         android:padding="8dp">
 
         <TextView
-            android:id="@+id/listNameBuyer"
+            android:id="@+id/listNameSeller"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -35,7 +35,7 @@
             android:layout_margin="8dp"
             app:srcCompat="@drawable/group366"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listNameBuyer" />
+            app:layout_constraintTop_toBottomOf="@+id/listNameSeller" />
         <TextView
             android:id="@+id/listStatus"
             android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
             android:textColor="@color/green"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/imageView4"
-            app:layout_constraintTop_toBottomOf="@id/listNameBuyer" />
+            app:layout_constraintTop_toBottomOf="@id/listNameSeller" />
 
         <TextView
             android:id="@+id/listTotal"

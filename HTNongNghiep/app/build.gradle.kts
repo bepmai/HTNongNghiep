@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -55,8 +54,6 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.database)
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
     val camerax_version = "1.3.0"
@@ -74,7 +71,6 @@ dependencies {
     implementation ("com.android.volley:volley:1.2.1")
     implementation("com.google.android.gms:play-services-location:21.3.0")
 //
-    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -84,8 +80,5 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
-
-    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
-    implementation("com.google.firebase:firebase-analytics")
 
 }

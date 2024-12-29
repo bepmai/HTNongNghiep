@@ -17,9 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import tlu.edu.vn.ht63.htnongnghiep.Component.Interface.OnItemRevenueClickListener;
+import tlu.edu.vn.ht63.htnongnghiep.Component.OnItemRevenueClickListener;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Revenue;
-import tlu.edu.vn.ht63.htnongnghiep.Model.RevenueExpenditure;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 import tlu.edu.vn.ht63.htnongnghiep.ViewModel.RevenueViewModel;
 
@@ -76,13 +75,13 @@ public class ListRevenueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     // ViewHolder for Seller
     static class SellerViewHolder extends RecyclerView.ViewHolder {
-        TextView listNameBuyer,listStatus,listNameProduct,listTotal,listPayment,listTime,listTotalPayment;
+        TextView listNameSeller,listStatus,listNameProduct,listTotal,listPayment,listTime,listTotalPayment;
         ImageView imageView4;
 
         public SellerViewHolder(@NonNull View itemView) {
             super(itemView);
             listStatus = itemView.findViewById(R.id.listStatus);
-            listNameBuyer = itemView.findViewById(R.id.listNameBuyer);
+            listNameSeller = itemView.findViewById(R.id.listNameSeller);
             imageView4 = itemView.findViewById(R.id.imageView4);
             listNameProduct = itemView.findViewById(R.id.listNameProduct);
             listTotal = itemView.findViewById(R.id.listTotal);
@@ -92,23 +91,19 @@ public class ListRevenueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
 
         public void bind(Revenue revenue) {
-            listNameBuyer.setText("  "+revenue.getNameBuyer());
-            if(revenue.getStatus() == RevenueExpenditure.TYPE_NOT_CONFIRMED){
-                listStatus.setTextColor(Color.parseColor("#FF000000"));
-                listStatus.setText("Chưa xác nhận");
-            }else if(revenue.getStatus() == RevenueExpenditure.TYPE_CONFIRM){
-                listStatus.setTextColor(Color.parseColor("#ffaa3f"));
-                listStatus.setText("Đã xác nhận");
-            }else if(revenue.getStatus() == RevenueExpenditure.TYPE_SUCCESS){
+            listNameSeller.setText("  "+revenue.getNameSeller());
+            listStatus.setText(revenue.getStatus());
+            if(revenue.getStatus().equals("Đã thanh toán")){
                 listStatus.setTextColor(Color.parseColor("#FF6F69"));
-                listStatus.setText("Thành công");
+            }else {
+                listStatus.setTextColor(Color.parseColor("#ffaa3f"));
             }
 //        imageView4.setImageURI();
             listNameProduct.setText(revenue.getNameProduct());
             listTotal.setText("Số lượng: "+revenue.getTotal()+" cây");
             listPayment.setText("Số tiền: đ"+revenue.getProductCost());
-            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
-            listTime.setText(dateTimeFormat.format(revenue.getDate()));
+            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
+            listTime.setText("Ngày bán: "+dateTimeFormat.format(revenue.getDate()));
             listTotalPayment.setText("Tổng số tiền ("+revenue.getTotal()+" cây): đ"+revenue.getTotalPayment());
         }
     }
