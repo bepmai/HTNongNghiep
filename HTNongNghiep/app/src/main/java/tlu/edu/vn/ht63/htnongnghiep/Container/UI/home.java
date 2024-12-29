@@ -1,13 +1,29 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +34,19 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +55,14 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.HashMap;
+import java.util.Map;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.RevenueExpenditureActivity;
+import tlu.edu.vn.ht63.htnongnghiep.Activity.Weather;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 /**
@@ -38,9 +74,21 @@ public class home extends Fragment {
         // Required empty public constructor
     }
 
-    private TextView humidityTV, windSpeedTV, cityNameTV, temperatureTV;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
+    }
+
     WebView webView;
-    TextView detailButton;
+    TextView detailButton, humidityTV, windSpeedTV, cityNameTV, temperatureTV, conditionTV;
+
+    ImageView iconIV;
+    BarChart barChart1;
+
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
+    private FusedLocationProviderClient fusedLocationClient;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,12 +97,14 @@ public class home extends Fragment {
         windSpeedTV = view.findViewById(R.id.idTVWindSpeed);
         cityNameTV = view.findViewById(R.id.idTVCityName);
         temperatureTV = view.findViewById(R.id.idTVTemperature);
+        conditionTV = view.findViewById(R.id.idTVCondition);
+        iconIV = view.findViewById(R.id.idTVIcon);
         webView = view.findViewById(R.id.webView);
         detailButton = view.findViewById(R.id.detailButton);
+        barChart1 = view.findViewById(R.id.barchart1);
 
         LinearLayout formWeather = view.findViewById(R.id.formweather);
 
-        // Gán sự kiện onClick cho LinearLayout
         formWeather.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,9 +114,25 @@ public class home extends Fragment {
             }
         });
 
-        getWeatherInfo("Hanoi"); // Gọi API cho thành phố Hà Nội
+//        if (checkLocationPermission()) {
+//            fusedLocationClient.getLastLocation()
+//                .addOnSuccessListener(requireActivity(), location -> {
+//                    if (location != null) {
+//                        String cityName = getCityTime(location.getLongitude(), location.getLatitude());
+//                        if (cityName!=null&&!cityName.isEmpty()){
+//                            getWeatherInfo(cityName);
+//                        }else {
+//                            getWeatherInfo("Hanoi");
+//                        }
+//                    } else {
+//                        getWeatherInfo("Hanoi");
+//                        Log.d("Location", "No location found.");
+//                    }
+//                });
+//        }
 
-        // Cấu hình WebView
+        getWeatherInfo("Hanoi");
+
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setLoadWithOverviewMode(true); // Phóng to nội dung trang web
@@ -87,7 +153,137 @@ public class home extends Fragment {
             }
         });
 
+        BarDataSet barDataSet1 = new BarDataSet(barEntries1(),"Thu");
+        barDataSet1.setColors(getResources().getColor(R.color.green));
+
+        BarDataSet barDataSet2 = new BarDataSet(barEntries2(),"Chi");
+        barDataSet2.setColor(getResources().getColor(R.color.green_white));
+
+        BarData barData1 = new BarData(barDataSet1,barDataSet2);
+        barChart1.setData(barData1);
+        barChart1.getDescription().setEnabled(false);
+
+        String[] days = new String[]{"Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7","Chủ nhật"};
+        XAxis xAxis = barChart1.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(days));
+        xAxis.setCenterAxisLabels(true);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1);
+        xAxis.setGranularityEnabled(true);
+
+        barChart1.setDragEnabled(true);
+        barChart1.setVisibleXRangeMaximum(4);
+
+        float barSpace = 0.1f;
+        float groupSpace = 0.4f;
+        barData1.setBarWidth(0.2f);
+
+        barChart1.getXAxis().setAxisMinimum(0);
+        barChart1.groupBars(0,groupSpace,barSpace);
+
+        // Điều chỉnh vị trí và kiểu của Legend
+        Legend legend = barChart1.getLegend();
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM); // Vị trí ngang dưới cùng
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER); // Ở giữa
+        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL); // Hiển thị ngang
+        legend.setDrawInside(false);
+        legend.setTextSize(12f); // Kích thước chữ
+
+        barChart1.invalidate();
+
         return view;
+    }
+
+    private boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Request permission
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getLastKnownLocation();
+            } else {
+                Toast.makeText(requireContext(), "Location permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void getLastKnownLocation() {
+        try {
+            if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                fusedLocationClient.getLastLocation()
+                        .addOnSuccessListener(requireActivity(), new OnSuccessListener<Location>() {
+                            @Override
+                            public void onSuccess(Location location) {
+                                // Check if location is not null
+                                if (location != null) {
+                                    double latitude = location.getLatitude();
+                                    double longitude = location.getLongitude();
+                                    Log.d("Location", "Latitude: " + latitude + ", Longitude: " + longitude);
+                                } else {
+                                    Log.d("Location", "No last known location available.");
+                                }
+                            }
+                        })
+                        .addOnFailureListener(e -> Log.e("Location", "Failed to get location", e));
+            }
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getCityTime(double longitude, double latitude){
+        String cityName = null;
+        Geocoder gcd = new Geocoder(getActivity().getBaseContext(), Locale.getDefault());
+        try{
+            List<Address> addresses = gcd.getFromLocation(latitude, longitude, 10);
+            for (Address adr : addresses){
+                if(adr!=null){
+                    String city = adr.getLocality();
+                    if(city!=null && !city.equals("")){
+                        cityName = city;
+                    }else {
+                        Log.d("TAG", "city not found");
+                        Toast.makeText(getContext(), "User city not found", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return cityName;
+    }
+
+    private ArrayList<BarEntry> barEntries1(){
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
+        barEntries.add(new BarEntry(1,2000));
+        barEntries.add(new BarEntry(2,791));
+        barEntries.add(new BarEntry(3,630));
+        barEntries.add(new BarEntry(4,450));
+        barEntries.add(new BarEntry(5,2724));
+        barEntries.add(new BarEntry(6,500));
+        barEntries.add(new BarEntry(7,2173));
+        return barEntries;
+    }
+
+    private ArrayList<BarEntry> barEntries2(){
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
+        barEntries.add(new BarEntry(1,900));
+        barEntries.add(new BarEntry(2,631));
+        barEntries.add(new BarEntry(3,1040));
+        barEntries.add(new BarEntry(4,382));
+        barEntries.add(new BarEntry(5,2614));
+        barEntries.add(new BarEntry(6,5000));
+        barEntries.add(new BarEntry(7,1173));
+        return barEntries;
     }
 
     private void getWeatherInfo(String cityName) {
@@ -100,6 +296,64 @@ public class home extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            Map<String, String> weatherConditionMap = new HashMap<>();
+                            weatherConditionMap.put("Sunny", "Trời nắng");
+                            weatherConditionMap.put("Clear", "Quang đãng");
+                            weatherConditionMap.put("Partly cloudy", "Có mây rải rác");
+                            weatherConditionMap.put("Cloudy", "Nhiều mây");
+                            weatherConditionMap.put("Overcast", "U ám");
+                            weatherConditionMap.put("Mist", "Sương mù nhẹ");
+                            weatherConditionMap.put("Patchy rain possible", "Có thể có mưa lác đác");
+                            weatherConditionMap.put("Patchy snow possible", "Có thể có tuyết lác đác");
+                            weatherConditionMap.put("Patchy sleet possible", "Có thể có mưa tuyết lác đác");
+                            weatherConditionMap.put("Patchy freezing drizzle possible", "Có thể có mưa phùn đóng băng lác đác");
+                            weatherConditionMap.put("Thundery outbreaks possible", "Có thể có dông");
+                            weatherConditionMap.put("Blowing snow", "Tuyết thổi");
+                            weatherConditionMap.put("Blizzard", "Bão tuyết");
+                            weatherConditionMap.put("Fog", "Sương mù");
+                            weatherConditionMap.put("Freezing fog", "Sương mù đóng băng");
+                            weatherConditionMap.put("Patchy light drizzle", "Mưa phùn nhẹ lác đác");
+                            weatherConditionMap.put("Light drizzle", "Mưa phùn nhẹ");
+                            weatherConditionMap.put("Freezing drizzle", "Mưa phùn đóng băng");
+                            weatherConditionMap.put("Heavy freezing drizzle", "Mưa phùn đóng băng nặng");
+                            weatherConditionMap.put("Patchy light rain", "Mưa nhẹ lác đác");
+                            weatherConditionMap.put("Light rain", "Mưa nhẹ");
+                            weatherConditionMap.put("Moderate rain at times", "Mưa vừa từng đợt");
+                            weatherConditionMap.put("Moderate rain", "Mưa vừa");
+                            weatherConditionMap.put("Heavy rain at times", "Mưa nặng hạt từng đợt");
+                            weatherConditionMap.put("Heavy rain", "Mưa lớn");
+                            weatherConditionMap.put("Light freezing rain", "Mưa đóng băng nhẹ");
+                            weatherConditionMap.put("Moderate or heavy freezing rain", "Mưa đóng băng vừa hoặc lớn");
+                            weatherConditionMap.put("Light sleet", "Mưa tuyết nhẹ");
+                            weatherConditionMap.put("Moderate or heavy sleet", "Mưa tuyết vừa hoặc lớn");
+                            weatherConditionMap.put("Patchy light snow", "Tuyết nhẹ lác đác");
+                            weatherConditionMap.put("Light snow", "Tuyết nhẹ");
+                            weatherConditionMap.put("Patchy moderate snow", "Tuyết vừa lác đác");
+                            weatherConditionMap.put("Moderate snow", "Tuyết vừa");
+                            weatherConditionMap.put("Patchy heavy snow", "Tuyết lớn lác đác");
+                            weatherConditionMap.put("Heavy snow", "Tuyết lớn");
+                            weatherConditionMap.put("Ice pellets", "Mưa đá nhỏ");
+                            weatherConditionMap.put("Light rain shower", "Mưa rào nhẹ");
+                            weatherConditionMap.put("Moderate or heavy rain shower", "Mưa rào vừa hoặc lớn");
+                            weatherConditionMap.put("Torrential rain shower", "Mưa rào xối xả");
+                            weatherConditionMap.put("Light sleet showers", "Mưa tuyết nhẹ rải rác");
+                            weatherConditionMap.put("Moderate or heavy sleet showers", "Mưa tuyết vừa hoặc lớn rải rác");
+                            weatherConditionMap.put("Light snow showers", "Tuyết nhẹ rải rác");
+                            weatherConditionMap.put("Moderate or heavy snow showers", "Tuyết vừa hoặc lớn rải rác");
+                            weatherConditionMap.put("Light showers of ice pellets", "Mưa đá nhỏ nhẹ rải rác");
+                            weatherConditionMap.put("Moderate or heavy showers of ice pellets", "Mưa đá nhỏ vừa hoặc lớn rải rác");
+                            weatherConditionMap.put("Patchy light rain with thunder", "Mưa nhẹ lác đác có sấm sét");
+                            weatherConditionMap.put("Moderate or heavy rain with thunder", "Mưa vừa hoặc lớn có sấm sét");
+                            weatherConditionMap.put("Patchy light snow with thunder", "Tuyết nhẹ lác đác có sấm sét");
+                            weatherConditionMap.put("Moderate or heavy snow with thunder", "Tuyết vừa hoặc lớn có sấm sét");
+
+                            String condition = response.getJSONObject("current").getJSONObject("condition").getString("text");
+                            String conditionInVietnamese = weatherConditionMap.getOrDefault(condition, "Không rõ điều kiện thời tiết");
+                            conditionTV.setText(conditionInVietnamese);
+
+                            String conditionIcon = response.getJSONObject("current").getJSONObject("condition").getString("icon");
+                            Picasso.get().load("http:".concat(conditionIcon)).into(iconIV);
+
                             String humidity = response.getJSONObject("current").getString("humidity");
                             humidityTV.setText(humidity + "%");
 

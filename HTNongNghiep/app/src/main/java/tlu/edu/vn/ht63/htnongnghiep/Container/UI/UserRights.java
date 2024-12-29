@@ -1,6 +1,9 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -10,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import tlu.edu.vn.ht63.htnongnghiep.Activity.InfUserDetail;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.LoginSignupActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.RevenueExpenditureActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.SignUpActivity;
@@ -45,6 +49,7 @@ public class UserRights extends Fragment {
      * @return A new instance of fragment UserRights.
      */
     // TODO: Rename and change types and number of parameters
+
     public static UserRights newInstance(String param1, String param2) {
         UserRights fragment = new UserRights();
         Bundle args = new Bundle();
@@ -63,7 +68,7 @@ public class UserRights extends Fragment {
         }
     }
 
-    CardView infUser,instruct,support,logout;
+    CardView infUser, instruct, support, logout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,15 +99,19 @@ public class UserRights extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("userId"); // Xóa giá trị của key "userId"
+                editor.apply(); // Lưu thay đổi
                 ToastFragment toastFragment = new ToastFragment(1, "Đăng xuất thành công!");
                 toastFragment.setOnToastDismissListener(() -> {
                     Intent intent = new Intent(getContext(), LoginSignupActivity.class);
                     startActivity(intent);
+                    getActivity().finish();
                 });
                 toastFragment.showToast(getActivity().getSupportFragmentManager(), R.id.main);
             }
         });
-
         return view;
     }
 }

@@ -41,7 +41,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -58,11 +57,20 @@
             android:name=".Container.UI.DetailPlant"
             android:exported="false" />
         <activity
+            android:name=".Activity.Weather"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.InfUserDetail"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.DetailPlant"
+            android:exported="false" />
+        <activity
             android:name=".Activity.NavigationActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.RevenueExpenditureActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".Activity.AddInfoUserActivity"
             android:exported="false" />
@@ -78,7 +86,6 @@
         <activity
             android:name=".Activity.HomeActivity"
             android:exported="true">
-
         </activity>
         <activity
             android:name=".Activity.LogInActivity"

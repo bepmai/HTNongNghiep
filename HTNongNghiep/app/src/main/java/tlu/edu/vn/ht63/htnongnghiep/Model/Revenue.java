@@ -4,49 +4,83 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Revenue implements Serializable {
-    private int id;
+    private String id;
+    private String idBuyer;
+    private String idProduct;
     private String productImage;
-    private String nameSeller;
+    private String nameBuyer;
     private String adress;
     private Date date;
-    private String status;
+    private int status;
     private String nameProduct;
     private int total;
-    private int idProduct;
     private Float productCost;
     private Float totalPayment;
 
     public Revenue() {
     }
 
-    public Revenue(int id, String productImage, String nameSeller, String adress, Date date, String status, String nameProduct, int total, int idProduct, Float productCost, Float totalPayment) {
+    public Revenue(String id, String idBuyer, String idProduct, String productImage, String nameBuyer, String adress, Date date, int status, String nameProduct, int total, Float productCost, Float totalPayment) {
         this.id = id;
+        this.idBuyer = idBuyer;
+        this.idProduct = idProduct;
         this.productImage = productImage;
-        this.nameSeller = nameSeller;
+        this.nameBuyer = nameBuyer;
         this.adress = adress;
         this.date = date;
         this.status = status;
         this.nameProduct = nameProduct;
         this.total = total;
-        this.idProduct = idProduct;
         this.productCost = productCost;
         this.totalPayment = totalPayment;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getNameSeller() {
-        return nameSeller;
+    public String getIdBuyer() {
+        return idBuyer;
     }
 
-    public void setNameSeller(String nameSeller) {
-        this.nameSeller = nameSeller;
+    public void setIdBuyer(String idBuyer) {
+        this.idBuyer = idBuyer;
+    }
+
+    public String getIdProduct() {
+        return idProduct;
+    }
+
+    public void setIdProduct(String idProduct) {
+        this.idProduct = idProduct;
+    }
+
+    public String getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(String productImage) {
+        this.productImage = productImage;
+    }
+
+    public String getNameBuyer() {
+        return nameBuyer;
+    }
+
+    public void setNameBuyer(String nameBuyer) {
+        this.nameBuyer = nameBuyer;
+    }
+
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
     }
 
     public Date getDate() {
@@ -57,11 +91,11 @@ public class Revenue implements Serializable {
         this.date = date;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -81,22 +115,6 @@ public class Revenue implements Serializable {
         this.total = total;
     }
 
-    public int getIdProduct() {
-        return idProduct;
-    }
-
-    public void setIdProduct(int idProduct) {
-        this.idProduct = idProduct;
-    }
-
-    public Float getProductCost() {
-        return productCost;
-    }
-
-    public void setProductCost(Float productCost) {
-        this.productCost = productCost;
-    }
-
     public Float getTotalPayment() {
         return totalPayment;
     }
@@ -105,19 +123,11 @@ public class Revenue implements Serializable {
         this.totalPayment = totalPayment;
     }
 
-    public String getProductImage() {
-        return productImage;
+    public Float getProductCost() {
+        return productCost;
     }
 
-    public void setProductImage(String productImage) {
-        this.productImage = productImage;
-    }
-
-    public String getAdress() {
-        return adress;
-    }
-
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setProductCost(Float productCost) {
+        this.productCost = productCost;
     }
 }

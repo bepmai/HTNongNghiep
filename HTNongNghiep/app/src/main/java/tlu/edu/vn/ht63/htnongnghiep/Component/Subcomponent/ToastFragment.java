@@ -94,7 +94,7 @@ public class ToastFragment extends Fragment {
             if (onToastDismissListener != null) {
                 onToastDismissListener.onToastDismiss();
             }
-        }, 2000);
+        }, 1000);
     }
 
     public void showOverlayToast(Context context) {
