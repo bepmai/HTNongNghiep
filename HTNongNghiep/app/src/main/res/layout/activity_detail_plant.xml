@@ -7,7 +7,7 @@
     android:id="@+id/main"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".Container.UI.DetailPlant">
+    tools:context=".Activity.DetailPlant">
     <ImageView
         android:layout_marginTop="10dp"
         android:id="@+id/left_admin"

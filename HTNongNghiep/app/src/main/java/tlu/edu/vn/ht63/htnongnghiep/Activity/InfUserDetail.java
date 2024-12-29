@@ -1,4 +1,4 @@
-package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
+package tlu.edu.vn.ht63.htnongnghiep.Activity;
 
 import android.app.DatePickerDialog;
 import java.util.Calendar;
@@ -14,7 +14,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Locale;
 
 import tlu.edu.vn.ht63.htnongnghiep.R;
