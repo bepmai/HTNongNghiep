@@ -8,11 +8,11 @@
     tools:context=".Activity.Weather">
 
     <ImageView
+        android:id="@+id/idTVBack"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@color/white"
-        android:id="@+id/idTVBack"/>
+        android:src="@color/white" />
 
     <ImageView
         android:layout_marginTop="30dp"

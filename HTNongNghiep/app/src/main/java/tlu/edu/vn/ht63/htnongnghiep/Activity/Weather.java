@@ -1,6 +1,7 @@
 package tlu.edu.vn.ht63.htnongnghiep.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -36,9 +37,12 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
+import tlu.edu.vn.ht63.htnongnghiep.Container.UI.home;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 import tlu.edu.vn.ht63.htnongnghiep.Adapter.WeatherRVAdapter;
@@ -80,6 +84,13 @@ public class Weather extends AppCompatActivity {
         weatherRVAdapter = new WeatherRVAdapter(this, weatherRVModalArrayList);
         weatherRV.setAdapter(weatherRVAdapter);
 
+        backIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Weather.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(Weather.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSON_CODE);
@@ -158,13 +169,66 @@ public class Weather extends AppCompatActivity {
                 weatherRVModalArrayList.clear();
 
                 try{
+                    Map<String, String> weatherConditionMap = new HashMap<>();
+                    weatherConditionMap.put("Sunny", "Trời nắng");
+                    weatherConditionMap.put("Clear", "Quang đãng");
+                    weatherConditionMap.put("Partly cloudy", "Có mây rải rác");
+                    weatherConditionMap.put("Cloudy", "Nhiều mây");
+                    weatherConditionMap.put("Overcast", "U ám");
+                    weatherConditionMap.put("Mist", "Sương mù nhẹ");
+                    weatherConditionMap.put("Patchy rain possible", "Có thể có mưa lác đác");
+                    weatherConditionMap.put("Patchy snow possible", "Có thể có tuyết lác đác");
+                    weatherConditionMap.put("Patchy sleet possible", "Có thể có mưa tuyết lác đác");
+                    weatherConditionMap.put("Patchy freezing drizzle possible", "Có thể có mưa phùn đóng băng lác đác");
+                    weatherConditionMap.put("Thundery outbreaks possible", "Có thể có dông");
+                    weatherConditionMap.put("Blowing snow", "Tuyết thổi");
+                    weatherConditionMap.put("Blizzard", "Bão tuyết");
+                    weatherConditionMap.put("Fog", "Sương mù");
+                    weatherConditionMap.put("Freezing fog", "Sương mù đóng băng");
+                    weatherConditionMap.put("Patchy light drizzle", "Mưa phùn nhẹ lác đác");
+                    weatherConditionMap.put("Light drizzle", "Mưa phùn nhẹ");
+                    weatherConditionMap.put("Freezing drizzle", "Mưa phùn đóng băng");
+                    weatherConditionMap.put("Heavy freezing drizzle", "Mưa phùn đóng băng nặng");
+                    weatherConditionMap.put("Patchy light rain", "Mưa nhẹ lác đác");
+                    weatherConditionMap.put("Light rain", "Mưa nhẹ");
+                    weatherConditionMap.put("Moderate rain at times", "Mưa vừa từng đợt");
+                    weatherConditionMap.put("Moderate rain", "Mưa vừa");
+                    weatherConditionMap.put("Heavy rain at times", "Mưa nặng hạt từng đợt");
+                    weatherConditionMap.put("Heavy rain", "Mưa lớn");
+                    weatherConditionMap.put("Light freezing rain", "Mưa đóng băng nhẹ");
+                    weatherConditionMap.put("Moderate or heavy freezing rain", "Mưa đóng băng vừa hoặc lớn");
+                    weatherConditionMap.put("Light sleet", "Mưa tuyết nhẹ");
+                    weatherConditionMap.put("Moderate or heavy sleet", "Mưa tuyết vừa hoặc lớn");
+                    weatherConditionMap.put("Patchy light snow", "Tuyết nhẹ lác đác");
+                    weatherConditionMap.put("Light snow", "Tuyết nhẹ");
+                    weatherConditionMap.put("Patchy moderate snow", "Tuyết vừa lác đác");
+                    weatherConditionMap.put("Moderate snow", "Tuyết vừa");
+                    weatherConditionMap.put("Patchy heavy snow", "Tuyết lớn lác đác");
+                    weatherConditionMap.put("Heavy snow", "Tuyết lớn");
+                    weatherConditionMap.put("Ice pellets", "Mưa đá nhỏ");
+                    weatherConditionMap.put("Light rain shower", "Mưa rào nhẹ");
+                    weatherConditionMap.put("Moderate or heavy rain shower", "Mưa rào vừa hoặc lớn");
+                    weatherConditionMap.put("Torrential rain shower", "Mưa rào xối xả");
+                    weatherConditionMap.put("Light sleet showers", "Mưa tuyết nhẹ rải rác");
+                    weatherConditionMap.put("Moderate or heavy sleet showers", "Mưa tuyết vừa hoặc lớn rải rác");
+                    weatherConditionMap.put("Light snow showers", "Tuyết nhẹ rải rác");
+                    weatherConditionMap.put("Moderate or heavy snow showers", "Tuyết vừa hoặc lớn rải rác");
+                    weatherConditionMap.put("Light showers of ice pellets", "Mưa đá nhỏ nhẹ rải rác");
+                    weatherConditionMap.put("Moderate or heavy showers of ice pellets", "Mưa đá nhỏ vừa hoặc lớn rải rác");
+                    weatherConditionMap.put("Patchy light rain with thunder", "Mưa nhẹ lác đác có sấm sét");
+                    weatherConditionMap.put("Moderate or heavy rain with thunder", "Mưa vừa hoặc lớn có sấm sét");
+                    weatherConditionMap.put("Patchy light snow with thunder", "Tuyết nhẹ lác đác có sấm sét");
+                    weatherConditionMap.put("Moderate or heavy snow with thunder", "Tuyết vừa hoặc lớn có sấm sét");
+
+                    String condition = response.getJSONObject("current").getJSONObject("condition").getString("text");
+                    String conditionInVietnamese = weatherConditionMap.getOrDefault(condition, "Không rõ điều kiện thời tiết");
+                    conditionTV.setText(conditionInVietnamese);
+
                     String temperature = response.getJSONObject("current").getString("temp_c");
                     temperatureTV.setText(temperature + "°C");
                     int isDay = response.getJSONObject("current").getInt("is_day");
-                    String condition = response.getJSONObject("current").getJSONObject("condition").getString("text");
                     String conditionIcon = response.getJSONObject("current").getJSONObject("condition").getString("icon");
                     Picasso.get().load("http:".concat(conditionIcon)).into(iconIV);
-                    conditionTV.setText(condition);
 //                    if(isDay==1){
 //                        Picasso.get().load("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vn.freelancer.com%2Fcontest%2Fanimated-weather-wallpaper-for-iphone-app-329593-byentry-7777965&psig=AOvVaw3BHZa66tN65m1-vLrYGmqB&ust=1735019574502000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMD-_dyZvYoDFQAAAAAdAAAAABAE").into(backIV);
 //                    }else {
