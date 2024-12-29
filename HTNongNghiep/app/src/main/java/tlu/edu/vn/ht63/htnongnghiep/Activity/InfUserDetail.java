@@ -2,9 +2,13 @@ package tlu.edu.vn.ht63.htnongnghiep.Activity;
 
 import android.app.DatePickerDialog;
 import java.util.Calendar;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
@@ -22,6 +26,8 @@ public class InfUserDetail extends AppCompatActivity {
     EditText input_birthday;
     Spinner input_gender;
 
+    ImageView ic_back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +41,15 @@ public class InfUserDetail extends AppCompatActivity {
 
         input_birthday = findViewById(R.id.input_birthday);
         input_gender = findViewById(R.id.input_gender);
+        ic_back = findViewById(R.id.ic_back);
+
+        ic_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(InfUserDetail.this, HomeActivity.class);
+                startActivity(intent);
+            }
+        });
 
         input_birthday.setOnClickListener(view -> {
             Calendar calendar = Calendar.getInstance();

@@ -16,10 +16,10 @@ import tlu.edu.vn.ht63.htnongnghiep.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Garden#newInstance} factory method to
+ * Use the {@link GardenFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Garden extends Fragment {
+public class GardenFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,12 +31,12 @@ public class Garden extends Fragment {
     private String mParam2;
     private FloatingActionButton btn_add;
 
-    public Garden() {
+    public GardenFragment() {
         // Required empty public constructor
     }
 
-    public static Garden newInstance(String param1, String param2) {
-        Garden fragment = new Garden();
+    public static GardenFragment newInstance(String param1, String param2) {
+        GardenFragment fragment = new GardenFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
