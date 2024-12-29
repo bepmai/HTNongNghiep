@@ -27,6 +27,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import tlu.edu.vn.ht63.htnongnghiep.Activity.RevenueExpenditureActivity;
+import tlu.edu.vn.ht63.htnongnghiep.Activity.Weather;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 /**
