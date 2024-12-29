@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import tlu.edu.vn.ht63.htnongnghiep.Activity.InfUserDetail;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.LoginSignupActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.RevenueExpenditureActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.SignUpActivity;
@@ -45,6 +46,8 @@ public class UserRights extends Fragment {
      * @return A new instance of fragment UserRights.
      */
     // TODO: Rename and change types and number of parameters
+    private CardView infUser;
+
     public static UserRights newInstance(String param1, String param2) {
         UserRights fragment = new UserRights();
         Bundle args = new Bundle();
@@ -78,6 +81,10 @@ public class UserRights extends Fragment {
         infUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), InfUserDetail.class);
+                startActivity(intent);
+            }
+        });
                 Intent intent = new Intent(getContext(), InfUserDetail.class);
                 startActivity(intent);
             }
@@ -102,7 +109,6 @@ public class UserRights extends Fragment {
                 toastFragment.showToast(getActivity().getSupportFragmentManager(), R.id.main);
             }
         });
-
         return view;
     }
 }
