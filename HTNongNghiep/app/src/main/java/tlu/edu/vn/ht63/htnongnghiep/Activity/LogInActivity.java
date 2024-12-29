@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.regex.Pattern;
 
@@ -36,6 +43,7 @@ public class LogInActivity extends AppCompatActivity {
     Button logInButton;
     EditText signin_username,signin_password;
     private FirebaseAuth auth;
+    boolean checkUserInDB = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,30 +87,54 @@ public class LogInActivity extends AppCompatActivity {
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = signin_username.getText().toString();
-                String pass = signin_password.getText().toString();
+                String email = signin_username.getText().toString().trim();
+                String pass = signin_password.getText().toString().trim();
 
                 if(checkLogIn()){
                     auth.signInWithEmailAndPassword(email, pass)
                             .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
-                                    // Lấy ID người dùng
                                     String userId = auth.getCurrentUser().getUid();
 
-                                    // Lưu vào SharedPreferences
                                     SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putString("userId", userId);
                                     editor.apply();
 
-                                    FirebaseAuth.getInstance().signOut();
+                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("inforUser");
+                                    reference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            if (dataSnapshot.exists()) {
+                                                // Dữ liệu với userId này tồn tại
+                                                // Bạn có thể lấy dữ liệu từ dataSnapshot tại đây
+                                                checkUserInDB = true;
+                                                Log.d("User Check", "User exists in the database.");
+                                            } else {
+                                                // Không có dữ liệu với userId này
+                                                Log.d("User Check", "User does not exist in the database.");
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+                                            // Xử lý lỗi nếu có
+                                            Log.e("Database Error", databaseError.getMessage());
+                                        }
+                                    });
 
                                     ToastFragment toastFragment = new ToastFragment(1, "Đăng nhập thành công!");
                                     toastFragment.setOnToastDismissListener(() -> {
-                                        Intent intent = new Intent(LogInActivity.this, AddInfoUserActivity.class);
-                                        startActivity(intent);
-                                        finish();
+                                        if(checkUserInDB){
+                                            Intent intent = new Intent(LogInActivity.this, HomeActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }else {
+                                            Intent intent = new Intent(LogInActivity.this, AddInfoUserActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
                                     });
                                     toastFragment.showToast(getSupportFragmentManager(),R.id.main);
                                 }
