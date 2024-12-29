@@ -41,68 +41,94 @@
         app:layout_constraintVertical_bias="0.5" />
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flexboxLayout2">
+
         <LinearLayout
-            android:layout_weight="1"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <Button
-                android:backgroundTint="@color/white"
+                android:id="@+id/document"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
                 android:text="Bài viết"
-                android:id="@+id/document"
                 android:textColor="@color/active_bar" />
+
             <View
                 android:id="@+id/documentView"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/active_bar"/>
+                android:background="@color/active_bar" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_weight="1"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <Button
-                android:backgroundTint="@color/white"
+                android:id="@+id/farm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
                 android:text="Vườn cây"
-                android:id="@+id/farm"
                 android:textColor="@color/gray" />
+
             <View
                 android:id="@+id/farmView"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/white"/>
+                android:background="@color/white" />
         </LinearLayout>
+
         <LinearLayout
-            android:layout_weight="1"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/friend"
-                android:backgroundTint="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
                 android:text="Kết bạn"
                 android:textColor="@color/gray" />
+
             <View
                 android:id="@+id/friendView"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/white"/>
+                android:background="@color/white" />
         </LinearLayout>
     </LinearLayout>
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/gray"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:padding="15dp"
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view1"/>
     <include layout="@layout/component_menu"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
