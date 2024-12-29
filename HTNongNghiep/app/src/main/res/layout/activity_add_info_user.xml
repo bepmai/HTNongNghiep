@@ -84,7 +84,10 @@
                     android:hint="Tên người dùng"
                     android:padding="10dp"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:inputType="text"
+                    android:ellipsize="end" />
 
                 <EditText
                     android:id="@+id/datePickerEditText"
@@ -107,14 +110,15 @@
                     android:layout_height="55dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edittext_whitegray_border"
-                    android:clickable="true"
                     android:drawableLeft="@drawable/ic_adress"
                     android:drawablePadding="8dp"
-                    android:focusable="false"
                     android:hint="Địa chỉ"
+                    android:inputType="text"
                     android:padding="10dp"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

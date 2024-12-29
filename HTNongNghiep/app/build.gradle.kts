@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.database)
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
     val camerax_version = "1.3.0"

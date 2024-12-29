@@ -77,7 +77,10 @@
                     android:hint="Email hoặc số điện thoại"
                     android:padding="10dp"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
 
                 <EditText
                     android:id="@+id/signin_password"
@@ -93,7 +96,9 @@
                     android:inputType="textPassword"
                     android:padding="10dp"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
 
                 <EditText
                     android:id="@+id/re_signin_password"
@@ -109,7 +114,9 @@
                     android:inputType="textPassword"
                     android:padding="10dp"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
 
                 <CheckBox
                     android:id="@+id/checkBox"

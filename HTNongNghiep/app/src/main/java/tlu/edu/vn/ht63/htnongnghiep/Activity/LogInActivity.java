@@ -1,6 +1,7 @@
 package tlu.edu.vn.ht63.htnongnghiep.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -86,6 +87,17 @@ public class LogInActivity extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
+                                    // Lấy ID người dùng
+                                    String userId = auth.getCurrentUser().getUid();
+
+                                    // Lưu vào SharedPreferences
+                                    SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString("userId", userId);
+                                    editor.apply();
+
+                                    FirebaseAuth.getInstance().signOut();
+
                                     ToastFragment toastFragment = new ToastFragment(1, "Đăng nhập thành công!");
                                     toastFragment.setOnToastDismissListener(() -> {
                                         Intent intent = new Intent(LogInActivity.this, AddInfoUserActivity.class);

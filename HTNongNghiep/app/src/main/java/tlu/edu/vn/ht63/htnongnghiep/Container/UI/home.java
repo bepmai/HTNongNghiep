@@ -114,19 +114,24 @@ public class home extends Fragment {
             }
         });
 
-        if (checkLocationPermission()) {
-            fusedLocationClient.getLastLocation()
-                    .addOnSuccessListener(requireActivity(), location -> {
-                        if (location != null) {
-                            String cityName = getCityTime(location.getLongitude(), location.getLatitude());
-                            getWeatherInfo(cityName); // Gọi hàm tại đây
-                        } else {
-                            Log.d("Location", "No location found.");
-                        }
-                    });
-        }
-//        cityName = getCityTime(location.getLongitude(), location.getLatitude());
+//        if (checkLocationPermission()) {
+//            fusedLocationClient.getLastLocation()
+//                .addOnSuccessListener(requireActivity(), location -> {
+//                    if (location != null) {
+//                        String cityName = getCityTime(location.getLongitude(), location.getLatitude());
+//                        if (cityName!=null&&!cityName.isEmpty()){
+//                            getWeatherInfo(cityName);
+//                        }else {
+//                            getWeatherInfo("Hanoi");
+//                        }
+//                    } else {
+//                        getWeatherInfo("Hanoi");
+//                        Log.d("Location", "No location found.");
+//                    }
+//                });
+//        }
 
+        getWeatherInfo("Hanoi");
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
@@ -204,7 +209,6 @@ public class home extends Fragment {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted
                 getLastKnownLocation();
             } else {
                 Toast.makeText(requireContext(), "Location permission denied", Toast.LENGTH_SHORT).show();

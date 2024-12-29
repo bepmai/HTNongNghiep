@@ -1,6 +1,9 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -96,10 +99,15 @@ public class UserRights extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.remove("userId"); // Xóa giá trị của key "userId"
+                editor.apply(); // Lưu thay đổi
                 ToastFragment toastFragment = new ToastFragment(1, "Đăng xuất thành công!");
                 toastFragment.setOnToastDismissListener(() -> {
                     Intent intent = new Intent(getContext(), LoginSignupActivity.class);
                     startActivity(intent);
+                    getActivity().finish();
                 });
                 toastFragment.showToast(getActivity().getSupportFragmentManager(), R.id.main);
             }

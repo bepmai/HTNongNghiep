@@ -34,6 +34,7 @@ public class LoginSignupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginSignupActivity.this, LogInActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
         changeToSignUp.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +42,7 @@ public class LoginSignupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginSignupActivity.this, SignUpActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
