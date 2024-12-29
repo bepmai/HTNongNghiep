@@ -7,22 +7,27 @@ public class Expenditure implements Serializable {
     public static final int TYPE_BUY = 0;
     public static final int TYPE_PRODUCT = 1;
 
-    private int id;
+    private String id;
     private int viewType; // Phân loại kiểu View
+    private String idSeller;
+    private String idProduct;
     private String productImage;
     private String nameSeller;
     private String adress;
     private Date date;
-    private String status;
+    private int status;
     private String nameProduct;
     private int total;
-    private int idProduct;
     private Float productCost;
     private Float totalPayment;
 
-    public Expenditure(int id, int viewType, String productImage, String nameSeller, String adress, Date date, String status, String nameProduct, int total, int idProduct, Float productCost, Float totalPayment) {
+    public Expenditure(){}
+
+    public Expenditure(String id, int viewType, String idSeller, String idProduct, String productImage, String nameSeller, String adress, Date date, int status, String nameProduct, int total, Float productCost, Float totalPayment) {
         this.id = id;
         this.viewType = viewType;
+        this.idSeller = idSeller;
+        this.idProduct = idProduct;
         this.productImage = productImage;
         this.nameSeller = nameSeller;
         this.adress = adress;
@@ -30,12 +35,16 @@ public class Expenditure implements Serializable {
         this.status = status;
         this.nameProduct = nameProduct;
         this.total = total;
-        this.idProduct = idProduct;
         this.productCost = productCost;
         this.totalPayment = totalPayment;
     }
 
-    public Expenditure() {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public int getViewType() {
@@ -46,20 +55,28 @@ public class Expenditure implements Serializable {
         this.viewType = viewType;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getIdSeller() {
+        return idSeller;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setIdSeller(String idSeller) {
+        this.idSeller = idSeller;
     }
 
-    public int getId() {
-        return id;
+    public String getProductImage() {
+        return productImage;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setProductImage(String productImage) {
+        this.productImage = productImage;
+    }
+
+    public String getIdProduct() {
+        return idProduct;
+    }
+
+    public void setIdProduct(String idProduct) {
+        this.idProduct = idProduct;
     }
 
     public String getNameSeller() {
@@ -70,6 +87,14 @@ public class Expenditure implements Serializable {
         this.nameSeller = nameSeller;
     }
 
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
     public Date getDate() {
         return date;
     }
@@ -78,11 +103,11 @@ public class Expenditure implements Serializable {
         this.date = date;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -102,14 +127,6 @@ public class Expenditure implements Serializable {
         this.total = total;
     }
 
-    public int getIdProduct() {
-        return idProduct;
-    }
-
-    public void setIdProduct(int idProduct) {
-        this.idProduct = idProduct;
-    }
-
     public Float getProductCost() {
         return productCost;
     }
@@ -124,13 +141,5 @@ public class Expenditure implements Serializable {
 
     public void setTotalPayment(Float totalPayment) {
         this.totalPayment = totalPayment;
-    }
-
-    public String getProductImage() {
-        return productImage;
-    }
-
-    public void setProductImage(String productImage) {
-        this.productImage = productImage;
     }
 }
