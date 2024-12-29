@@ -1,4 +1,4 @@
-package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
+package tlu.edu.vn.ht63.htnongnghiep.Activity;
 
 import android.content.Context;
 import android.content.pm.PackageManager;

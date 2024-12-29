@@ -28,16 +28,16 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".Container.UI.AddPlant"
+            android:name=".Activity.AddPlant"
             android:exported="false" />
         <activity
-            android:name=".Container.UI.Weather"
+            android:name=".Activity.Weather"
             android:exported="false"/>
         <activity
-            android:name=".Container.UI.InfUserDetail"
+            android:name=".Activity.InfUserDetail"
             android:exported="false"/>
         <activity
-            android:name=".Container.UI.DetailPlant"
+            android:name=".Activity.DetailPlant"
             android:exported="false"/>
         <activity
             android:name=".Activity.NavigationActivity"

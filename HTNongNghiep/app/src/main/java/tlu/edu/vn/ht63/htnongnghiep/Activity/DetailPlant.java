@@ -1,4 +1,4 @@
-package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
+package tlu.edu.vn.ht63.htnongnghiep.Activity;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
