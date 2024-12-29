@@ -1,11 +1,25 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +40,9 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +51,10 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import tlu.edu.vn.ht63.htnongnghiep.Activity.RevenueExpenditureActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.Weather;
@@ -49,10 +69,19 @@ public class home extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
+    }
+
     private TextView humidityTV, windSpeedTV, cityNameTV, temperatureTV;
     WebView webView;
     TextView detailButton;
     BarChart barChart1;
+
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
+    private FusedLocationProviderClient fusedLocationClient;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,7 +106,19 @@ public class home extends Fragment {
             }
         });
 
-        getWeatherInfo("Hanoi"); // Gọi API cho thành phố Hà Nội
+        if (checkLocationPermission()) {
+            getLastKnownLocation();
+        }
+//        cityName = getCityTime(location.getLongitude(), location.getLatitude());
+        fusedLocationClient.getLastLocation()
+            .addOnSuccessListener(requireActivity(), location -> {
+                if (location != null) {
+                    String cityName = getCityTime(location.getLongitude(), location.getLatitude());
+                    getWeatherInfo(cityName); // Gọi hàm tại đây
+                } else {
+                    Log.d("Location", "No location found.");
+                }
+            });
 
         // Cấu hình WebView
         webView.getSettings().setJavaScriptEnabled(true);
@@ -171,6 +212,75 @@ public class home extends Fragment {
             }
         });
         requestQueue.add(jsonObjectRequest);
+    }
+
+    private boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Request permission
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted
+                getLastKnownLocation();
+            } else {
+                Toast.makeText(requireContext(), "Location permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void getLastKnownLocation() {
+        try {
+            if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                fusedLocationClient.getLastLocation()
+                        .addOnSuccessListener(requireActivity(), new OnSuccessListener<Location>() {
+                            @Override
+                            public void onSuccess(Location location) {
+                                // Check if location is not null
+                                if (location != null) {
+                                    double latitude = location.getLatitude();
+                                    double longitude = location.getLongitude();
+                                    Log.d("Location", "Latitude: " + latitude + ", Longitude: " + longitude);
+                                } else {
+                                    Log.d("Location", "No last known location available.");
+                                }
+                            }
+                        })
+                        .addOnFailureListener(e -> Log.e("Location", "Failed to get location", e));
+            }
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getCityTime(double longitude, double latitude){
+        String cityName = null;
+        Geocoder gcd = new Geocoder(getActivity().getBaseContext(), Locale.getDefault());
+        try{
+            List<Address> addresses = gcd.getFromLocation(latitude, longitude, 10);
+            for (Address adr : addresses){
+                if(adr!=null){
+                    String city = adr.getLocality();
+                    if(city!=null && !city.equals("")){
+                        cityName = city;
+                    }else {
+                        Log.d("TAG", "city not found");
+                        Toast.makeText(getContext(), "User city not found", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return cityName;
     }
 
     private ArrayList<BarEntry> barEntries1(){
