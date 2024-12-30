@@ -150,8 +150,7 @@ public class AddInfoUserActivity extends AppCompatActivity {
 
                     ToastFragment toastFragment = new ToastFragment(1, "Thêm thông tin thành công!");
                     toastFragment.setOnToastDismissListener(() -> {
-
-                        Intent intent = new Intent(AddInfoUserActivity.this, MessageSignUpSucessActivity.class);
+                        Intent intent = new Intent(AddInfoUserActivity.this, HomeActivity.class);
                         startActivity(intent);
                         finish();
                     });
