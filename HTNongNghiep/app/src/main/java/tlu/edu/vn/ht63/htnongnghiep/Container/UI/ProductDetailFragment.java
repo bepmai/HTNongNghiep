@@ -152,6 +152,7 @@ public class ProductDetailFragment extends Fragment {
                         200.0f,
                         200.0f);
                 expenditureViewModel.addExpenditure(expenditure_new);
+
                 if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
                     requireActivity().getSupportFragmentManager().popBackStack();
                 } else {

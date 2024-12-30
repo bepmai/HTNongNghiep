@@ -31,7 +31,7 @@ public class MessageSignUpSucessActivity extends AppCompatActivity {
         changeToLogInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MessageSignUpSucessActivity.this, HomeActivity.class);
+                Intent intent = new Intent(MessageSignUpSucessActivity.this, LogInActivity.class);
                 startActivity(intent);
                 finish();
             }
