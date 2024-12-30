@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -39,7 +40,9 @@ public class analysis_featureInforTree_adapter extends RecyclerView.Adapter<anal
             @Override
             public void onClick(View v) {
                 if (isExpanded) {
+                    // set cho text;
                     holder.contentText.setVisibility(View.GONE);
+                    //set cho recyclerview;
                     holder.dropdownImage.animate().rotation(0).setDuration(300).start();
                 } else {
                     holder.contentText.setVisibility(View.VISIBLE);
@@ -60,6 +63,7 @@ public class analysis_featureInforTree_adapter extends RecyclerView.Adapter<anal
         TextView contentText;
         ImageView dropdownImage;
         View flexBoxFeature;
+        RecyclerView recyclerView;
 
         public FeatureViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,6 +71,7 @@ public class analysis_featureInforTree_adapter extends RecyclerView.Adapter<anal
             contentText = itemView.findViewById(R.id.contentText);
             dropdownImage = itemView.findViewById(R.id.dropdownImage);
             flexBoxFeature = itemView.findViewById(R.id.flexBoxFeature);
+            recyclerView = itemView.findViewById(R.id.contentRecyclerView);
         }
     }
 }
