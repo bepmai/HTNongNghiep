@@ -55,7 +55,7 @@ public class PostCreateActivity extends AppCompatActivity {
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().getAttributes().windowAnimations =  R.style.DialoAnimation;
+        dialog.getWindow().getAttributes().windowAnimations =  R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
     private void showDialog1(){
@@ -71,7 +71,7 @@ public class PostCreateActivity extends AppCompatActivity {
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().getAttributes().windowAnimations =  R.style.DialoAnimation;
+        dialog.getWindow().getAttributes().windowAnimations =  R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 

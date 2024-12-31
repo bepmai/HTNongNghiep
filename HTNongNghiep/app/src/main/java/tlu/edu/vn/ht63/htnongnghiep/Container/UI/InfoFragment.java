@@ -18,10 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tlu.edu.vn.ht63.htnongnghiep.Activity.PostCreateActivity;
+import tlu.edu.vn.ht63.htnongnghiep.Model.HomeModel;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.VideoActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Adapter.HomeAdapter;
-import tlu.edu.vn.ht63.social.model.HomeModel;
 
 
 public class InfoFragment extends Fragment {

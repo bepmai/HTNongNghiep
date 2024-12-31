@@ -1,7 +1,6 @@
 package tlu.edu.vn.ht63.htnongnghiep.Activity;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -28,7 +27,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.ExpenditureDetailFragment;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.ExpenditureFragment;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.ProductDetailFragment;
-import tlu.edu.vn.ht63.htnongnghiep.Container.UI.RevenueDetailFragment;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.RevenueFragment;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
@@ -131,7 +129,7 @@ public class RevenueExpenditureActivity extends AppCompatActivity {
 
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.bottomsheetlayout);
+        dialog.setContentView(R.layout.bottomsheetlayout_renueve);
 
         LinearLayout layoutPlant = dialog.findViewById(R.id.layoutPlant);
         LinearLayout layoutProduct = dialog.findViewById(R.id.layoutProduct);

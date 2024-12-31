@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".activity.PostCreateActivity"
+    tools:context=".Activity.PostCreateActivity"
     android:background="#f5f5f5">
 
     <LinearLayout
