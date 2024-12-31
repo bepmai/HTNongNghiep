@@ -1,5 +1,6 @@
 package tlu.edu.vn.ht63.htnongnghiep.Activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -71,11 +72,11 @@ public class HomeActivity extends AppCompatActivity {
         shopBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                unsetColorBar();
-                shopBar.setColorFilter(getResources().getColor(R.color.active_bar));
-                barClick=R.id.shop;
+                Intent intent = new Intent(HomeActivity.this, PlantListActivity.class);
+                startActivity(intent);
             }
         });
+
 
         analysisBar.setOnClickListener(new View.OnClickListener() {
             @Override
