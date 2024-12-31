@@ -42,7 +42,7 @@ public class DetailPlant extends AppCompatActivity {
 
         Spinner spinner_type = findViewById(R.id.input_type);
 
-        String[] options_type = {"Cây thân cỏ", "Cây thân gỗ", "Cây thân leo", "Cây thủy sinh", "Cây khí sinh"};
+        String[] options_type = {"Cây thân thảo", "Cây thân gỗ", "Cây thân leo", "Cây thủy sinh", "Cây khí sinh"};
 
         ArrayAdapter<String> adapter_type = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options_type);
         adapter_type.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

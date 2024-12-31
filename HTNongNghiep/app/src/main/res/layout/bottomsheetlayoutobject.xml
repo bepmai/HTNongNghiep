@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_dialog_bg"
+    android:orientation="vertical">
+
+    <!-- Tiêu đề -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="5dp"
+        android:text="Ai có thể xem bài viết này ?" />
+
+    <!-- RadioGroup chứa các tùy chọn -->
+    <RadioGroup
+        android:id="@+id/radioGroupOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Dòng Mọi người -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_public" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Mọi người"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:layout_marginStart="15dp" />
+
+            <RadioButton
+                android:id="@+id/radioEveryone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#3CC18E" />
+        </LinearLayout>
+
+        <!-- Dòng Bạn bè -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_mutilusers" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Bạn bè"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:layout_marginStart="15dp" />
+
+            <RadioButton
+                android:id="@+id/radioFriends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#3CC18E" />
+        </LinearLayout>
+
+        <!-- Dòng Bạn bè cụ thể -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_user" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Bạn bè cụ thể"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:layout_marginStart="15dp" />
+
+            <RadioButton
+                android:id="@+id/radioSpecificFriends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#3CC18E" />
+        </LinearLayout>
+
+        <!-- Dòng Chỉ mình tôi -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_lock" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Chỉ mình tôi"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:layout_marginStart="15dp" />
+
+            <RadioButton
+                android:id="@+id/radioOnlyMe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#3CC18E" />
+        </LinearLayout>
+    </RadioGroup>
+
+    <!-- Đường kẻ mờ -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="#B3B3B3" />
+
+    <!-- Checkbox căn giữa -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp">
+
+        <CheckBox
+            android:id="@+id/checkBoxDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="#3CC18E" />
+
+        <TextView
+            android:id="@+id/textViewDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Đặt làm đối tượng mặc định"
+            android:textColor="#777B84"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- Nút Áp dụng -->
+    <Button
+        android:id="@+id/buttonApply"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/ic_rounded_button"
+        android:text="Áp dụng"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+</LinearLayout>

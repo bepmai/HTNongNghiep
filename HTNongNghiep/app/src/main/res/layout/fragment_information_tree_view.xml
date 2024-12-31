@@ -147,7 +147,7 @@
                             android:background="@drawable/border_circle"
                             android:backgroundTint="@color/light_gray"
                             android:padding="15dp"
-                            android:src="@drawable/ic_temperature_line"/>
+                            android:src="@drawable/ic_temperature"/>
                         <TextView
                             android:padding="5dp"
                             android:id="@+id/treeTemp"
