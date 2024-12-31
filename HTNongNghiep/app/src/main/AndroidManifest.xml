@@ -91,8 +91,29 @@
             android:name=".Activity.LogInActivity"
             android:exported="false" />
         <activity
+            android:name=".Activity.MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.LoginSignupActivity"
             android:exported="false" />
-    </application>
+        <activity
+            android:name=".Activity.VideoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Social" />
+        <activity
+            android:name=".Activity.ChatDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Social" />
+        <activity
+            android:name=".Activity.PostCreateActivity"
+            android:exported="false"
+            android:label="@string/title_activity_post_create"
+            android:theme="@style/Theme.Social" />
+        <activity
+            android:name=".Activity.ChatActivity"
+            android:exported="false"
+            android:label="@string/title_activity_chat"
+            android:theme="@style/Theme.Social" />
 
+    </application>
 </manifest>

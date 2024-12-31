@@ -1,5 +1,6 @@
 package tlu.edu.vn.ht63.htnongnghiep.Activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -65,6 +66,9 @@ public class HomeActivity extends AppCompatActivity {
                 unsetColorBar();
                 communityBar.setColorFilter(getResources().getColor(R.color.active_bar));
                 barClick=R.id.community;
+
+                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
