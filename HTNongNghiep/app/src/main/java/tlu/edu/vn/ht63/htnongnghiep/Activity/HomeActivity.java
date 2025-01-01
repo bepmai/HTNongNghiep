@@ -75,11 +75,11 @@ public class HomeActivity extends AppCompatActivity {
         shopBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                unsetColorBar();
-                shopBar.setColorFilter(getResources().getColor(R.color.active_bar));
-                barClick=R.id.shop;
+                Intent intent = new Intent(HomeActivity.this, PlantListActivity.class);
+                startActivity(intent);
             }
         });
+
 
         analysisBar.setOnClickListener(new View.OnClickListener() {
             @Override
