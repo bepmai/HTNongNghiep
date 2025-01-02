@@ -89,28 +89,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:text="Ho va ten"
+                        android:text="Họ và tên"
                         android:textSize="17sp" />
                     <EditText
                         android:id="@+id/input_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginEnd="20dp"
-                        android:padding="5dp"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Email"
-                        android:textSize="17sp" />
-
-                    <EditText
-                        android:id="@+id/input_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -191,6 +173,7 @@
                     android:id="@+id/btn_update"
                     android:textColor="@color/white"
                     android:layout_width="0dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/border_green_no"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
