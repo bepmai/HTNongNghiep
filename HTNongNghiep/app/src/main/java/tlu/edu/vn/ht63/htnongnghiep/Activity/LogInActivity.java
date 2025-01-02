@@ -23,13 +23,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.regex.Pattern;
@@ -44,6 +44,8 @@ public class LogInActivity extends AppCompatActivity {
     EditText signin_username,signin_password;
     private FirebaseAuth auth;
     boolean checkUserInDB = false;
+    FirebaseDatabase database;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,9 @@ public class LogInActivity extends AppCompatActivity {
         signin_password = findViewById(R.id.signin_password);
 
         auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        reference = database.getReference("inforUser");
+
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,25 +107,21 @@ public class LogInActivity extends AppCompatActivity {
                                     editor.putString("userId", userId);
                                     editor.apply();
 
-                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("inforUser");
                                     reference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             if (dataSnapshot.exists()) {
-                                                // Dữ liệu với userId này tồn tại
-                                                // Bạn có thể lấy dữ liệu từ dataSnapshot tại đây
-                                                checkUserInDB = true;
                                                 Log.d("User Check", "User exists in the database.");
+                                                checkUserInDB = true;
                                             } else {
-                                                // Không có dữ liệu với userId này
                                                 Log.d("User Check", "User does not exist in the database.");
                                             }
                                         }
 
                                         @Override
                                         public void onCancelled(DatabaseError databaseError) {
-                                            // Xử lý lỗi nếu có
                                             Log.e("Database Error", databaseError.getMessage());
+                                            Toast.makeText(LogInActivity.this, "Error: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                                         }
                                     });
 
@@ -206,5 +207,17 @@ public class LogInActivity extends AppCompatActivity {
     public boolean isValidEmail(String email) {
         String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         return Pattern.matches(emailPattern, email);
+    }
+
+    private void navigateToHomeActivity() {
+        Intent intent = new Intent(LogInActivity.this, HomeActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void navigateToAddInfoUserActivity() {
+        Intent intent = new Intent(LogInActivity.this, AddInfoUserActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
