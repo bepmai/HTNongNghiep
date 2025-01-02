@@ -1,6 +1,8 @@
 package tlu.edu.vn.ht63.htnongnghiep.Model;
 
-public class InforUser {
+import java.io.Serializable;
+
+public class InforUser implements Serializable {
     private String fullName;
     private String dateOfBirth;
     private String adress;
