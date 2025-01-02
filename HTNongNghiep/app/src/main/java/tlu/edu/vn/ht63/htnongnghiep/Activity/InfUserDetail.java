@@ -42,6 +42,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import tlu.edu.vn.ht63.htnongnghiep.Component.Subcomponent.ToastFragment;
 import tlu.edu.vn.ht63.htnongnghiep.Model.InforUser;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
@@ -212,6 +213,12 @@ public class InfUserDetail extends AppCompatActivity {
                     .getReference("images")
                     .child(uri.getLastPathSegment());
 
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setCancelable(false);
+            builder.setView(R.layout.progress_layout);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
             storageReference.putFile(uri).addOnSuccessListener(taskSnapshot -> {
                 taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -232,15 +239,21 @@ public class InfUserDetail extends AppCompatActivity {
 
                         userRef.updateChildren(updates).addOnCompleteListener(task2 -> {
                             if (task2.isSuccessful()) {
-                                Toast.makeText(InfUserDetail.this, "Cập nhật thông tin thành công!", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                                ToastFragment toastFragment = new ToastFragment(1, "Cập nhật thông tin thành công!");
+                                toastFragment.showToast(getSupportFragmentManager(),R.id.main);
                             } else {
-                                Toast.makeText(InfUserDetail.this, "Cập nhật thông tin thất bại!", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                                ToastFragment toastFragment = new ToastFragment(3, "Cập nhật thông tin thất bại!");
+                                toastFragment.showToast(getSupportFragmentManager(),R.id.main);
                             }
                         });
                     }
                 });
             }).addOnFailureListener(e -> {
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                ToastFragment toastFragment = new ToastFragment(3, "Cập nhật thông tin thất bại!");
+                toastFragment.showToast(getSupportFragmentManager(),R.id.main);
             });
         }
     }
