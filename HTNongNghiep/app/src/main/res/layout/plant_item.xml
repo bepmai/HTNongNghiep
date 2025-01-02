@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -16,8 +12,7 @@
         android:id="@+id/product_image"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/product_name"
@@ -56,4 +51,3 @@
         android:textColor="@android:color/darker_gray"
         android:gravity="center_horizontal"/>
 </LinearLayout>
-</ScrollView>

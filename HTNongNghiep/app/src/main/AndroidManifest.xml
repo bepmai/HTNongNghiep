@@ -37,6 +37,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.ItemDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.AddPlantProductActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.PlantListActivity"
             android:exported="false"
             android:label="@string/title_activity_plant_list"
