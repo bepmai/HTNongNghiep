@@ -159,7 +159,6 @@ public class Weather extends AppCompatActivity {
     }
     private void getWeatherInfo(String cityName) {
         String url = "http://api.weatherapi.com/v1/forecast.json?key=dc808a7efddb44c5a7522941242212&q=" + cityName + "&days=1&aqi=yes&alerts=yes";
-//        String url = "http://api.weatherapi.com/v1/forecast.json?key=dc808a7efddb44c5a7522941242212&q=Hanoi&days=1&aqi=yes&alerts=yes";
         cityNameTV.setText(cityName);
         RequestQueue requestQueue = Volley.newRequestQueue(Weather.this);
 
@@ -226,14 +225,10 @@ public class Weather extends AppCompatActivity {
 
                     String temperature = response.getJSONObject("current").getString("temp_c");
                     temperatureTV.setText(temperature + "°C");
-                    int isDay = response.getJSONObject("current").getInt("is_day");
+
                     String conditionIcon = response.getJSONObject("current").getJSONObject("condition").getString("icon");
                     Picasso.get().load("http:".concat(conditionIcon)).into(iconIV);
-//                    if(isDay==1){
-//                        Picasso.get().load("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vn.freelancer.com%2Fcontest%2Fanimated-weather-wallpaper-for-iphone-app-329593-byentry-7777965&psig=AOvVaw3BHZa66tN65m1-vLrYGmqB&ust=1735019574502000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMD-_dyZvYoDFQAAAAAdAAAAABAE").into(backIV);
-//                    }else {
-//                        Picasso.get().load("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-ai-image%2Fview-3d-cloud_133554256.htm&psig=AOvVaw3sDC8UXcCZChgAEYuGDJXz&ust=1735019643960000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCND_hP-ZvYoDFQAAAAAdAAAAABAJ").into(backIV);
-//                    }
+
                     JSONObject forecastObj = response.getJSONObject("forecast");
                     JSONObject forecastO = forecastObj.getJSONArray("forecastday").getJSONObject(0);
                     JSONArray hourArray = forecastO.getJSONArray("hour");
@@ -250,13 +245,16 @@ public class Weather extends AppCompatActivity {
                         String humidity = hourObj.getString("humidity");
                         weatherRVModalArrayList.add(new WeatherRVModal(time, temper, img, wind, humidity));
                     }
+
                     JSONObject hourObj = hourArray.getJSONObject(0);
                     String time = hourObj.getString("time");
                     String temper = hourObj.getString("temp_c");
                     String img = hourObj.getJSONObject("condition").getString("icon");
                     String wind = hourObj.getString("wind_kph");
                     String humidity = hourObj.getString("humidity");
+
                     weatherRVModalArrayList.add(new WeatherRVModal(time, temper, img, wind, humidity));
+
                     weatherRVAdapter.notifyDataSetChanged();
                 }catch (JSONException e){
                     e.printStackTrace();
