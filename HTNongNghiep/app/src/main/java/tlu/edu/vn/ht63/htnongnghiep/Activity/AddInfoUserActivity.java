@@ -141,6 +141,7 @@ public class AddInfoUserActivity extends AppCompatActivity {
                     SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
                     String userId = sharedPreferences.getString("userId", null);
                     InforUser inforUser = new InforUser(
+                            "",
                             nameEditText.getText().toString(),
                             datePickerEditText.getText().toString(),
                             adressEditText.getText().toString(),

@@ -1,8 +1,7 @@
 package tlu.edu.vn.ht63.htnongnghiep.Model;
 
-import java.io.Serializable;
-
-public class InforUser implements Serializable {
+public class InforUser {
+    private String image;
     private String fullName;
     private String dateOfBirth;
     private String adress;
@@ -12,12 +11,21 @@ public class InforUser implements Serializable {
     public InforUser() {
     }
 
-    public InforUser(String fullName, String dateOfBirth, String adress, String gender, String plant) {
+    public InforUser(String image, String fullName, String dateOfBirth, String adress, String gender, String plant) {
+        this.image = image;
         this.fullName = fullName;
         this.dateOfBirth = dateOfBirth;
         this.adress = adress;
         this.gender = gender;
         this.plant = plant;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getFullName() {
