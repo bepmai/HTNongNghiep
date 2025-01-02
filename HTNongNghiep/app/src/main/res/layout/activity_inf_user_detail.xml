@@ -198,18 +198,6 @@
                     android:textStyle="bold"
                     android:textSize="13dp"
                     android:text="Sửa" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_delete"
-                    android:textColor="@color/white"
-                    android:background="@drawable/border_gray"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="5dp"
-                    android:textStyle="bold"
-                    android:textSize="13dp"
-                    android:text="Xóa" />
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
