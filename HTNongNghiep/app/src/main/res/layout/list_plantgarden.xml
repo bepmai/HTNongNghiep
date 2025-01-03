@@ -8,6 +8,7 @@
     android:layout_marginHorizontal="10dp"
     app:cardCornerRadius="20dp"
     app:cardElevation="8dp"
+    android:id="@+id/recCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -19,7 +20,7 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:id="@+id/listImage"
+            android:id="@+id/plantImage"
             android:src="@drawable/ic_tree"
             android:scaleType="centerCrop"
             android:layout_marginStart="10dp"
@@ -29,21 +30,21 @@
         <TextView
             android:layout_width="120dp"
             android:layout_height="30dp"
-            android:id="@+id/listName"
+            android:id="@+id/plantName"
             android:text="Name"
             android:textColor="@color/green"
             android:textSize="20sp"
             android:layout_marginTop="25dp"
             android:layout_marginStart="30dp"
-            android:layout_toEndOf="@id/listImage"/>
+            android:layout_toEndOf="@id/plantImage"/>
 
         <TextView
             android:layout_width="100dp"
             android:layout_height="30dp"
-            android:id="@+id/listAge"
-            android:text="age/weak"
+            android:id="@+id/plantAge"
+            android:text="0"
             android:textSize="16sp"
-            android:layout_toEndOf="@id/listName"
+            android:layout_toEndOf="@id/plantName"
             android:layout_marginTop="25dp"
             android:layout_marginStart="50dp"
             android:textColor="@color/green"/>
@@ -51,11 +52,11 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="30dp"
-            android:id="@+id/listHeight"
-            android:text="hieght"
+            android:id="@+id/plantHeight"
+            android:text="0"
             android:textSize="16sp"
-            android:layout_below="@+id/listAge"
-            android:layout_toEndOf="@id/listName"
+            android:layout_below="@+id/plantAge"
+            android:layout_toEndOf="@id/plantName"
             android:layout_marginTop="25dp"
             android:layout_marginStart="50dp"
             android:textColor="@color/green"/>

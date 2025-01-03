@@ -2,6 +2,9 @@ package tlu.edu.vn.ht63.htnongnghiep.Activity;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
@@ -10,9 +13,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
+
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class DetailPlant extends AppCompatActivity {
+    ImageView image;
+    EditText nameplant, ageplant, height, weeklyWatering, weeklySunExposure, health, note;
+    Spinner temperature, environment, type;
+    Button btnDelate, btnUpdate;
+    String imageUrl = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,28 +34,53 @@ public class DetailPlant extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        Spinner spinner_temperature = findViewById(R.id.input_temperature);
+        image = findViewById(R.id.image);
+        nameplant = findViewById(R.id.input_nameplant);
+        ageplant = findViewById(R.id.input_ageplant);
+        height = findViewById(R.id.input_height);
+        weeklyWatering = findViewById(R.id.input_weeklyWatering);
+        weeklySunExposure = findViewById(R.id.input_weeklySunExposure);
+        health = findViewById(R.id.input_health);
+        note = findViewById(R.id.input_Note);
+        btnDelate = findViewById(R.id.btn_delete);
+        btnUpdate = findViewById(R.id.btn_update);
+
+        temperature = findViewById(R.id.input_temperature);
 
         String[] options_temperature = {"Nóng", "Ẩm", "Khô", "Lạnh", "Ôn hòa"};
 
         ArrayAdapter<String> adapter_temperature = new ArrayAdapter<>(this, R.layout.spinner_detail_plant_item, options_temperature);
         adapter_temperature.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_temperature.setAdapter(adapter_temperature);
+        temperature.setAdapter(adapter_temperature);
 
-        Spinner spinner_environment = findViewById(R.id.input_environment);
+        environment = findViewById(R.id.input_environment);
 
         String[] options_environment = {"Cạn", "Nước", "Trôi nổi trên mặt nước", "Nhà kính", "Vườn"};
 
         ArrayAdapter<String> adapter_environment = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options_environment);
         adapter_environment.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_environment.setAdapter(adapter_environment);
+        environment.setAdapter(adapter_environment);
 
-        Spinner spinner_type = findViewById(R.id.input_type);
+        type = findViewById(R.id.input_type);
 
         String[] options_type = {"Cây thân thảo", "Cây thân gỗ", "Cây thân leo", "Cây thủy sinh", "Cây khí sinh"};
 
         ArrayAdapter<String> adapter_type = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options_type);
         adapter_type.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_type.setAdapter(adapter_type);
+        type.setAdapter(adapter_type);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null){
+            nameplant.setText(bundle.getString("Name"));
+            ageplant.setText(bundle.getString("Age"));
+            height.setText(bundle.getString("Height"));
+            weeklyWatering.setText(bundle.getString("WeeklyWatering"));
+            weeklySunExposure.setText(bundle.getString("WeeklySunExposure"));
+            health.setText(bundle.getString("Health"));
+            note.setText(bundle.getString("Note"));
+//            key = bundle.getString("Key");
+            imageUrl = bundle.getString("Image");
+            Glide.with(this).load(bundle.getString("Image")).into(image);
+        }
     }
 }
