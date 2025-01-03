@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +21,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,6 +33,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
+import tlu.edu.vn.ht63.htnongnghiep.Model.Revenue;
 import tlu.edu.vn.ht63.htnongnghiep.Model.RevenueExpenditure;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 import tlu.edu.vn.ht63.htnongnghiep.ViewModel.ExpenditureViewModel;
@@ -141,6 +147,11 @@ public class ExpenditureDetailFragment extends Fragment {
                 .getReference("expenditure")
                 .child(userId);
 
+        DatabaseReference revenueDetailRef = FirebaseDatabase.getInstance()
+                .getReference("revenue")
+                .child(userId)
+                .child(expenditure.getId());
+
         if (expenditure!=null){
             buyer_edt.setText(expenditure.getNameSeller());
             plant_edt.setText(expenditure.getNameProduct());
@@ -158,20 +169,36 @@ public class ExpenditureDetailFragment extends Fragment {
                         expenditure.setStatus(1);
                         expenditureViewModel.updateExpenditure(expenditure);
 
-                        expenditureDetailRef.child(expenditure.getId()).setValue(expenditure)
-                                .addOnCompleteListener(task -> {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(getContext(), "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
-                                        if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                                            requireActivity().getSupportFragmentManager().popBackStack();
-                                        } else {
-                                            requireActivity().finish();
-                                        }
-                                    }
-                                })
-                                .addOnFailureListener(e -> {
-                                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                                });
+                        expenditureDetailRef.child(expenditure.getId()).setValue(expenditure);
+
+                        revenueDetailRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                Revenue revenue = snapshot.getValue(Revenue.class);
+                                if (revenue == null) {
+                                    Toast.makeText(getContext(), "Hoá đơn chi không tồn tại", Toast.LENGTH_SHORT).show();
+                                }else {
+                                    revenueDetailRef.setValue(revenue).addOnCompleteListener(task -> {
+                                                if (task.isSuccessful()) {
+                                                    Toast.makeText(getContext(), "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
+                                                    if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                                                        requireActivity().getSupportFragmentManager().popBackStack();
+                                                    } else {
+                                                        requireActivity().finish();
+                                                    }
+                                                }
+                                            })
+                                            .addOnFailureListener(e -> {
+                                                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            });
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Log.e("FirebaseError", "Error: " + error.getMessage());
+                            }
+                        });
                     }
                 });
             }else if(expenditure.getStatus() == RevenueExpenditure.TYPE_CONFIRM){
