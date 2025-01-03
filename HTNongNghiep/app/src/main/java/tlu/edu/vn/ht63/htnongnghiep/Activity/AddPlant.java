@@ -24,6 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -41,11 +43,12 @@ import com.google.firebase.storage.UploadTask;
 import java.text.DateFormat;
 import java.util.Calendar;
 
+import tlu.edu.vn.ht63.htnongnghiep.Container.UI.GardenFragment;
 import tlu.edu.vn.ht63.htnongnghiep.Model.PlantOfUser;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class AddPlant extends AppCompatActivity {
-    ImageView image;
+    ImageView image, ic_back;
     EditText nameplant, ageplant, height, weeklyWatering, weeklySunExposure, health, note;
     Spinner temperature, environment, type;
     Button btnAdd;
@@ -71,6 +74,18 @@ public class AddPlant extends AppCompatActivity {
         health = findViewById(R.id.input_health);
         note = findViewById(R.id.input_Note);
         btnAdd = findViewById(R.id.btn_add);
+        ic_back = findViewById(R.id.left_admin);
+
+        ic_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Mở MainActivity (chứa GardenFragment)
+                Intent intent = new Intent(AddPlant.this, HomeActivity.class);
+                intent.putExtra("open_fragment", "garden");
+                startActivity(intent);
+                finish();
+            }
+        });
 
         temperature = findViewById(R.id.input_temperature);
 

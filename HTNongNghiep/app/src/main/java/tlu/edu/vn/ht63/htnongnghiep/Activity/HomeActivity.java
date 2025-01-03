@@ -26,12 +26,33 @@ public class HomeActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_home);
         if (savedInstanceState == null) {
-            // Tạo một Fragment mới
-            Fragment homeFragment = new home();
-
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.main, homeFragment);
-            transaction.commit();
+//            // Tạo một Fragment mới
+//            Fragment homeFragment = new home();
+//
+//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//            transaction.replace(R.id.main, homeFragment);
+//            transaction.commit();
+            String openFragment = getIntent().getStringExtra("open_fragment");
+            if ("garden".equals(openFragment)) {
+                Fragment gardenFragment = new GardenFragment();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main, gardenFragment)
+                        .commit();
+            }
+            else if ("userrights".equals(openFragment)) {
+                Fragment userrightsFragment = new UserRights();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main, userrightsFragment)
+                        .commit();
+            } else {
+                Fragment homeFragment = new home();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main, homeFragment)
+                        .commit();
+            }
         }
         homeBar = findViewById(R.id.home);
         communityBar = findViewById(R.id.community);

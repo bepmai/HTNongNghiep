@@ -42,6 +42,7 @@ public class PlantOfUserAdapter extends RecyclerView.Adapter<MyViewHolder>{
         holder.plantName.setText(plantOfUserList.get(position).getNameplant());
         holder.plantAge.setText(String.valueOf(plantOfUserList.get(position).getAgeplant()));
         holder.plantHeight.setText(String.format("%.2f", plantOfUserList.get(position).getHeight()));
+        holder.plantType.setText(plantOfUserList.get(position).getType());
         holder.recCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,6 +53,7 @@ public class PlantOfUserAdapter extends RecyclerView.Adapter<MyViewHolder>{
                     intent.putExtra("Name", plantOfUserList.get(position).getNameplant());
                     intent.putExtra("Age", plantOfUserList.get(position).getAgeplant());
                     intent.putExtra("Height", plantOfUserList.get(position).getHeight());
+//                    intent.putExtra("Type"), plantOfUserList.get(position).getType();
                     context.startActivity(intent);
                 }
             }
@@ -65,7 +67,7 @@ public class PlantOfUserAdapter extends RecyclerView.Adapter<MyViewHolder>{
 }
 class MyViewHolder extends RecyclerView.ViewHolder{
     ImageView plantImage;
-    TextView plantName, plantAge, plantHeight;
+    TextView plantName, plantAge, plantHeight, plantType;
     CardView recCard;
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -73,6 +75,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
         plantName = itemView.findViewById(R.id.plantName);
         plantAge = itemView.findViewById(R.id.plantAge);
         plantHeight = itemView.findViewById(R.id.plantHeight);
+        plantType = itemView.findViewById(R.id.plantType);
         recCard = itemView.findViewById(R.id.recCard);
     }
 }

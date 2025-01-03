@@ -1,6 +1,8 @@
 package tlu.edu.vn.ht63.htnongnghiep.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +20,7 @@ import com.bumptech.glide.Glide;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class DetailPlant extends AppCompatActivity {
-    ImageView image;
+    ImageView image, ic_back;
     EditText nameplant, ageplant, height, weeklyWatering, weeklySunExposure, health, note;
     Spinner temperature, environment, type;
     Button btnDelate, btnUpdate;
@@ -44,6 +46,19 @@ public class DetailPlant extends AppCompatActivity {
         note = findViewById(R.id.input_Note);
         btnDelate = findViewById(R.id.btn_delete);
         btnUpdate = findViewById(R.id.btn_update);
+
+        ic_back = findViewById(R.id.ic_back);
+
+        ic_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Mở MainActivity (chứa GardenFragment)
+                Intent intent = new Intent(DetailPlant.this, HomeActivity.class);
+                intent.putExtra("open_fragment", "garden");
+                startActivity(intent);
+                finish();
+            }
+        });
 
         temperature = findViewById(R.id.input_temperature);
 

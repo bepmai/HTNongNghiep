@@ -84,17 +84,9 @@ public class GardenFragment extends Fragment {
         btn_add = view.findViewById(R.id.btn_add);
         recyclerView = view.findViewById(R.id.recyclerViewPlant);
 
-        // Thiết lập GridLayoutManager
         GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
 
-        // Thiết lập AlertDialog
-//        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-//        builder.setCancelable(false);
-//        AlertDialog dialog = builder.create();
-//        dialog.show();
-
-        // Tạo danh sách và adapter
         plantOfUserList = new ArrayList<>();
         plantOfUserAdapter = new PlantOfUserAdapter(getActivity(), plantOfUserList);
         recyclerView.setAdapter(plantOfUserAdapter);
@@ -108,7 +100,6 @@ public class GardenFragment extends Fragment {
 //            return;
 //        }
 
-        // Tham chiếu tới Firebase
         databaseReference = FirebaseDatabase.getInstance().getReference("PlantOfUser").child(userId);
         eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -121,17 +112,14 @@ public class GardenFragment extends Fragment {
                     }
                 }
                 plantOfUserAdapter.notifyDataSetChanged();
-//                dialog.dismiss();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-//                dialog.dismiss();
                 Log.e("FirebaseError", "Error: " + error.getMessage());
             }
         });
 
-        // Xử lý sự kiện click cho nút thêm
         btn_add.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), AddPlant.class);
             startActivity(intent);
