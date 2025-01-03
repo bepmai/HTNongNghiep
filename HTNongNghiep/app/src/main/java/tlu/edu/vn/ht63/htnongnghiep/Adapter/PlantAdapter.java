@@ -1,5 +1,6 @@
 package tlu.edu.vn.ht63.htnongnghiep.Adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
+import tlu.edu.vn.ht63.htnongnghiep.Activity.ItemDetailActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Plant;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHolder> {
     private List<Plant> plantList;
+    private final OnItemClickListener listener;
 
-    public PlantAdapter(List<Plant> plantList) {
+    public PlantAdapter(List<Plant> plantList, OnItemClickListener listener) {
         this.plantList = plantList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -34,7 +38,22 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
         holder.discount.setText(plant.getDiscount());
         holder.rating.setText(plant.getRating());
         holder.image.setImageResource(plant.getImageResId());
+
+        // Thiết lập sự kiện click trực tiếp trong adapter
+        holder.itemView.setOnClickListener(v -> {
+            // Tạo Intent để chuyển sang activity chi tiết
+            Intent intent = new Intent(holder.itemView.getContext(), ItemDetailActivity.class);
+            intent.putExtra("plant_name", plant.getName());
+            intent.putExtra("plant_price", plant.getPrice());
+            intent.putExtra("plant_discount", plant.getDiscount());
+            intent.putExtra("plant_rating", plant.getRating());
+            intent.putExtra("plant_image", plant.getImageResId());
+
+            // Start activity
+            holder.itemView.getContext().startActivity(intent);
+        });
     }
+
 
     @Override
     public int getItemCount() {
@@ -53,5 +72,9 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
             rating = itemView.findViewById(R.id.product_rating);
             image = itemView.findViewById(R.id.product_image);
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Plant plant);
     }
 }

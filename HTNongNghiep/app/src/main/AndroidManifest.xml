@@ -47,10 +47,13 @@
             android:name=".Container.UI.Weather"
             android:exported="false" />
         <activity
-            android:name=".Container.UI.InfUserDetail"
+            android:name=".Container.UI.DetailPlant"
             android:exported="false" />
         <activity
-            android:name=".Container.UI.DetailPlant"
+            android:name=".Activity.ItemDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.AddPlantProductActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.PlantListActivity"
