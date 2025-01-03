@@ -53,6 +53,7 @@ public class AddInfoUserActivity extends AppCompatActivity {
         plantsSpinner = findViewById(R.id.plantsSpinner);
         datePickerEditText = findViewById(R.id.datePickerEditText);
         addInfoBtn = findViewById(R.id.addInfoBtn);
+//        skipButton = findViewById(R.id.skipButton);
         nameEditText = findViewById(R.id.nameEditText);
         adressEditText = findViewById(R.id.adressEditText);
         genderSpinnerError = findViewById(R.id.genderSpinnerError);
@@ -86,7 +87,6 @@ public class AddInfoUserActivity extends AppCompatActivity {
                 R.array.gender_array,
                 R.layout.spinner_item
         );
-
 
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         genderSpinner.setAdapter(genderAdapter);
@@ -159,6 +159,16 @@ public class AddInfoUserActivity extends AppCompatActivity {
                 }
             }
         });
+
+//        skipButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+//                String userId = sharedPreferences.getString("userId", null);
+//                InforUser inforUser = new InforUser("", "", "", "", "", plantText);
+//                reference.child(userId).setValue(inforUser);
+//            }
+//        });
     }
 
     private boolean checkSignUp(){
