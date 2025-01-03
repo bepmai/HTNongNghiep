@@ -1,8 +1,10 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
+import static android.content.Context.MODE_PRIVATE;
 import static android.content.Intent.getIntent;
 
 import android.app.DatePickerDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +17,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -105,23 +111,35 @@ public class ExpenditureDetailFragment extends Fragment {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd MMMM yyyy", new Locale("vi"));
 
-        date_edt.setOnClickListener(v -> {
-            Calendar calendar = Calendar.getInstance();
+//        date_edt.setOnClickListener(v -> {
+//            Calendar calendar = Calendar.getInstance();
+//
+//            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
+//                    (view1, year, month, dayOfMonth) -> {
+//                        calendar.set(Calendar.YEAR, year);
+//                        calendar.set(Calendar.MONTH, month);
+//                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//
+//                        date_edt.setText(dateFormat.format(calendar.getTime()));
+//                    },
+//                    calendar.get(Calendar.YEAR),
+//                    calendar.get(Calendar.MONTH),
+//                    calendar.get(Calendar.DAY_OF_MONTH)
+//            );
+//            datePickerDialog.show();
+//        });
 
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
-                    (view1, year, month, dayOfMonth) -> {
-                        calendar.set(Calendar.YEAR, year);
-                        calendar.set(Calendar.MONTH, month);
-                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        String userId = sharedPreferences.getString("userId", null);
 
-                        date_edt.setText(dateFormat.format(calendar.getTime()));
-                    },
-                    calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH)
-            );
-            datePickerDialog.show();
-        });
+        if (userId == null) {
+            Toast.makeText(getContext(), "User ID is missing", Toast.LENGTH_SHORT).show();
+            return view;
+        }
+
+        DatabaseReference expenditureDetailRef = FirebaseDatabase.getInstance()
+                .getReference("expenditure")
+                .child(userId);
 
         if (expenditure!=null){
             buyer_edt.setText(expenditure.getNameSeller());
@@ -129,9 +147,7 @@ public class ExpenditureDetailFragment extends Fragment {
             if(expenditure.getStatus() == RevenueExpenditure.TYPE_NOT_CONFIRMED){
                 status_edt.setTextColor(getResources().getColor(R.color.black));
                 status_edt.setText("Chưa xác nhận");
-            }else if(expenditure.getStatus() == RevenueExpenditure.TYPE_CONFIRM){
-                status_edt.setTextColor(getResources().getColor(R.color.search_opaque));
-                status_edt.setText("Đã xác nhận");
+
                 saveBtn.setBackgroundColor(getResources().getColor(R.color.green));
                 ExpenditureViewModel expenditureViewModel =
                         new ViewModelProvider(requireActivity()).get(ExpenditureViewModel.class);
@@ -139,16 +155,28 @@ public class ExpenditureDetailFragment extends Fragment {
                 saveBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        expenditure.setStatus(2);
+                        expenditure.setStatus(1);
                         expenditureViewModel.updateExpenditure(expenditure);
-                        if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                            requireActivity().getSupportFragmentManager().popBackStack();
-                        } else {
-                            // Nếu không có fragment trước đó, có thể kết thúc activity
-                            requireActivity().finish();
-                        }
+
+                        expenditureDetailRef.child(expenditure.getId()).setValue(expenditure)
+                                .addOnCompleteListener(task -> {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(getContext(), "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
+                                        if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                                            requireActivity().getSupportFragmentManager().popBackStack();
+                                        } else {
+                                            requireActivity().finish();
+                                        }
+                                    }
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                });
                     }
                 });
+            }else if(expenditure.getStatus() == RevenueExpenditure.TYPE_CONFIRM){
+                status_edt.setTextColor(getResources().getColor(R.color.search_opaque));
+                status_edt.setText("Đã xác nhận");
             }else if(expenditure.getStatus() == RevenueExpenditure.TYPE_SUCCESS){
                 status_edt.setTextColor(getResources().getColor(R.color.red));
                 status_edt.setText("Thành công");
