@@ -1,6 +1,9 @@
 package tlu.edu.vn.ht63.htnongnghiep.Model;
 
-public class PlantOfUser {
+import java.io.Serializable;
+
+public class PlantOfUser implements Serializable {
+    private String id;
     private String image;
     private String nameplant;
     private int ageplant;
@@ -14,7 +17,9 @@ public class PlantOfUser {
     private String note;
 
     public PlantOfUser(){}
-    public PlantOfUser(String image, String nameplant, int ageplant, float height, int weeklyWatering, int weeklySunExposure, String health, String temperature, String environment, String type, String note) {
+
+    public PlantOfUser(String id, String image, String nameplant, int ageplant, float height, int weeklyWatering, int weeklySunExposure, String health, String temperature, String environment, String type, String note) {
+        this.id = id;
         this.image = image;
         this.nameplant = nameplant;
         this.ageplant = ageplant;
@@ -27,6 +32,15 @@ public class PlantOfUser {
         this.type = type;
         this.note = note;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getImage(){
         return image;
     }
