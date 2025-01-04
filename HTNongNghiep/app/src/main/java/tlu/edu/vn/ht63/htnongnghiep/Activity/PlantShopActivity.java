@@ -3,6 +3,7 @@ package tlu.edu.vn.ht63.htnongnghiep.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ public class PlantShopActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PlantShopAdapter plantShopAdapter;
     private ArrayList<Plant> plantList; // Khai báo
+    private Button cartButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,7 @@ public class PlantShopActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         plantList = new ArrayList<>(); // Khởi tạo
+        cartButton = findViewById(R.id.cartButton);
 
         // Thêm sản phẩm vào danh sách
         plantList.add(new Plant("1", "Cây Xương Rồng", "$20", "Mô tả cây xương rồng", R.drawable.img_1));
@@ -31,9 +34,13 @@ public class PlantShopActivity extends AppCompatActivity {
         plantShopAdapter = new PlantShopAdapter(plantList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(plantShopAdapter);
-    }
-    public void onButton3Click(View view) {
-        Intent intent = new Intent(PlantShopActivity.this, PlantDetailActivity.class);
-        startActivity(intent);
+
+        cartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PlantShopActivity.this, PlantDetailActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

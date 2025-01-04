@@ -32,7 +32,6 @@
         android:id="@+id/cartButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:onClick="onButton3Click"
         android:text="Nhập thông tin cây"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
