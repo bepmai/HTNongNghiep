@@ -10,7 +10,7 @@
     tools:context=".Activity.DetailPlant">
     <ImageView
         android:layout_marginTop="10dp"
-        android:id="@+id/left_admin"
+        android:id="@+id/ic_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -99,7 +99,7 @@
                     </LinearLayout>
 
                     <EditText
-                        android:id="@+id/nametree"
+                        android:id="@+id/input_nameplant"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -154,6 +154,7 @@
                         <EditText
                             android:id="@+id/input_ageplant"
                             android:layout_width="0dp"
+                            android:text="0"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
                             android:layout_marginEnd="10dp"
@@ -165,6 +166,7 @@
                         <EditText
                             android:id="@+id/input_height"
                             android:layout_width="0dp"
+                            android:text="0"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="20dp"
@@ -198,9 +200,10 @@
                     </LinearLayout>
 
                     <EditText
-                        android:id="@+id/weeklyWatering_Note"
+                        android:id="@+id/input_weeklyWatering"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="0"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="20dp"
@@ -234,6 +237,7 @@
                         android:id="@+id/input_weeklySunExposure"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="0"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="20dp"

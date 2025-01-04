@@ -72,11 +72,15 @@ public class InfUserDetail extends AppCompatActivity {
         amazonImage = findViewById(R.id.amazonImage);
         ic_back =  findViewById(R.id.ic_back);
 
-        ic_back.setOnClickListener(view -> {
-            Intent intent = new Intent(InfUserDetail.this, HomeActivity.class);
-            startActivity(intent);
-
-            finish();
+        ic_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Mở MainActivity (chứa GardenFragment)
+                Intent intent = new Intent(InfUserDetail.this, HomeActivity.class);
+                intent.putExtra("open_fragment", "userrights");
+                startActivity(intent);
+                finish();
+            }
         });
 
 
