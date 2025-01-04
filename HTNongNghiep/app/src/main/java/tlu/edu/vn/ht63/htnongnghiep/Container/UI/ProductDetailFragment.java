@@ -191,19 +191,19 @@ public class ProductDetailFragment extends Fragment {
                 expenditureViewModel.addExpenditure(expenditure_new);
 
                 productDetailRef.child(productDetailId).setValue(expenditure_new)
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(getContext(), "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
-                                if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                                    requireActivity().getSupportFragmentManager().popBackStack();
-                                } else {
-                                    requireActivity().finish();
-                                }
-                            }
-                        })
-                        .addOnFailureListener(e -> {
-                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        });
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getContext(), "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
+                        if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                            requireActivity().getSupportFragmentManager().popBackStack();
+                        } else {
+                            requireActivity().finish();
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
             }
         });
 
@@ -211,16 +211,16 @@ public class ProductDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 productDetailRef.child(productDetailId).removeValue().addOnSuccessListener(aVoid -> {
-                            Toast.makeText(getContext(), "Xoá hoá đơn thành công", Toast.LENGTH_SHORT).show();
-                            if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                                requireActivity().getSupportFragmentManager().popBackStack();
-                            } else {
-                                requireActivity().finish();
-                            }
-                        })
-                        .addOnFailureListener(e -> {
-                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        });;
+                    Toast.makeText(getContext(), "Xoá hoá đơn thành công", Toast.LENGTH_SHORT).show();
+                    if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                        requireActivity().getSupportFragmentManager().popBackStack();
+                    } else {
+                        requireActivity().finish();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                });;
             }
         });
 
