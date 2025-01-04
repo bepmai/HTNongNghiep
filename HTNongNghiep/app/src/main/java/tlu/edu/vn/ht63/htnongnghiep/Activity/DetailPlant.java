@@ -27,11 +27,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -43,8 +47,9 @@ public class DetailPlant extends AppCompatActivity {
     ImageView image, ic_back;
     EditText nameplant, ageplant, height, weeklyWatering, weeklySunExposure, health, note;
     Spinner temperature, environment, type;
-    Button btnDelate, btnUpdate;
+    Button btnDelete, btnUpdate;
     String imageUrl = "";
+    private String currentImageUrl;
     Uri uri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +69,7 @@ public class DetailPlant extends AppCompatActivity {
         weeklySunExposure = findViewById(R.id.input_weeklySunExposure);
         health = findViewById(R.id.input_health);
         note = findViewById(R.id.input_Note);
-        btnDelate = findViewById(R.id.btn_delete);
+        btnDelete = findViewById(R.id.btn_delete);
         btnUpdate = findViewById(R.id.btn_update);
 
         ic_back = findViewById(R.id.ic_back);
@@ -105,8 +110,9 @@ public class DetailPlant extends AppCompatActivity {
         type.setAdapter(adapter_type);
 
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null){
-            Glide.with(this).load(bundle.getString("Image")).into(image);
+        if (bundle != null) {
+            currentImageUrl = bundle.getString("Image"); // Lưu URL ảnh hiện tại
+            Glide.with(this).load(currentImageUrl).into(image);
             nameplant.setText(bundle.getString("Name"));
             health.setText(bundle.getString("Health"));
             note.setText(bundle.getString("Note"));
@@ -164,102 +170,160 @@ public class DetailPlant extends AppCompatActivity {
 
             }
         });
+//        btnDelete.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                new AlertDialog.Builder(DetailPlant.this)
+//                        .setTitle("Xác nhận xóa")
+//                        .setMessage("Bạn có chắc chắn muốn xóa cây này không?")
+//                        .setPositiveButton("Xóa", (dialog, which) -> deletePlantData())
+//                        .setNegativeButton("Hủy", null)
+//                        .show();
+//            }
+//        });
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveData();
+                if (uri != null) {
+                    uploadImageToFirebase(uri); // Tải ảnh mới lên Firebase Storage
+                } else {
+                    // Không chọn ảnh mới, dùng URL ảnh hiện tại để cập nhật thông tin
+                    if (currentImageUrl != null) {
+                        updatePlantData(currentImageUrl); // Cập nhật dữ liệu với URL ảnh hiện tại
+                    } else {
+                        Toast.makeText(DetailPlant.this, "Không có ảnh để cập nhật!", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
     }
-    public void saveData(){
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("PlantImages")
-                .child(uri.getLastPathSegment());
-        storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                while (!uriTask.isComplete());
-                Uri urlImage = uriTask.getResult();
-                imageUrl = urlImage.toString();
-                uploadData();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-            }
-        });
-    }
-    public void uploadData() {
-        String namePlant = nameplant.getText().toString().trim();
-        int agePlant = Integer.parseInt(ageplant.getText().toString().trim());
-        float heightPlant = Float.parseFloat(height.getText().toString().trim());
-        int weeklywatering = Integer.parseInt(weeklyWatering.getText().toString().trim());
-        int weeklysunExposure = Integer.parseInt(weeklySunExposure.getText().toString().trim());
-        String healthStatus = health.getText().toString().trim();
-        String notePlant = note.getText().toString().trim();
-        String temperatureValue = temperature.getSelectedItem().toString();
-        String environmentValue = environment.getSelectedItem().toString();
-        String typeValue = type.getSelectedItem().toString();
+    private void uploadImageToFirebase(Uri imageUri) {
+        // Tạo tham chiếu tới Firebase Storage
+        StorageReference storageReference = FirebaseStorage.getInstance()
+                .getReference("PlantImages")
+                .child(imageUri.getLastPathSegment());
 
+        // Tải ảnh lên
+        storageReference.putFile(imageUri)
+                .addOnSuccessListener(taskSnapshot -> {
+                    // Lấy URL của ảnh đã tải lên
+                    storageReference.getDownloadUrl().addOnSuccessListener(downloadUri -> {
+                        String imageUrl = downloadUri.toString();
+                        updatePlantData(imageUrl); // Cập nhật dữ liệu Firebase Database với URL mới
+                    });
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(DetailPlant.this, "Tải ảnh thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
+    private void updatePlantData(String imageUrl) {
         SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         String userId = sharedPreferences.getString("userId", null);
         String plantId = sharedPreferences.getString("plantId", null);
-        Log.d("DetailPlant", "Plant ID: " + plantId); // Kiểm tra ID
-        Log.d("DetailPlant", "User ID: " + userId); // Kiểm tra ID
 
         if (userId == null || plantId == null) {
-            Toast.makeText(this, "User ID or Plant ID is missing", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "User ID hoặc Plant ID bị thiếu!", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        if (uri != null) {
-            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("PlantImages")
-                    .child(uri.getLastPathSegment());
-            storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                    while (!uriTask.isComplete());
-                    Uri urlImage = uriTask.getResult();
-                    imageUrl = urlImage.toString();
-                    updatePlantData(userId, plantId, namePlant, agePlant, heightPlant, weeklywatering, weeklysunExposure,
-                            healthStatus, temperatureValue, environmentValue, typeValue, notePlant);
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    // Xử lý lỗi nếu cần
-                }
-            });
-        } else {
-            updatePlantData(userId, plantId, namePlant, agePlant, heightPlant, weeklywatering, weeklysunExposure,
-                    healthStatus, temperatureValue, environmentValue, typeValue, notePlant);
-        }
-    }
-
-    private void updatePlantData(String userId, String plantId, String namePlant, int agePlant, float heightPlant,
-                                 int weeklywatering, int weeklysunExposure, String healthStatus, String temperatureValue,
-                                 String environmentValue, String typeValue, String notePlant) {
+        String finalImageUrl = imageUrl != null ? imageUrl : currentImageUrl;
+        PlantOfUser updatedPlant = new PlantOfUser(
+                finalImageUrl, // URL ảnh mới
+                nameplant.getText().toString().trim(),
+                Integer.parseInt(ageplant.getText().toString().trim()),
+                Float.parseFloat(height.getText().toString().trim()),
+                Integer.parseInt(weeklyWatering.getText().toString().trim()),
+                Integer.parseInt(weeklySunExposure.getText().toString().trim()),
+                health.getText().toString().trim(),
+                temperature.getSelectedItem().toString(),
+                environment.getSelectedItem().toString(),
+                type.getSelectedItem().toString(),
+                note.getText().toString().trim()
+        );
 
         DatabaseReference plantOfUserRef = FirebaseDatabase.getInstance()
                 .getReference("PlantOfUser")
                 .child(userId)
                 .child(plantId);
 
-        PlantOfUser plantOfUser = new PlantOfUser(imageUrl, namePlant, agePlant, heightPlant, weeklywatering,
-                weeklysunExposure, healthStatus, temperatureValue, environmentValue, typeValue, notePlant);
-
-        plantOfUserRef.setValue(plantOfUser)
+        plantOfUserRef.setValue(updatedPlant)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(DetailPlant.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                        finish();
+                        Toast.makeText(DetailPlant.this, "Cập nhật thành công!", Toast.LENGTH_SHORT).show();
+                        finish(); // Đóng Activity
                     }
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(DetailPlant.this, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailPlant.this, "Cập nhật thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
+    private void deletePlantData() {
+
+        SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        String userId = sharedPreferences.getString("userId", null);
+        String plantId = sharedPreferences.getString("plantId", null);  // Lấy plantId từ SharedPreferences
+        Log.d("userId", "userId ID: " + userId);
+        Log.d("plantId", "plantId ID: " + plantId);
+
+        if (userId == null || plantId == null) {
+            Toast.makeText(this, "User ID hoặc Plant ID bị thiếu!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Lấy URL của ảnh từ cây cần xóa
+        DatabaseReference plantOfUserRef = FirebaseDatabase.getInstance()
+                .getReference("PlantOfUser")
+                .child(userId)
+                .child(plantId);
+
+        plantOfUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // Lấy URL ảnh của cây
+                    String imageUrl = dataSnapshot.child("imageUrl").getValue(String.class);
+
+                    if (imageUrl != null) {
+                        // Xóa ảnh khỏi Firebase Storage
+                        StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(imageUrl);
+                        storageReference.delete()
+                                .addOnSuccessListener(aVoid -> {
+                                    // Sau khi xóa ảnh thành công, xóa dữ liệu cây
+                                    deletePlantDataFromDatabase(plantOfUserRef);
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(DetailPlant.this, "Xóa ảnh thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                });
+                    } else {
+                        // Nếu không có ảnh, xóa dữ liệu cây ngay lập tức
+                        deletePlantDataFromDatabase(plantOfUserRef);
+                    }
+                } else {
+                    Toast.makeText(DetailPlant.this, "Cây không tồn tại!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(DetailPlant.this, "Lỗi khi lấy dữ liệu: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    // Hàm xóa dữ liệu cây khỏi Firebase Realtime Database
+    private void deletePlantDataFromDatabase(DatabaseReference plantOfUserRef) {
+        plantOfUserRef.removeValue()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(DetailPlant.this, "Xóa cây thành công!", Toast.LENGTH_SHORT).show();
+                        finish(); // Đóng Activity sau khi xóa
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(DetailPlant.this, "Xóa cây thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
 
 }
