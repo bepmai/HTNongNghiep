@@ -1,6 +1,9 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.DatePickerDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,12 +15,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import tlu.edu.vn.ht63.htnongnghiep.Activity.AddPlant;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 import tlu.edu.vn.ht63.htnongnghiep.ViewModel.ExpenditureViewModel;
@@ -134,31 +143,64 @@ public class ProductDetailFragment extends Fragment {
         ExpenditureViewModel expenditureViewModel =
                 new ViewModelProvider(requireActivity()).get(ExpenditureViewModel.class);
 
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        String userId = sharedPreferences.getString("userId", null);
+
+        if (userId == null) {
+            Toast.makeText(getContext(), "User ID is missing", Toast.LENGTH_SHORT).show();
+            return view;
+        }
+
+        DatabaseReference productDetailRef = FirebaseDatabase.getInstance()
+                .getReference("expenditure")
+                .child(userId);
+
+        String productDetailId = productDetailRef.push().getKey();
+
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Date date = new Date();
+                try {
+                    // Chuyển đổi chuỗi thành đối tượng Date
+                    date = dateFormat.parse(date_edt.getText().toString());
+                } catch (ParseException e) {
+
+                }
+                String plantText = plant_edt.getText().toString().trim();
+                if (plantText.isEmpty() || plantText ==null){
+                    plantText = "Không có";
+                }
                 Expenditure expenditure_new = new Expenditure(
-                        "EXP002",
-                        2,
-                        "SELLER002",
-                        "PRODUCT002",
-                        "https://example.com/image2.jpg",
-                        "Nguyễn Văn B",
-                        "456 Đường XYZ, Hà Nội",
-                        new Date(),
-                        0,
-                        "Sản phẩm B",
+                        productDetailId,
                         1,
-                        200.0f,
-                        200.0f);
+                        "",
+                        "",
+                        "",
+                        "",
+                        adress_edt.getText().toString().trim(),
+                        date,
+                        0,
+                        plantText,
+                        Integer.parseInt(total_edt.getText().toString()),
+                        Float.parseFloat(payment_edt.getText().toString().trim()),
+                        Float.parseFloat(totalPayment_edt.getText().toString().trim()));
                 expenditureViewModel.addExpenditure(expenditure_new);
 
-                if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                    requireActivity().getSupportFragmentManager().popBackStack();
-                } else {
-                    // Nếu không có fragment trước đó, có thể kết thúc activity
-                    requireActivity().finish();
-                }
+                productDetailRef.child(productDetailId).setValue(expenditure_new)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getContext(), "Saved information", Toast.LENGTH_SHORT).show();
+                                if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                                    requireActivity().getSupportFragmentManager().popBackStack();
+                                } else {
+                                    requireActivity().finish();
+                                }
+                            }
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
             }
         });
         return view;

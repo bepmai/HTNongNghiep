@@ -1,5 +1,7 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,9 +10,17 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +28,7 @@ import java.util.Date;
 import tlu.edu.vn.ht63.htnongnghiep.Component.Interface.OnItemExpenditureClickListener;
 import tlu.edu.vn.ht63.htnongnghiep.Adapter.ListExpenditureAdapter;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
+import tlu.edu.vn.ht63.htnongnghiep.Model.PlantOfUser;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 import tlu.edu.vn.ht63.htnongnghiep.ViewModel.ExpenditureViewModel;
 
@@ -70,7 +81,9 @@ public class ExpenditureFragment extends Fragment {
 
     RecyclerView recyclerView;
     ListExpenditureAdapter adapter;
-
+    DatabaseReference databaseExpenditureReference;
+    ValueEventListener eventExpenditureListener;
+    ArrayList<Expenditure> expenditureList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,53 +93,53 @@ public class ExpenditureFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        ArrayList<Expenditure> expenditureList = new ArrayList<>();
+        expenditureList = new ArrayList<>();
 
-        expenditureList.add(new Expenditure(
-                "EXP002",
-                0,
-                "SELLER002",
-                "PRODUCT002",
-                "https://example.com/image2.jpg",
-                "Nguyễn Văn A",
-                "456 Đường XYZ, Hà Nội",
-                new Date(),
-                0,
-                "Sản phẩm A",
-                1,
-                200.0f,
-                200.0f
-        ));
-        expenditureList.add(new Expenditure(
-                "EXP003",
-                1,
-                "SELLER003",
-                "PRODUCT003",
-                "https://example.com/image2.jpg",
-                "Nguyễn Văn B",
-                "456 Đường XYZ, Hà Nội",
-                new Date(),
-                2,
-                "Sản phẩm B",
-                1,
-                200.0f,
-                200.0f
-        ));
-        expenditureList.add(new Expenditure(
-                "EXP004",
-                0,
-                "SELLER003",
-                "PRODUCT003",
-                "https://example.com/image2.jpg",
-                "Nguyễn Văn C",
-                "456 Đường XYZ, Hà Nội",
-                new Date(),
-                1,
-                "Sản phẩm C",
-                1,
-                200.0f,
-                200.0f
-        ));
+//        expenditureList.add(new Expenditure(
+//                "EXP002",
+//                0,
+//                "SELLER002",
+//                "PRODUCT002",
+//                "https://example.com/image2.jpg",
+//                "Nguyễn Văn A",
+//                "456 Đường XYZ, Hà Nội",
+//                new Date(),
+//                0,
+//                "Sản phẩm A",
+//                1,
+//                200.0f,
+//                200.0f
+//        ));
+//        expenditureList.add(new Expenditure(
+//                "EXP003",
+//                1,
+//                "SELLER003",
+//                "PRODUCT003",
+//                "https://example.com/image2.jpg",
+//                "Nguyễn Văn B",
+//                "456 Đường XYZ, Hà Nội",
+//                new Date(),
+//                2,
+//                "Sản phẩm B",
+//                1,
+//                200.0f,
+//                200.0f
+//        ));
+//        expenditureList.add(new Expenditure(
+//                "EXP004",
+//                0,
+//                "SELLER003",
+//                "PRODUCT003",
+//                "https://example.com/image2.jpg",
+//                "Nguyễn Văn C",
+//                "456 Đường XYZ, Hà Nội",
+//                new Date(),
+//                1,
+//                "Sản phẩm C",
+//                1,
+//                200.0f,
+//                200.0f
+//        ));
 
         ExpenditureViewModel expenditureViewModel =
                 new ViewModelProvider(requireActivity()).get(ExpenditureViewModel.class);
@@ -134,7 +147,28 @@ public class ExpenditureFragment extends Fragment {
         adapter = new ListExpenditureAdapter(getContext(),expenditureViewModel);
         recyclerView.setAdapter(adapter);
 
-        expenditureViewModel.setData(expenditureList);
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("userId", null);
+
+        databaseExpenditureReference = FirebaseDatabase.getInstance().getReference("expenditure").child(userId);
+        eventExpenditureListener = databaseExpenditureReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                expenditureList.clear();
+                for (DataSnapshot idExpenditureSnapshot : snapshot.getChildren()) {
+                    Expenditure expenditure = idExpenditureSnapshot.getValue(Expenditure.class);
+                    if (expenditure != null) {
+                        expenditureList.add(expenditure);
+                    }
+                }
+                expenditureViewModel.setData(expenditureList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Error: " + error.getMessage());
+            }
+        });
 
         adapter.setOnItemClickListener(new OnItemExpenditureClickListener() {
             @Override
