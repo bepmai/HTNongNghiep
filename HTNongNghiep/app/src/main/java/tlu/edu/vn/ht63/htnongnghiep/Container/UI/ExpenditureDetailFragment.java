@@ -89,7 +89,7 @@ public class ExpenditureDetailFragment extends Fragment {
 
     EditText date_edt,buyer_edt,plant_edt,adress_edt,total_edt,payment_edt,totalPayment_edt,status_edt;
     ImageButton backButton;
-    Button saveBtn;
+    Button saveBtn,deleteBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -107,6 +107,7 @@ public class ExpenditureDetailFragment extends Fragment {
         totalPayment_edt = view.findViewById(R.id.totalPayment_edt);
         backButton = view.findViewById(R.id.backButton);
         saveBtn = view.findViewById(R.id.saveBtn);
+        deleteBtn = view.findViewById(R.id.deleteBtn);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,18 +180,18 @@ public class ExpenditureDetailFragment extends Fragment {
                                     Toast.makeText(getContext(), "Hoá đơn chi không tồn tại", Toast.LENGTH_SHORT).show();
                                 }else {
                                     revenueDetailRef.setValue(revenue).addOnCompleteListener(task -> {
-                                                if (task.isSuccessful()) {
-                                                    Toast.makeText(getContext(), "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
-                                                    if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                                                        requireActivity().getSupportFragmentManager().popBackStack();
-                                                    } else {
-                                                        requireActivity().finish();
-                                                    }
-                                                }
-                                            })
-                                            .addOnFailureListener(e -> {
-                                                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                                            });
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(getContext(), "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
+                                            if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                                                requireActivity().getSupportFragmentManager().popBackStack();
+                                            } else {
+                                                requireActivity().finish();
+                                            }
+                                        }
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    });
                                 }
                             }
 
@@ -199,14 +200,35 @@ public class ExpenditureDetailFragment extends Fragment {
                                 Log.e("FirebaseError", "Error: " + error.getMessage());
                             }
                         });
+
+                        deleteBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                revenueDetailRef.removeValue();
+
+                                expenditureDetailRef.child(expenditure.getId()).removeValue().addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(getContext(), "Xoá hoá đơn thành công", Toast.LENGTH_SHORT).show();
+                                    if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                                        requireActivity().getSupportFragmentManager().popBackStack();
+                                    } else {
+                                        requireActivity().finish();
+                                    }
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                });;
+                            }
+                        });
                     }
                 });
             }else if(expenditure.getStatus() == RevenueExpenditure.TYPE_CONFIRM){
                 status_edt.setTextColor(getResources().getColor(R.color.search_opaque));
                 status_edt.setText("Đã xác nhận");
+                deleteBtn.setVisibility(View.GONE);
             }else if(expenditure.getStatus() == RevenueExpenditure.TYPE_SUCCESS){
                 status_edt.setTextColor(getResources().getColor(R.color.red));
                 status_edt.setText("Thành công");
+                deleteBtn.setVisibility(View.GONE);
             }
             adress_edt.setText(expenditure.getAdress());
             date_edt.setText(dateFormat.format(expenditure.getDate()));

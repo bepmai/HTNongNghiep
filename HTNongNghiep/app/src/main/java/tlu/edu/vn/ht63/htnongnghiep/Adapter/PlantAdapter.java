@@ -35,8 +35,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
         Plant plant = plantList.get(position);
         holder.name.setText(plant.getName());
         holder.price.setText(plant.getPrice());
-        holder.discount.setText(plant.getDiscount());
-        holder.rating.setText(plant.getRating());
+        holder.rating.setText(plant.getRating().toString());
         holder.image.setImageResource(plant.getImageResId());
 
         // Thiết lập sự kiện click trực tiếp trong adapter
@@ -45,7 +44,6 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
             Intent intent = new Intent(holder.itemView.getContext(), ItemDetailActivity.class);
             intent.putExtra("plant_name", plant.getName());
             intent.putExtra("plant_price", plant.getPrice());
-            intent.putExtra("plant_discount", plant.getDiscount());
             intent.putExtra("plant_rating", plant.getRating());
             intent.putExtra("plant_image", plant.getImageResId());
 

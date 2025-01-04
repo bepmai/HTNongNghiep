@@ -20,7 +20,7 @@ import tlu.edu.vn.ht63.htnongnghiep.Activity.DetailPlant;
 import tlu.edu.vn.ht63.htnongnghiep.Model.PlantOfUser;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
-public class PlantOfUserAdapter extends RecyclerView.Adapter<MyViewHolder>{
+public class PlantOfUserAdapter extends RecyclerView.Adapter<PlantOfUserAdapter.MyViewHolder>{
     private Context context;
     private List<PlantOfUser> plantOfUserList;
 
@@ -75,19 +75,21 @@ public class PlantOfUserAdapter extends RecyclerView.Adapter<MyViewHolder>{
     public int getItemCount() {
         return plantOfUserList.size();
     }
-}
-class MyViewHolder extends RecyclerView.ViewHolder{
-    ImageView plantImage;
-    TextView plantName, plantAge, plantHeight, plantType;
-    CardView recCard;
-    public MyViewHolder(@NonNull View itemView) {
-        super(itemView);
-        plantImage = itemView.findViewById(R.id.plantImage);
-        plantName = itemView.findViewById(R.id.plantName);
-        plantAge = itemView.findViewById(R.id.plantAge);
-        plantHeight = itemView.findViewById(R.id.plantHeight);
-        plantType = itemView.findViewById(R.id.plantType);
-        recCard = itemView.findViewById(R.id.recCard);
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
+        ImageView plantImage;
+        TextView plantName, plantAge, plantHeight, plantType;
+        CardView recCard;
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            plantImage = itemView.findViewById(R.id.plantImage);
+            plantName = itemView.findViewById(R.id.plantName);
+            plantAge = itemView.findViewById(R.id.plantAge);
+            plantHeight = itemView.findViewById(R.id.plantHeight);
+            plantType = itemView.findViewById(R.id.plantType);
+            recCard = itemView.findViewById(R.id.recCard);
+        }
     }
+
 }
 
