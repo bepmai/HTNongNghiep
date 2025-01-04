@@ -236,7 +236,8 @@
             android:layout_height="wrap_content"
             android:text="Nhan tin"
             android:layout_weight="1"
-            android:layout_marginLeft="16dp" />
+            android:layout_marginLeft="16dp"
+            android:onClick="onButton2Click" />
     </LinearLayout>
 
 </FrameLayout>
