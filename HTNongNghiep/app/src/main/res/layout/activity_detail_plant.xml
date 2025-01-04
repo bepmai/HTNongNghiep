@@ -36,8 +36,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/amazonDesc"
             android:text="Thông tin của cây"
-            android:textSize="16sp"
-            android:layout_marginStart="18dp"
+            android:textSize="20sp"
+            android:layout_marginStart="20dp"
             android:textColor="@color/green"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/amazonName"
@@ -95,7 +95,7 @@
                             android:layout_marginStart="8dp"
                             android:text="Tên cây"
                             android:textColor="@color/green"
-                            android:textSize="17sp" />
+                            android:textSize="20sp" />
                     </LinearLayout>
 
                     <EditText
@@ -106,7 +106,8 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="20dp"
                         android:padding="5dp"
-                        android:textSize="15sp" />
+                        android:textColor="@color/green"
+                        android:textSize="18sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -126,22 +127,22 @@
                             android:layout_height="wrap_content"
                             android:text="Tuổi (tuần)"
                             android:textColor="@color/green"
-                            android:textSize="17sp" />
+                            android:textSize="20sp" />
 
                         <ImageView
                             android:id="@+id/heightImage"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:layout_marginStart="70dp"
+                            android:layout_marginStart="20dp"
                             android:src="@drawable/ic_height" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:text="Chiều cao"
+                            android:text="Chiều cao (cm)"
                             android:textColor="@color/green"
-                            android:textSize="17sp" />
+                            android:textSize="20sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -155,25 +156,25 @@
                             android:id="@+id/input_ageplant"
                             android:layout_width="0dp"
                             android:text="0"
+                            android:textColor="@color/green"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
                             android:padding="5dp"
-                            android:textColor="@color/green"
-                            android:textSize="15sp" />
+                            android:textSize="18sp" />
 
                         <EditText
                             android:id="@+id/input_height"
                             android:layout_width="0dp"
                             android:text="0"
+                            android:textColor="@color/green"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="20dp"
                             android:layout_weight="1"
                             android:padding="5dp"
-                            android:textColor="@color/green"
-                            android:textSize="15sp" />
+                            android:textSize="18sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -194,9 +195,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:text="Số lần tưới nước/tuần"
                             android:textColor="@color/green"
-                            android:textSize="17sp" />
+                            android:text="Số lần tưới nước/tuần"
+                            android:textSize="20sp" />
                     </LinearLayout>
 
                     <EditText
@@ -204,11 +205,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="0"
+                        android:textColor="@color/green"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="20dp"
                         android:padding="5dp"
-                        android:textSize="15sp" />
+                        android:textSize="18sp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -230,7 +232,7 @@
                             android:layout_marginStart="8dp"
                             android:text="Số lần tắm nắng/tuần"
                             android:textColor="@color/green"
-                            android:textSize="17sp" />
+                            android:textSize="20sp" />
                     </LinearLayout>
 
                     <EditText
@@ -238,11 +240,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="0"
+                        android:textColor="@color/green"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="20dp"
                         android:padding="5dp"
-                        android:textSize="15sp" />
+                        android:textSize="18sp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -264,7 +267,7 @@
                             android:layout_marginStart="8dp"
                             android:text="Tình trạng sức khỏe"
                             android:textColor="@color/green"
-                            android:textSize="17sp" />
+                            android:textSize="20sp" />
                     </LinearLayout>
 
                     <EditText
@@ -273,9 +276,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="5dp"
+                        android:textColor="@color/green"
                         android:layout_marginEnd="20dp"
                         android:padding="5dp"
-                        android:textSize="15sp" />
+                        android:textSize="18sp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -297,7 +301,7 @@
                             android:layout_marginStart="8dp"
                             android:text="Nhiệt độ"
                             android:textColor="@color/green"
-                            android:textSize="17sp" />
+                            android:textSize="20sp" />
                     </LinearLayout>
 
                     <Spinner
@@ -307,6 +311,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="20dp"
+                        android:textColor="@color/green"
                         android:padding="5dp"
                         android:spinnerMode="dropdown" />
 
@@ -329,22 +334,22 @@
                             android:layout_marginStart="8dp"
                             android:text="Môi trường"
                             android:textColor="@color/green"
-                            android:textSize="17sp" />
+                            android:textSize="20sp" />
 
                         <ImageView
                             android:id="@+id/typeImage"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:layout_marginStart="70dp"
+                            android:layout_marginStart="20dp"
                             android:src="@drawable/ic_type" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:text="Thể loại"
                             android:textColor="@color/green"
-                            android:textSize="17sp" />
+                            android:text="Thể loại"
+                            android:textSize="20sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -361,7 +366,7 @@
                             android:layout_weight="1"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
-                            android:backgroundTint="@color/green"
+                            android:textColor="@color/green"
                             android:padding="5dp"
                             android:spinnerMode="dropdown" />
 
@@ -372,7 +377,7 @@
                             android:layout_weight="1"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="20dp"
-                            android:backgroundTint="@color/green"
+                            android:textColor="@color/green"
                             android:padding="5dp"
                             android:spinnerMode="dropdown" />
                     </LinearLayout>
@@ -397,7 +402,7 @@
                             android:layout_marginStart="8dp"
                             android:text="Ghi chú"
                             android:textColor="@color/green"
-                            android:textSize="17sp" />
+                            android:textSize="20sp" />
                     </LinearLayout>
 
                     <EditText
@@ -406,9 +411,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="5dp"
+                        android:textColor="@color/green"
                         android:layout_marginEnd="20dp"
                         android:padding="5dp"
-                        android:textSize="15sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
             <LinearLayout

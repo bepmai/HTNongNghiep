@@ -40,8 +40,8 @@ public class PlantOfUserAdapter extends RecyclerView.Adapter<MyViewHolder>{
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Glide.with(context).load(plantOfUserList.get(position).getImage()).into(holder.plantImage);
         holder.plantName.setText(plantOfUserList.get(position).getNameplant());
-        holder.plantAge.setText(String.valueOf(plantOfUserList.get(position).getAgeplant()));
-        holder.plantHeight.setText(String.format("%.2f", plantOfUserList.get(position).getHeight()));
+        holder.plantAge.setText(String.valueOf(plantOfUserList.get(position).getAgeplant()) + "(tuần)");
+        holder.plantHeight.setText(String.format("%.2f" + "cm", plantOfUserList.get(position).getHeight()));
         holder.plantType.setText(plantOfUserList.get(position).getType());
 
         holder.recCard.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +64,7 @@ public class PlantOfUserAdapter extends RecyclerView.Adapter<MyViewHolder>{
                     intent.putExtra("Type", plant.getType());
                     intent.putExtra("Note", plant.getNote());
 
+                    intent.putExtra("plant",plant);
                     context.startActivity(intent);
                 }
             }

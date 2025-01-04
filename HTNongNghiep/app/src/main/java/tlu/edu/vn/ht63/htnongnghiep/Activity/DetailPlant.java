@@ -20,17 +20,12 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,7 +33,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import tlu.edu.vn.ht63.htnongnghiep.Model.PlantOfUser;
 import tlu.edu.vn.ht63.htnongnghiep.R;
@@ -71,6 +65,13 @@ public class DetailPlant extends AppCompatActivity {
         note = findViewById(R.id.input_Note);
         btnDelete = findViewById(R.id.btn_delete);
         btnUpdate = findViewById(R.id.btn_update);
+        String plantId = getIntent().getStringExtra("plantId");
+        if (plantId != null) {
+            SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("plantId", plantId);
+            editor.apply();
+        }
 
         ic_back = findViewById(R.id.ic_back);
 
@@ -97,7 +98,7 @@ public class DetailPlant extends AppCompatActivity {
 
         String[] options_environment = {"Cạn", "Nước", "Trôi nổi trên mặt nước", "Nhà kính", "Vườn"};
 
-        ArrayAdapter<String> adapter_environment = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options_environment);
+        ArrayAdapter<String> adapter_environment = new ArrayAdapter<>(this, R.layout.spinner_detail_plant_item, options_environment);
         adapter_environment.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         environment.setAdapter(adapter_environment);
 
@@ -105,7 +106,7 @@ public class DetailPlant extends AppCompatActivity {
 
         String[] options_type = {"Cây thân thảo", "Cây thân gỗ", "Cây thân leo", "Cây thủy sinh", "Cây khí sinh"};
 
-        ArrayAdapter<String> adapter_type = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options_type);
+        ArrayAdapter<String> adapter_type = new ArrayAdapter<>(this, R.layout.spinner_detail_plant_item, options_type);
         adapter_type.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         type.setAdapter(adapter_type);
 
@@ -170,17 +171,17 @@ public class DetailPlant extends AppCompatActivity {
 
             }
         });
-//        btnDelete.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                new AlertDialog.Builder(DetailPlant.this)
-//                        .setTitle("Xác nhận xóa")
-//                        .setMessage("Bạn có chắc chắn muốn xóa cây này không?")
-//                        .setPositiveButton("Xóa", (dialog, which) -> deletePlantData())
-//                        .setNegativeButton("Hủy", null)
-//                        .show();
-//            }
-//        });
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(DetailPlant.this)
+                        .setTitle("Xác nhận xóa")
+                        .setMessage("Bạn có chắc chắn muốn xóa cây này không?")
+                        .setPositiveButton("Xóa", (dialog, which) -> deletePlantData())
+                        .setNegativeButton("Hủy", null)
+                        .show();
+            }
+        });
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,14 +222,18 @@ public class DetailPlant extends AppCompatActivity {
     private void updatePlantData(String imageUrl) {
         SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         String userId = sharedPreferences.getString("userId", null);
-        String plantId = sharedPreferences.getString("plantId", null);
 
-        if (userId == null || plantId == null) {
+        PlantOfUser plantOfUser = (PlantOfUser) getIntent().getSerializableExtra("plant");
+
+        if (userId == null || plantOfUser.getId() == null) {
             Toast.makeText(this, "User ID hoặc Plant ID bị thiếu!", Toast.LENGTH_SHORT).show();
             return;
         }
+
         String finalImageUrl = imageUrl != null ? imageUrl : currentImageUrl;
+
         PlantOfUser updatedPlant = new PlantOfUser(
+                plantOfUser.getId(),
                 finalImageUrl, // URL ảnh mới
                 nameplant.getText().toString().trim(),
                 Integer.parseInt(ageplant.getText().toString().trim()),
@@ -245,7 +250,7 @@ public class DetailPlant extends AppCompatActivity {
         DatabaseReference plantOfUserRef = FirebaseDatabase.getInstance()
                 .getReference("PlantOfUser")
                 .child(userId)
-                .child(plantId);
+                .child(plantOfUser.getId());
 
         plantOfUserRef.setValue(updatedPlant)
                 .addOnCompleteListener(task -> {
@@ -258,15 +263,15 @@ public class DetailPlant extends AppCompatActivity {
                     Toast.makeText(DetailPlant.this, "Cập nhật thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
+
     private void deletePlantData() {
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         String userId = sharedPreferences.getString("userId", null);
-        String plantId = sharedPreferences.getString("plantId", null);  // Lấy plantId từ SharedPreferences
-        Log.d("userId", "userId ID: " + userId);
-        Log.d("plantId", "plantId ID: " + plantId);
 
-        if (userId == null || plantId == null) {
+        PlantOfUser plantOfUser = (PlantOfUser) getIntent().getSerializableExtra("plant");
+
+        if (userId == null || plantOfUser.getId() == null) {
             Toast.makeText(this, "User ID hoặc Plant ID bị thiếu!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -275,7 +280,7 @@ public class DetailPlant extends AppCompatActivity {
         DatabaseReference plantOfUserRef = FirebaseDatabase.getInstance()
                 .getReference("PlantOfUser")
                 .child(userId)
-                .child(plantId);
+                .child(plantOfUser.getId());
 
         plantOfUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

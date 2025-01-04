@@ -99,7 +99,7 @@ public class AddPlant extends AppCompatActivity {
 
         String[] options_environment = {"Cạn", "Nước", "Trôi nổi trên mặt nước", "Nhà kính", "Vườn"};
 
-        ArrayAdapter<String> adapter_environment = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options_environment);
+        ArrayAdapter<String> adapter_environment = new ArrayAdapter<>(this, R.layout.spinner_detail_plant_item, options_environment);
         adapter_environment.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         environment.setAdapter(adapter_environment);
 
@@ -107,7 +107,7 @@ public class AddPlant extends AppCompatActivity {
 
         String[] options_type = {"Cây thân thảo", "Cây thân gỗ", "Cây thân leo", "Cây thủy sinh", "Cây khí sinh"};
 
-        ArrayAdapter<String> adapter_type = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options_type);
+        ArrayAdapter<String> adapter_type = new ArrayAdapter<>(this, R.layout.spinner_detail_plant_item, options_type);
         adapter_type.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         type.setAdapter(adapter_type);
 
@@ -199,7 +199,7 @@ public class AddPlant extends AppCompatActivity {
             return;
         }
 
-        PlantOfUser plantOfUser = new PlantOfUser(imageURL, namePlant, agePlant, heightPlant, weeklywatering, weeklysunExposure,
+        PlantOfUser plantOfUser = new PlantOfUser(plantId,imageURL, namePlant, agePlant, heightPlant, weeklywatering, weeklysunExposure,
                 healthStatus, temperatureValue, environmentValue, typeValue, notePlant);
 
         plantOfUserRef.child(plantId).setValue(plantOfUser)
