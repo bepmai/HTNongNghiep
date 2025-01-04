@@ -1,62 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:fitsSystemWindows="true"
-    tools:context=".Activity.ChatActivity"
-    android:background="@color/white">
+    tools:context=".Activity.ChatActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:layout_alignParentTop="true"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:background="#3CC18E"
         android:elevation="2dp"
-        >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <EditText
                 android:id="@+id/search"
                 android:layout_width="300dp"
                 android:layout_height="45dp"
+                android:autofillHints=""
                 android:background="@drawable/ic_search_background"
-                android:padding="10dp"
-                android:hint="Search"
                 android:drawableStart="@drawable/ic_search"
                 android:drawablePadding="8dp"
+                android:hint="Search"
+                android:inputType=""
+                android:padding="10dp"
                 android:textSize="12sp"
-                tools:ignore="HardcodedText,TextFields"
-                android:autofillHints=""
-                android:inputType="" />
+                tools:ignore="HardcodedText,TextFields" />
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_bell"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:contentDescription="chat"
+                android:src="@drawable/ic_bell"
                 tools:ignore="HardcodedText" />
+
             <ImageView
                 android:id="@+id/chat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_chat"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="5dp"
                 android:contentDescription="chat"
+                android:src="@drawable/ic_chat"
                 tools:ignore="HardcodedText" />
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
-        android:padding="10dp"/>
-</RelativeLayout>
+        android:layout_height="0dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <include layout="@layout/component_menu" />
+</androidx.constraintlayout.widget.ConstraintLayout>

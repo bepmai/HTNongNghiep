@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.GardenFragment;
+import tlu.edu.vn.ht63.htnongnghiep.Container.UI.HomeFragment;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.UserRights;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.home;
 import tlu.edu.vn.ht63.htnongnghiep.R;
@@ -67,8 +68,12 @@ public class HomeActivity extends AppCompatActivity {
                 communityBar.setColorFilter(getResources().getColor(R.color.active_bar));
                 barClick=R.id.community;
 
-                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+//                startActivity(intent);
+                Fragment homeFragment = new HomeFragment();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, homeFragment);
+                transaction.commit();
             }
         });
 
