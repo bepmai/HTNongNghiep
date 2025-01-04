@@ -99,11 +99,11 @@ public class ShopFragment extends Fragment {
         recyclerView.setLayoutManager(gridLayoutManager);
 
         plantList = new ArrayList<>();
-        plantList.add(new Plant("Cây Ổi", "500.000đ", "-20%", "4.8 (100 đánh giá)", R.drawable.img));
-        plantList.add(new Plant("Cây Xoài", "750.000đ", "-10%", "4.5 (80 đánh giá)", R.drawable.img_1));
-        plantList.add(new Plant("Cây Cam", "600.000đ", "-15%", "4.7 (90 đánh giá)", R.drawable.img_2));
-        plantList.add(new Plant("Cây Bưởi", "900.000đ", "-5%", "4.9 (120 đánh giá)", R.drawable.img_3));
-        plantList.add(new Plant("Cây Chanh", "300.000đ", "-25%", "4.6 (110 đánh giá)", R.drawable.img));
+        plantList.add(new Plant("Cây Ổi", "500.000đ", 4.8f, R.drawable.img));
+        plantList.add(new Plant("Cây Xoài", "750.000đ",  4.5f, R.drawable.img_1));
+        plantList.add(new Plant("Cây Cam", "600.000đ",  4.7f , R.drawable.img_2));
+        plantList.add(new Plant("Cây Bưởi", "900.000đ", 4.9f, R.drawable.img_3));
+        plantList.add(new Plant("Cây Chanh", "300.000đ", 4.6f, R.drawable.img));
 
         // Set adapter
         adapter = new PlantAdapter(plantList, new PlantAdapter.OnItemClickListener() {
@@ -114,7 +114,6 @@ public class ShopFragment extends Fragment {
                 Intent intent = new Intent(getContext(), ItemDetailActivity.class);
                 intent.putExtra("plant_name", plant.getName());
                 intent.putExtra("plant_price", plant.getPrice());
-                intent.putExtra("plant_discount", plant.getDiscount());
                 intent.putExtra("plant_rating", plant.getRating());
                 intent.putExtra("plant_image", plant.getImageResId());
                 startActivity(intent);
