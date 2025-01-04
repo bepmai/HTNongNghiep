@@ -1,12 +1,22 @@
 package tlu.edu.vn.ht63.htnongnghiep.Activity;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
 import tlu.edu.vn.ht63.htnongnghiep.Adapter.PlantAdapter;
+import tlu.edu.vn.ht63.htnongnghiep.Container.UI.GardenFragment;
+import tlu.edu.vn.ht63.htnongnghiep.Container.UI.UserRights;
+import tlu.edu.vn.ht63.htnongnghiep.Container.UI.home;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Plant;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
