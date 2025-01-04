@@ -16,9 +16,8 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
 
-import tlu.edu.vn.ht63.htnongnghiep.Activity.AddPlantProductActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.ItemDetailActivity;
-import tlu.edu.vn.ht63.htnongnghiep.Activity.PlantListActivity;
+import tlu.edu.vn.ht63.htnongnghiep.Activity.PlantShopActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Adapter.PlantAdapter;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Plant;
 import tlu.edu.vn.ht63.htnongnghiep.R;
@@ -90,7 +89,7 @@ public class ShopFragment extends Fragment {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AddPlantProductActivity.class);
+                Intent intent = new Intent(getContext(), PlantShopActivity.class);
                 startActivity(intent);
             }
         });
@@ -122,6 +121,7 @@ public class ShopFragment extends Fragment {
             }
         });
         recyclerView.setAdapter(adapter);
+
         return view;
     }
 }
