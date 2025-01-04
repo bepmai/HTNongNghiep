@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.GardenFragment;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.HomeFragment;
+import tlu.edu.vn.ht63.htnongnghiep.Container.UI.ShopFragment;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.UserRights;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.home;
 import tlu.edu.vn.ht63.htnongnghiep.R;
@@ -101,8 +102,14 @@ public class HomeActivity extends AppCompatActivity {
         shopBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, PlantListActivity.class);
-                startActivity(intent);
+                unsetColorBar();
+                shopBar.setColorFilter(getResources().getColor(R.color.active_bar));
+                barClick=R.id.shop;
+
+                Fragment shopFragment = new ShopFragment();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, shopFragment);
+                transaction.commit();
             }
         });
 
