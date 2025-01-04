@@ -66,14 +66,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
                 <Button
                     android:id="@+id/revenueBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
                     android:text="Báo cáo thu"
                     android:textColor="@color/green"
-                    android:textSize="18sp"
-                    android:backgroundTint="@color/white"/>
+                    android:textSize="16sp" />
+
                 <View
                     android:id="@+id/revenueBottomBolder"
                     android:layout_width="match_parent"
@@ -92,7 +94,7 @@
                     android:text="Báo cáo chi"
                     android:textColor="@color/white_black"
                     android:layout_weight="1"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:backgroundTint="@color/white"/>
                 <View
                     android:id="@+id/expenditureBottomBolder"

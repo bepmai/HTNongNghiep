@@ -86,7 +86,7 @@ public class ProductDetailFragment extends Fragment {
 
     EditText date_edt,plant_edt,adress_edt,total_edt,payment_edt,totalPayment_edt;
     ImageButton backButton;
-    Button saveBtn;
+    Button saveBtn,deleteBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -102,6 +102,7 @@ public class ProductDetailFragment extends Fragment {
         totalPayment_edt = view.findViewById(R.id.totalPayment_edt);
         backButton = view.findViewById(R.id.backButton);
         saveBtn = view.findViewById(R.id.saveBtn);
+        deleteBtn = view.findViewById(R.id.deleteBtn);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,6 +139,8 @@ public class ProductDetailFragment extends Fragment {
             total_edt.setText(String.valueOf(expenditure.getTotal()));
             payment_edt.setText(expenditure.getProductCost().toString());
             totalPayment_edt.setText(expenditure.getTotalPayment().toString()+" vnđ");
+        }else {
+            deleteBtn.setVisibility(View.GONE);
         }
 
         ExpenditureViewModel expenditureViewModel =
@@ -165,7 +168,7 @@ public class ProductDetailFragment extends Fragment {
                     // Chuyển đổi chuỗi thành đối tượng Date
                     date = dateFormat.parse(date_edt.getText().toString());
                 } catch (ParseException e) {
-
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
                 String plantText = plant_edt.getText().toString().trim();
                 if (plantText.isEmpty() || plantText ==null){
@@ -190,7 +193,7 @@ public class ProductDetailFragment extends Fragment {
                 productDetailRef.child(productDetailId).setValue(expenditure_new)
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
-                                Toast.makeText(getContext(), "Saved information", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
                                 if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
                                     requireActivity().getSupportFragmentManager().popBackStack();
                                 } else {
@@ -203,6 +206,24 @@ public class ProductDetailFragment extends Fragment {
                         });
             }
         });
+
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                productDetailRef.child(productDetailId).removeValue().addOnSuccessListener(aVoid -> {
+                            Toast.makeText(getContext(), "Xoá hoá đơn thành công", Toast.LENGTH_SHORT).show();
+                            if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                                requireActivity().getSupportFragmentManager().popBackStack();
+                            } else {
+                                requireActivity().finish();
+                            }
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });;
+            }
+        });
+
         return view;
     }
 }
