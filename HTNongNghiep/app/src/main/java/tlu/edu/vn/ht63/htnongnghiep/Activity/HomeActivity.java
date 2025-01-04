@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.GardenFragment;
+import tlu.edu.vn.ht63.htnongnghiep.Container.UI.HomeFragment;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.UserRights;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.home;
 import tlu.edu.vn.ht63.htnongnghiep.R;
@@ -26,12 +27,33 @@ public class HomeActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_home);
         if (savedInstanceState == null) {
-            // Tạo một Fragment mới
-            Fragment homeFragment = new home();
-
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.main, homeFragment);
-            transaction.commit();
+//            // Tạo một Fragment mới
+//            Fragment homeFragment = new home();
+//
+//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//            transaction.replace(R.id.main, homeFragment);
+//            transaction.commit();
+            String openFragment = getIntent().getStringExtra("open_fragment");
+            if ("garden".equals(openFragment)) {
+                Fragment gardenFragment = new GardenFragment();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main, gardenFragment)
+                        .commit();
+            }
+            else if ("userrights".equals(openFragment)) {
+                Fragment userrightsFragment = new UserRights();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main, userrightsFragment)
+                        .commit();
+            } else {
+                Fragment homeFragment = new home();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main, homeFragment)
+                        .commit();
+            }
         }
         homeBar = findViewById(R.id.home);
         communityBar = findViewById(R.id.community);
@@ -67,8 +89,12 @@ public class HomeActivity extends AppCompatActivity {
                 communityBar.setColorFilter(getResources().getColor(R.color.active_bar));
                 barClick=R.id.community;
 
-                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+//                startActivity(intent);
+                Fragment homeFragment = new HomeFragment();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, homeFragment);
+                transaction.commit();
             }
         });
 

@@ -9,11 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import tlu.edu.vn.ht63.htnongnghiep.Component.Subcomponent.MenuFragment;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 import tlu.edu.vn.ht63.htnongnghiep.Adapter.ChatAdapter;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.SearchFragment;
@@ -39,6 +41,9 @@ public class ChatActivity extends AppCompatActivity {
         adapter = new ChatAdapter(chatlst, this);
         recyclerView.setAdapter(adapter);
         searchlst = new ArrayList<>();
+        View menu = findViewById(R.id.menu);
+        MenuFragment.setMenu((AppCompatActivity) this,menu);
+
         // Thêm dữ liệu vào searchlst nếu cần (giả lập)
         searchlst.add(new Search("John Doe", "https://www.w3schools.com/w3images/avatar2.png"));
         searchlst.add(new Search("Jane Smith", "https://www.w3schools.com/w3images/avatar6.png"));

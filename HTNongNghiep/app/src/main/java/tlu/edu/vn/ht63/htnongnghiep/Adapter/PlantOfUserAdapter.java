@@ -20,7 +20,7 @@ import tlu.edu.vn.ht63.htnongnghiep.Activity.DetailPlant;
 import tlu.edu.vn.ht63.htnongnghiep.Model.PlantOfUser;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
-public class PlantOfUserAdapter extends RecyclerView.Adapter<MyViewHolder>{
+public class PlantOfUserAdapter extends RecyclerView.Adapter<PlantOfUserAdapter.MyViewHolder>{
     private Context context;
     private List<PlantOfUser> plantOfUserList;
 
@@ -42,16 +42,28 @@ public class PlantOfUserAdapter extends RecyclerView.Adapter<MyViewHolder>{
         holder.plantName.setText(plantOfUserList.get(position).getNameplant());
         holder.plantAge.setText(String.valueOf(plantOfUserList.get(position).getAgeplant()));
         holder.plantHeight.setText(String.format("%.2f", plantOfUserList.get(position).getHeight()));
+        holder.plantType.setText(plantOfUserList.get(position).getType());
+
         holder.recCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int position = holder.getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
                     Intent intent = new Intent(context, DetailPlant.class);
-                    intent.putExtra("Image", plantOfUserList.get(position).getImage());
-                    intent.putExtra("Name", plantOfUserList.get(position).getNameplant());
-                    intent.putExtra("Age", plantOfUserList.get(position).getAgeplant());
-                    intent.putExtra("Height", plantOfUserList.get(position).getHeight());
+                    PlantOfUser plant = plantOfUserList.get(position);
+
+                    intent.putExtra("Image", plant.getImage());
+                    intent.putExtra("Name", plant.getNameplant());
+                    intent.putExtra("Age", plant.getAgeplant());
+                    intent.putExtra("Height", plant.getHeight());
+                    intent.putExtra("WeeklyWatering", plant.getWeeklyWatering());
+                    intent.putExtra("WeeklySunExposure", plant.getWeeklySunExposure());
+                    intent.putExtra("Health", plant.getHealth());
+                    intent.putExtra("Temperature", plant.getTemperature());
+                    intent.putExtra("Environment", plant.getEnvironment());
+                    intent.putExtra("Type", plant.getType());
+                    intent.putExtra("Note", plant.getNote());
+
                     context.startActivity(intent);
                 }
             }
@@ -62,18 +74,21 @@ public class PlantOfUserAdapter extends RecyclerView.Adapter<MyViewHolder>{
     public int getItemCount() {
         return plantOfUserList.size();
     }
-}
-class MyViewHolder extends RecyclerView.ViewHolder{
-    ImageView plantImage;
-    TextView plantName, plantAge, plantHeight;
-    CardView recCard;
-    public MyViewHolder(@NonNull View itemView) {
-        super(itemView);
-        plantImage = itemView.findViewById(R.id.plantImage);
-        plantName = itemView.findViewById(R.id.plantName);
-        plantAge = itemView.findViewById(R.id.plantAge);
-        plantHeight = itemView.findViewById(R.id.plantHeight);
-        recCard = itemView.findViewById(R.id.recCard);
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
+        ImageView plantImage;
+        TextView plantName, plantAge, plantHeight, plantType;
+        CardView recCard;
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            plantImage = itemView.findViewById(R.id.plantImage);
+            plantName = itemView.findViewById(R.id.plantName);
+            plantAge = itemView.findViewById(R.id.plantAge);
+            plantHeight = itemView.findViewById(R.id.plantHeight);
+            plantType = itemView.findViewById(R.id.plantType);
+            recCard = itemView.findViewById(R.id.recCard);
+        }
     }
+
 }
 

@@ -24,6 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -41,11 +43,12 @@ import com.google.firebase.storage.UploadTask;
 import java.text.DateFormat;
 import java.util.Calendar;
 
+import tlu.edu.vn.ht63.htnongnghiep.Container.UI.GardenFragment;
 import tlu.edu.vn.ht63.htnongnghiep.Model.PlantOfUser;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class AddPlant extends AppCompatActivity {
-    ImageView image;
+    ImageView image, ic_back;
     EditText nameplant, ageplant, height, weeklyWatering, weeklySunExposure, health, note;
     Spinner temperature, environment, type;
     Button btnAdd;
@@ -71,6 +74,18 @@ public class AddPlant extends AppCompatActivity {
         health = findViewById(R.id.input_health);
         note = findViewById(R.id.input_Note);
         btnAdd = findViewById(R.id.btn_add);
+        ic_back = findViewById(R.id.left_admin);
+
+        ic_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Mở MainActivity (chứa GardenFragment)
+                Intent intent = new Intent(AddPlant.this, HomeActivity.class);
+                intent.putExtra("open_fragment", "garden");
+                startActivity(intent);
+                finish();
+            }
+        });
 
         temperature = findViewById(R.id.input_temperature);
 
@@ -129,7 +144,7 @@ public class AddPlant extends AppCompatActivity {
             }
         });
     }
-        public void saveData(){
+    public void saveData(){
             StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("PlantImages")
                     .child(uri.getLastPathSegment());
             AlertDialog.Builder builder = new AlertDialog.Builder(AddPlant.this);
@@ -165,7 +180,6 @@ public class AddPlant extends AppCompatActivity {
         String environmentValue = environment.getSelectedItem().toString();
         String typeValue = type.getSelectedItem().toString();
 
-        // Lấy userId từ SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         String userId = sharedPreferences.getString("userId", null);
 
@@ -191,6 +205,10 @@ public class AddPlant extends AppCompatActivity {
         plantOfUserRef.child(plantId).setValue(plantOfUser)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("plantId", plantId);
+                        editor.apply();
+
                         Toast.makeText(AddPlant.this, "Saved information", Toast.LENGTH_SHORT).show();
                         finish();
                     }

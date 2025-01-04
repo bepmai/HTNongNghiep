@@ -6,10 +6,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.google.android.material.tabs.TabLayout;
 
+import tlu.edu.vn.ht63.htnongnghiep.Component.Subcomponent.MenuFragment;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 import tlu.edu.vn.ht63.htnongnghiep.Adapter.ViewPagerAdapter1;
 
@@ -24,7 +26,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-        abbTabs();
+        View menu = findViewById(R.id.menu);
+        MenuFragment.setMenu((AppCompatActivity) this,menu);
+
+        pagerAdapter = new ViewPagerAdapter1(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+//        abbTabs();
     }
 
     private void init(){
@@ -37,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, ChatActivity.class);
             startActivity(intent);
         });
-
     }
     private void abbTabs(){
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_dashboard));

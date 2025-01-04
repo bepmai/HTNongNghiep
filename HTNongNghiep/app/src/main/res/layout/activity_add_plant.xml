@@ -36,7 +36,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/amazonDesc"
-            android:text="Thông tin của cây"
+            android:text="Thêm cây vào danh sách của bạn"
             android:textSize="16sp"
             android:layout_marginStart="18dp"
             android:textColor="@color/green"
