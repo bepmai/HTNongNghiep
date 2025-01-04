@@ -144,7 +144,7 @@ public class AddPlant extends AppCompatActivity {
             }
         });
     }
-        public void saveData(){
+    public void saveData(){
             StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("PlantImages")
                     .child(uri.getLastPathSegment());
             AlertDialog.Builder builder = new AlertDialog.Builder(AddPlant.this);
@@ -180,7 +180,6 @@ public class AddPlant extends AppCompatActivity {
         String environmentValue = environment.getSelectedItem().toString();
         String typeValue = type.getSelectedItem().toString();
 
-        // Lấy userId từ SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         String userId = sharedPreferences.getString("userId", null);
 
@@ -206,6 +205,10 @@ public class AddPlant extends AppCompatActivity {
         plantOfUserRef.child(plantId).setValue(plantOfUser)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("plantId", plantId);
+                        editor.apply();
+
                         Toast.makeText(AddPlant.this, "Saved information", Toast.LENGTH_SHORT).show();
                         finish();
                     }
