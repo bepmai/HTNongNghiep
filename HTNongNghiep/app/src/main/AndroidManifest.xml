@@ -50,6 +50,12 @@
             android:name=".Container.UI.DetailPlant"
             android:exported="false" />
         <activity
+            android:name=".Activity.PlantDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.PlantShopActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.ItemDetailActivity"
             android:exported="false" />
         <activity
