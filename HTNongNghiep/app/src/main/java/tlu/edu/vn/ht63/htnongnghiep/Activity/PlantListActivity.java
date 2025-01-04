@@ -56,7 +56,7 @@ public class PlantListActivity extends AppCompatActivity {
     }
 
     public void onButton1Click(View view) {
-        Intent intent = new Intent(this, AddPlantProductActivity.class);
+        Intent intent = new Intent(PlantListActivity.this, AddPlantProductActivity.class);
         startActivity(intent);
     }
 }
