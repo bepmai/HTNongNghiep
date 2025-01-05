@@ -45,6 +45,20 @@
                 android:background="#EFEFEF"
                 android:hint="Nhập tên cây"
                 android:padding="8dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Địa chỉ"
+                android:textColor="#555" />
+
+            <EditText
+                android:id="@+id/tree_name_duplicate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#EFEFEF"
+                android:hint="Nhập địa chỉ:"
+                android:padding="8dp" />
 
 
             <TextView

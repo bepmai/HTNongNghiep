@@ -50,4 +50,59 @@
         android:textSize="12sp"
         android:textColor="@android:color/darker_gray"
         android:gravity="center_horizontal"/>
+    <TextView
+        android:id="@+id/product_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Product ID"
+        android:textSize="12sp"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/product_idplant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ID Plant"
+        android:textSize="12sp"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/product_iduser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ID User"
+        android:textSize="12sp"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/product_nameuser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="User Name"
+        android:textSize="12sp"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/product_datesell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date Sell"
+        android:textSize="12sp"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/product_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Address"
+        android:textSize="12sp"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/product_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textSize="12sp"
+        android:gravity="center_horizontal"/>
 </LinearLayout>
