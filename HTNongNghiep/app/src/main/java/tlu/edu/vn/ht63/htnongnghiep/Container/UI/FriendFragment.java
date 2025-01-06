@@ -44,6 +44,7 @@ public class FriendFragment extends Fragment {
     private DatabaseReference databaseReference;
 
     private Button searchFriend;
+
     public FriendFragment() {
         // Required empty public constructor
     }
@@ -84,7 +85,7 @@ public class FriendFragment extends Fragment {
         loadFriendList();
 
         searchFriend = view.findViewById(R.id.search_friend);
-        searchFriend.setOnClickListener(v ->{
+        searchFriend.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), SearchActivity.class);
             startActivity(intent);
         });
@@ -117,36 +118,37 @@ public class FriendFragment extends Fragment {
 
     private void loadFriendList() {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        assert currentUser != null;
-        String currentUserId = currentUser.getUid();
+        if (currentUser != null) {
 
-        DatabaseReference friendRequestRef = FirebaseDatabase.getInstance().getReference("FriendRequest");
-        friendRequestRef.child(currentUserId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                list.clear();
-                for (DataSnapshot receiverSnapshot : snapshot.getChildren()) {
-                    String path = receiverSnapshot.getRef().toString();
-                    String senderId = receiverSnapshot.child("senderId").getValue(String.class);
-                    String senderName = receiverSnapshot.child("senderName").getValue(String.class);
-                    String status = receiverSnapshot.child("status").getValue(String.class);
-                    if(status != null && status.equals("pending")){
-                        Friend friend = new Friend();
-                        friend.setFirebasePath(path);
-                        friend.setFriendId(senderId);
-                        friend.setName(senderName);
-                        friend.setStatus(status);
-                        list.add(friend);
+            String currentUserId = currentUser.getUid();
+
+            DatabaseReference friendRequestRef = FirebaseDatabase.getInstance().getReference("FriendRequest");
+            friendRequestRef.child(currentUserId).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    list.clear();
+                    for (DataSnapshot receiverSnapshot : snapshot.getChildren()) {
+                        String path = receiverSnapshot.getRef().toString();
+                        String senderId = receiverSnapshot.child("senderId").getValue(String.class);
+                        String senderName = receiverSnapshot.child("senderName").getValue(String.class);
+                        String status = receiverSnapshot.child("status").getValue(String.class);
+                        if (status != null && status.equals("pending")) {
+                            Friend friend = new Friend();
+                            friend.setFirebasePath(path);
+                            friend.setFriendId(senderId);
+                            friend.setName(senderName);
+                            friend.setStatus(status);
+                            list.add(friend);
+                        }
                     }
+                    adapter.notifyDataSetChanged();
                 }
-                adapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("FriendFragment", "DatabaseError: " + error.getMessage());
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("FriendFragment", "DatabaseError: " + error.getMessage());
+                }
+            });
+        }
     }
-
 }

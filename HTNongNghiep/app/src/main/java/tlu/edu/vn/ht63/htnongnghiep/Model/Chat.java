@@ -3,7 +3,7 @@ package tlu.edu.vn.ht63.htnongnghiep.Model;
 public class Chat {
     private String profileImage, userName, message, timestamp,userId;
 
-    public Chat(String profileImage, String userName, String message, String timestamp,String userId) {
+    public Chat(String profileImage, String userName, String message, String timestamp) {
         this.profileImage = profileImage;
         this.userName = userName;
         this.message = message;
