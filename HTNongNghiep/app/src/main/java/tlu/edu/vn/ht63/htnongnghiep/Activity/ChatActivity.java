@@ -16,7 +16,7 @@ import java.util.List;
 
 import tlu.edu.vn.ht63.htnongnghiep.R;
 import tlu.edu.vn.ht63.htnongnghiep.Adapter.ChatAdapter;
-import tlu.edu.vn.ht63.htnongnghiep.Container.UI.SearchFragment;
+import tlu.edu.vn.ht63.htnongnghiep.Container.UI.SearchActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Chat;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Search;
 
@@ -27,7 +27,7 @@ public class ChatActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private EditText search;
     ChatAdapter adapter;
-    private SearchFragment searchFragment;
+    private SearchActivity searchFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +35,7 @@ public class ChatActivity extends AppCompatActivity {
         search = findViewById(R.id.search);
         init();
         chatlst = new ArrayList<>();
-        chatlst.add(new Chat("John Doe", "Mai", "Chi có thể để cây ra ban công hứng nắng khoảng 30 phút mỗi buổi sáng....", "2 hours ago"));
+        chatlst.add(new Chat("John Doe", "Mai", "Chi có thể để cây ra ban công hứng nắng khoảng 30 phút mỗi buổi sáng....", "2 hours ago",""));
         adapter = new ChatAdapter(chatlst, this);
         recyclerView.setAdapter(adapter);
         searchlst = new ArrayList<>();
@@ -65,7 +65,7 @@ public class ChatActivity extends AppCompatActivity {
     }
     private void showSearchFragment(String query){
         if(searchFragment == null){
-            searchFragment = new SearchFragment();
+            searchFragment = new SearchActivity();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.add(R.id.chatRecyclerView, searchFragment);
             transaction.addToBackStack(null);
