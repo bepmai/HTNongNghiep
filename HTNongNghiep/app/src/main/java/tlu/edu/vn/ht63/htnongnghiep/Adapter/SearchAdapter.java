@@ -24,6 +24,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchHold
         this.list = list;
         this.context = context;
     }
+    public void setFilteredList(List<Search> filteredList){
+        this.list = filteredList;
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public SearchAdapter.SearchHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -36,7 +40,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchHold
         holder.name.setText(list.get(position).getName());
         Glide.with(context.getApplicationContext())
                 .load(list.get(position).getProfileImage())
-                .placeholder(R.drawable.ic_ellipse)
+                .placeholder(R.drawable.ic_user_chat)
                 .into(holder.profileImage);
 
     }
