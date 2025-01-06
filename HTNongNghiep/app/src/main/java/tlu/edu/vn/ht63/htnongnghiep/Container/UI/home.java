@@ -173,52 +173,53 @@ public class home extends Fragment {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         String userId = sharedPreferences.getString("userId", null);
 
-        expenditureRef = FirebaseDatabase.getInstance()
-                .getReference("expenditure")
-                .child(userId);
+        if(userId !=null) {
+            expenditureRef = FirebaseDatabase.getInstance()
+                    .getReference("expenditure")
+                    .child(userId);
 
-        eventExpenditureListener = expenditureRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@android.support.annotation.NonNull DataSnapshot snapshot) {
-                expenditureArrayList.clear();
-                for (DataSnapshot idExpenditureSnapshot : snapshot.getChildren()) {
-                    Expenditure expenditure = idExpenditureSnapshot.getValue(Expenditure.class);
-                    if (expenditure != null) {
-                        expenditureArrayList.add(expenditure);
+            eventExpenditureListener = expenditureRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@android.support.annotation.NonNull DataSnapshot snapshot) {
+                    expenditureArrayList.clear();
+                    for (DataSnapshot idExpenditureSnapshot : snapshot.getChildren()) {
+                        Expenditure expenditure = idExpenditureSnapshot.getValue(Expenditure.class);
+                        if (expenditure != null) {
+                            expenditureArrayList.add(expenditure);
+                        }
+                        setBarChart();
                     }
-                    setBarChart();
                 }
-            }
 
-            @Override
-            public void onCancelled(@android.support.annotation.NonNull DatabaseError error) {
-                Log.e("FirebaseError", "Error: " + error.getMessage());
-            }
-        });
+                @Override
+                public void onCancelled(@android.support.annotation.NonNull DatabaseError error) {
+                    Log.e("FirebaseError", "Error: " + error.getMessage());
+                }
+            });
 
-        revenueRef = FirebaseDatabase.getInstance()
-                .getReference("revenue")
-                .child(userId);
+            revenueRef = FirebaseDatabase.getInstance()
+                    .getReference("revenue")
+                    .child(userId);
 
-        eventRevenueListener = revenueRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@android.support.annotation.NonNull DataSnapshot snapshot) {
-                revenueArrayList.clear();
-                for (DataSnapshot idRevenueSnapshot : snapshot.getChildren()) {
-                    Revenue revenue = idRevenueSnapshot.getValue(Revenue.class);
-                    if (revenue != null) {
-                        revenueArrayList.add(revenue);
+            eventRevenueListener = revenueRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@android.support.annotation.NonNull DataSnapshot snapshot) {
+                    revenueArrayList.clear();
+                    for (DataSnapshot idRevenueSnapshot : snapshot.getChildren()) {
+                        Revenue revenue = idRevenueSnapshot.getValue(Revenue.class);
+                        if (revenue != null) {
+                            revenueArrayList.add(revenue);
+                        }
+                        setBarChart();
                     }
-                    setBarChart();
                 }
-            }
 
-            @Override
-            public void onCancelled(@android.support.annotation.NonNull DatabaseError error) {
-                Log.e("FirebaseError", "Error: " + error.getMessage());
-            }
-        });
-
+                @Override
+                public void onCancelled(@android.support.annotation.NonNull DatabaseError error) {
+                    Log.e("FirebaseError", "Error: " + error.getMessage());
+                }
+            });
+        }
         setBarChart();
 
         return view;

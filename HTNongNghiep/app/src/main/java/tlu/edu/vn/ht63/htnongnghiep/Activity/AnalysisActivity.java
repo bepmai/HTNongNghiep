@@ -15,8 +15,8 @@ public class AnalysisActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.fragment_home);
+//        EdgeToEdge.enable(this);
+        setContentView(R.layout.blank_home);
         if (savedInstanceState == null) {
             // Tạo một Fragment mới
             Fragment imageAnalysisFragment = new analysis_ImageAnalysis_view();
