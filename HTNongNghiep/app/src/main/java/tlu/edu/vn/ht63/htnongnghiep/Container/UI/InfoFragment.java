@@ -80,28 +80,33 @@ public class InfoFragment extends Fragment {
     }
     private void getListPostByUser(){
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Post").child(userId);
-        myRef.addValueEventListener(new ValueEventListener() {
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                list.clear();
-                for(DataSnapshot postSnapshot : snapshot.getChildren()){
-                    HomeModel post = postSnapshot.getValue(HomeModel.class);
-                    if(post != null){
-                        list.add(post);
+        try{
+            String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference("Post").child(userId);
+            myRef.addValueEventListener(new ValueEventListener() {
+                @SuppressLint("NotifyDataSetChanged")
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    list.clear();
+                    for(DataSnapshot postSnapshot : snapshot.getChildren()){
+                        HomeModel post = postSnapshot.getValue(HomeModel.class);
+                        if(post != null){
+                            list.add(post);
+                        }
                     }
+                    adapter.notifyDataSetChanged();
                 }
-                adapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
+        catch (Exception e){
+            System.out.println("Error"+e.toString());
+        }
     }
     private void init(View view){
         recyclerView = requireView().findViewById(R.id.recyclerView2);

@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import tlu.edu.vn.ht63.htnongnghiep.Activity.ChatDetailActivity;
+import tlu.edu.vn.ht63.htnongnghiep.Model.Chat;
 import tlu.edu.vn.ht63.htnongnghiep.Model.InforUser;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
