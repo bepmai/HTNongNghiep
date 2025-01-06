@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/ic_sp_bg"
     android:orientation="vertical"
-    tools:context=".activity.VideoActivity">
+    tools:context=".Activity.VideoActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

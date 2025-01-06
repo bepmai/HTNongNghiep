@@ -57,6 +57,9 @@ dependencies {
     implementation(libs.navigation.ui.ktx)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.database)
+    implementation(libs.legacy.support.v4)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
     val camerax_version = "1.3.0"
@@ -95,4 +98,6 @@ dependencies {
     implementation ("androidx.navigation:navigation-ui:2.8.5")
     implementation ("com.google.firebase:firebase-storage:21.0.1")
     implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation ("com.google.code.gson:gson:2.8.8")
+    implementation ("com.squareup.picasso:picasso:2.8")
 }

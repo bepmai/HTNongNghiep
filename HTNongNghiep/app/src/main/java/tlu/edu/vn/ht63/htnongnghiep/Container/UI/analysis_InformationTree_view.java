@@ -1,5 +1,7 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,13 +13,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import tlu.edu.vn.ht63.htnongnghiep.Activity.AddPlant;
 import tlu.edu.vn.ht63.htnongnghiep.Adapter.analysis_featureInforTree_adapter;
 import tlu.edu.vn.ht63.htnongnghiep.Adapter.analysis_imageInfor_adapter;
 import tlu.edu.vn.ht63.htnongnghiep.Model.InforTreeFeature;
+import tlu.edu.vn.ht63.htnongnghiep.Model.TreeLib;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 /**
@@ -35,11 +42,15 @@ public class analysis_InformationTree_view extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private TreeLib tree;
 
     public analysis_InformationTree_view() {
         // Required empty public constructor
     }
 
+    public analysis_InformationTree_view(TreeLib tree){
+        this.tree = tree;
+    }
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -72,10 +83,25 @@ public class analysis_InformationTree_view extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_information_tree_view, container, false);
-        List<Integer> imageResourceList = new ArrayList<>();
-        imageResourceList.add(R.drawable.tree);
-        imageResourceList.add(R.drawable.tree);
-        imageResourceList.add(R.drawable.tree);
+        List<String> imageResourceList = new ArrayList<>();
+        ImageView imgTree = view.findViewById(R.id.imgTree);
+
+        TextView treeHeight = view.findViewById(R.id.treeHeight);
+        TextView treeTemp = view.findViewById(R.id.treeTemp);
+        TextView treeEncounter = view.findViewById(R.id.treeEncounter);
+        TextView treeArea = view.findViewById(R.id.treeArea);
+        TextView treeName = view.findViewById(R.id.treeName);
+        TextView phapdanh = view.findViewById(R.id.phapdanh);
+        if(tree !=null){
+            imageResourceList = tree.getImages();
+            Glide.with(imgTree).load(Uri.parse(tree.getImages().get(0))).into(imgTree);
+            treeHeight.setText(tree.getHeightMean());
+            treeTemp.setText(tree.getTemperature());
+            treeEncounter.setText(tree.getTrunk());
+            treeArea.setText(tree.getEnviromentLive());
+            treeName.setText(tree.getName());
+            phapdanh.setText(tree.getUnique());
+        }
 
         // Khởi tạo RecyclerView và thiết lập LayoutManager ngang
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewTree);
@@ -86,10 +112,15 @@ public class analysis_InformationTree_view extends Fragment {
         recyclerView.setAdapter(adapter);
 
         List<InforTreeFeature> inforTreeFeatures = new ArrayList<>();
-        inforTreeFeatures.add(new InforTreeFeature("Tổng quan","Đuôi Công Táo có tên khoa học là Calathea Orbifolia thuộc họ thực vật Marantaceae. Họ Dong, hay Họ Dong ta, còn gọi là họ Hoàng tinh là một họ các thực vật có hoa một lá mầm. Họ này là một phần của bộ Gừng (Zingiberales), bao gồm 550 loài được chia ra trong 32 chi. Họ này có nguồn gốc ở các vùng nhiệt đới của châu Mỹ, châu Phi và châu Á. Cây Đuôi Công Táo có 2 loại phổ biến thường gặp là cây Đuôi Công Xanh và Tím."));
-        inforTreeFeatures.add(new InforTreeFeature("Đặc điểm","Không có gì cả nhé"));
-        inforTreeFeatures.add(new InforTreeFeature("Tác dụng","Không có gì theo"));
-        inforTreeFeatures.add(new InforTreeFeature("Ý nghĩa","Không có gì cả"));
+        inforTreeFeatures.add(new InforTreeFeature("Tổng quan",tree != null ? tree.getDiscription() : "Không có thông tin"));
+        inforTreeFeatures.add(new InforTreeFeature("Đặc điểm",tree != null ? tree.getDistribution() : "Không có thông tin"));
+        inforTreeFeatures.add(new InforTreeFeature("Tác dụng",tree != null ? tree.getFeature() : "Không có thông tin"));
+        inforTreeFeatures.add(new InforTreeFeature("Ý nghĩa",tree != null ? tree.getMean() : "Không có thông tin"));
+        inforTreeFeatures.add(new InforTreeFeature("Thời gian trung bình tắm nắng",tree != null ? tree.getSuns() : "Không có thông tin"));
+        inforTreeFeatures.add(new InforTreeFeature("Thời gian trung bình tưới nước",tree != null ? tree.getWaters() : "Không có thông tin"));
+        inforTreeFeatures.add(new InforTreeFeature("Khu vực",tree != null ? tree.getArea() : "Không có thông tin"));
+
+
 
         RecyclerView recyclerViewFeature = view.findViewById(R.id.recyclerViewFeature);
         LinearLayoutManager layoutManagerVertical = new LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false);
@@ -110,7 +141,9 @@ public class analysis_InformationTree_view extends Fragment {
         addTree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                Intent addPlant = new Intent(requireActivity(), AddPlant.class);
+                addPlant.putExtra("treelib", tree);
+                startActivity(addPlant);
             }
         });
 

@@ -1,5 +1,7 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,8 +13,16 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
+import tlu.edu.vn.ht63.htnongnghiep.Activity.AddPlant;
+import tlu.edu.vn.ht63.htnongnghiep.Model.TreeLib;
+import tlu.edu.vn.ht63.htnongnghiep.Model.TreeUser;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 /**
@@ -32,9 +42,17 @@ public class analysis_AnalysisResult_view extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private TreeLib treelib;
+    private TreeUser treeUsr;
 
     public analysis_AnalysisResult_view() {
         // Required empty public constructor
+    }
+    public analysis_AnalysisResult_view(TreeLib tree){
+        this.treelib = tree;
+    }
+    public analysis_AnalysisResult_view(TreeUser tree){
+        this.treeUsr = tree;
     }
 
     /**
@@ -69,6 +87,35 @@ public class analysis_AnalysisResult_view extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_analysis_result_view, container, false);
+
+        TextView treeResult = view.findViewById(R.id.treeResult);
+        ImageView imageResult = view.findViewById(R.id.imageResult);
+        Button addTreeForFarm = view.findViewById(R.id.addTreeForFarm);
+
+        // set text
+        treeResult.setText(treelib.getName());
+
+        // set ảnh
+        if (treelib.getImages() != null && !treelib.getImages().isEmpty()) {
+            Glide.with(imageResult)
+                    .load(treelib.getImages().get(0))
+                    .into(imageResult);
+        } else {
+            Glide.with(imageResult)
+                    .load(R.drawable.baseline_cloud_24)
+                    .into(imageResult);
+        }
+
+        addTreeForFarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addPlant = new Intent(requireActivity(), AddPlant.class);
+                addPlant.putExtra("treelib", treelib);
+                startActivity(addPlant);
+            }
+        });
+
+        // khoảng thoát
         FrameLayout outrange = view.findViewById(R.id.outrange);
         outrange.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +124,8 @@ public class analysis_AnalysisResult_view extends Fragment {
                 fragmentManager.popBackStack();
             }
         });
+
+        // set vị trí kéo để chuyển trang
         gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
             private static final int SWIPE_THRESHOLD = 100;
             private static final int SWIPE_VELOCITY_THRESHOLD = 100;
@@ -104,6 +153,8 @@ public class analysis_AnalysisResult_view extends Fragment {
                 return false;
             }
         });
+
+        // set sự kiện cho việc kéo và thả ở scroll view
         View scrollResult = view.findViewById(R.id.scrollResult);
         scrollResult.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -121,7 +172,7 @@ public class analysis_AnalysisResult_view extends Fragment {
                 R.anim.fade_in,
                 R.anim.fade_out
         );
-        Fragment fragment = new analysis_InformationTree_view();
+        Fragment fragment = new analysis_InformationTree_view(treelib);
         fragmentTransaction.replace(R.id.main,fragment);
         fragmentTransaction.addToBackStack("InformationTree_view");
         fragmentTransaction.commit();

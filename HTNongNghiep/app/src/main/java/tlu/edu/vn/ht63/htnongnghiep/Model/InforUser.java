@@ -1,6 +1,7 @@
 package tlu.edu.vn.ht63.htnongnghiep.Model;
 
 public class InforUser {
+    String userId;
     private String image;
     private String fullName;
     private String dateOfBirth;
@@ -19,9 +20,21 @@ public class InforUser {
         this.gender = gender;
         this.plant = plant;
     }
+    public InforUser(String userId){
+        this.userId = userId;
+    }
 
-    public String getImage() {
-        return image;
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+
+    public String getImage(){
+        return this.image;
     }
 
     public void setImage(String image) {

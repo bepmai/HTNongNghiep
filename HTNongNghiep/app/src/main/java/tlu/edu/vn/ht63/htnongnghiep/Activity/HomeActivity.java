@@ -3,9 +3,12 @@ package tlu.edu.vn.ht63.htnongnghiep.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.ImageButton;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -19,13 +22,12 @@ import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private ImageButton homeBar,communityBar,shopBar,analysisBar,farmBar,userBar;
+    private ImageButton homeBar, communityBar, shopBar, analysisBar, farmBar, userBar;
     private int barClick = R.id.home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_home);
         if (savedInstanceState == null) {
 //            // Tạo một Fragment mới
@@ -41,8 +43,7 @@ public class HomeActivity extends AppCompatActivity {
                         .beginTransaction()
                         .replace(R.id.main, gardenFragment)
                         .commit();
-            }
-            else if ("userrights".equals(openFragment)) {
+            } else if ("userrights".equals(openFragment)) {
                 Fragment userrightsFragment = new UserRights();
                 getSupportFragmentManager()
                         .beginTransaction()
@@ -63,7 +64,7 @@ public class HomeActivity extends AppCompatActivity {
         farmBar = findViewById(R.id.farm);
         userBar = findViewById(R.id.user);
 
-        if(barClick == R.id.home ){
+        if (barClick == R.id.home) {
             homeBar.setColorFilter(getResources().getColor(R.color.active_bar));
         }
 
@@ -74,7 +75,7 @@ public class HomeActivity extends AppCompatActivity {
                 // Thay đổi màu nền của nút khi click vào
                 unsetColorBar();
                 homeBar.setColorFilter(getResources().getColor(R.color.active_bar)); // Màu bạn muốn
-                barClick=R.id.home;
+                barClick = R.id.home;
 
                 Fragment homeFragment = new home();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -88,7 +89,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 unsetColorBar();
                 communityBar.setColorFilter(getResources().getColor(R.color.active_bar));
-                barClick=R.id.community;
+                barClick = R.id.community;
 
 //                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
 //                startActivity(intent);
@@ -104,7 +105,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 unsetColorBar();
                 shopBar.setColorFilter(getResources().getColor(R.color.active_bar));
-                barClick=R.id.shop;
+                barClick = R.id.shop;
 
                 Fragment shopFragment = new ShopFragment();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -119,7 +120,28 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 unsetColorBar();
                 analysisBar.setColorFilter(getResources().getColor(R.color.active_bar));
-                barClick=R.id.analysis;
+                Intent analysisIntent = new Intent(HomeActivity.this, AnalysisActivity.class);
+                startActivity(analysisIntent);
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        unsetColorBar();
+                        if (barClick == R.id.home) {
+                            homeBar.setColorFilter(getResources().getColor(R.color.active_bar));
+                        } else if (barClick == R.id.user) {
+                            userBar.setColorFilter(getResources().getColor(R.color.active_bar));
+                        } else if (barClick == R.id.farm) {
+                            farmBar.setColorFilter(getResources().getColor(R.color.active_bar));
+                        } else if (barClick == R.id.shop) {
+                            shopBar.setColorFilter(getResources().getColor(R.color.active_bar));
+                        } else if (barClick == R.id.community){
+                            communityBar.setColorFilter(getResources().getColor(R.color.active_bar));
+                        }
+                    }
+                },2000);
+
+//                barClick = R.id.analysis;
+//                finish();
             }
         });
 
@@ -128,7 +150,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 unsetColorBar();
                 farmBar.setColorFilter(getResources().getColor(R.color.active_bar));
-                barClick=R.id.farm;
+                barClick = R.id.farm;
 
                 Fragment garden = new GardenFragment();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -142,7 +164,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 unsetColorBar();
                 userBar.setColorFilter(getResources().getColor(R.color.active_bar));
-                barClick=R.id.user;
+                barClick = R.id.user;
 
                 Fragment userRights = new UserRights();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -151,6 +173,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public void onBackPressed() {
         // Quản lý back stack: nếu có Fragment trong back stack, pop nó ra
@@ -161,7 +184,7 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    private void unsetColorBar(){
+    private void unsetColorBar() {
         String color = "#777B84";
         int colorInt = Color.parseColor(color);
         homeBar.setColorFilter(colorInt);
