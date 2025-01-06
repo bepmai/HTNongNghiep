@@ -95,4 +95,5 @@ dependencies {
     implementation ("androidx.navigation:navigation-ui:2.8.5")
     implementation ("com.google.firebase:firebase-storage:21.0.1")
     implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation ("com.google.code.gson:gson:2.8.8")
 }

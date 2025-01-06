@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.app.AlertDialog;
+
 import androidx.annotation.NonNull;
 
 import androidx.activity.EdgeToEdge;
@@ -27,6 +28,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,15 +47,18 @@ import java.util.Calendar;
 
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.GardenFragment;
 import tlu.edu.vn.ht63.htnongnghiep.Model.PlantOfUser;
+import tlu.edu.vn.ht63.htnongnghiep.Model.TreeLib;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class AddPlant extends AppCompatActivity {
+    private TreeLib treelib;
     ImageView image, ic_back;
     EditText nameplant, ageplant, height, weeklyWatering, weeklySunExposure, health, note;
     Spinner temperature, environment, type;
     Button btnAdd;
     Uri uri;
     String imageURL;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +69,10 @@ public class AddPlant extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        Intent intent = getIntent();
+        treelib = (TreeLib) intent.getSerializableExtra("treelib");
+
 
         image = findViewById(R.id.image);
         nameplant = findViewById(R.id.input_nameplant);
@@ -80,9 +89,9 @@ public class AddPlant extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Mở MainActivity (chứa GardenFragment)
-                Intent intent = new Intent(AddPlant.this, HomeActivity.class);
-                intent.putExtra("open_fragment", "garden");
-                startActivity(intent);
+//                Intent intent = new Intent(AddPlant.this, HomeActivity.class);
+//                intent.putExtra("open_fragment", "garden");
+//                startActivity(intent);
                 finish();
             }
         });
@@ -116,7 +125,7 @@ public class AddPlant extends AppCompatActivity {
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == Activity.RESULT_OK){
+                        if (result.getResultCode() == Activity.RESULT_OK) {
                             Intent data = result.getData();
                             uri = data.getData();
                             image.setImageURI(uri);
@@ -137,6 +146,17 @@ public class AddPlant extends AppCompatActivity {
             }
         });
 
+        if (treelib != null) {
+            Glide.with(image).load(treelib.getImages().get(0)).into(image);
+            nameplant.setText(treelib.getName());
+            int position = adapter_environment.getPosition(treelib.getEnviromentLive());
+            environment.setSelection(position);
+            weeklyWatering.setText(treelib.getWaters());
+            weeklySunExposure.setText(treelib.getSuns());
+            int typePos = adapter_type.getPosition(treelib.getTrunk());
+            type.setSelection(typePos);
+        }
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,30 +164,32 @@ public class AddPlant extends AppCompatActivity {
             }
         });
     }
-    public void saveData(){
-            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("PlantImages")
-                    .child(uri.getLastPathSegment());
-            AlertDialog.Builder builder = new AlertDialog.Builder(AddPlant.this);
-            builder.setCancelable(false);
-            AlertDialog dialog = builder.create();
-            dialog.show();
-            storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                    while (!uriTask.isComplete());
-                    Uri urlImage = uriTask.getResult();
-                    imageURL = urlImage.toString();
-                    uploadData();
-                    dialog.dismiss();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    dialog.dismiss();
-                }
-            });
-        }
+
+    public void saveData() {
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("PlantImages")
+                .child(uri.getLastPathSegment());
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddPlant.this);
+        builder.setCancelable(false);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                while (!uriTask.isComplete()) ;
+                Uri urlImage = uriTask.getResult();
+                imageURL = urlImage.toString();
+                uploadData();
+                dialog.dismiss();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                dialog.dismiss();
+            }
+        });
+    }
+
     public void uploadData() {
         String namePlant = nameplant.getText().toString().trim();
         int agePlant = Integer.parseInt(ageplant.getText().toString().trim());
@@ -199,7 +221,7 @@ public class AddPlant extends AppCompatActivity {
             return;
         }
 
-        PlantOfUser plantOfUser = new PlantOfUser(plantId,imageURL, namePlant, agePlant, heightPlant, weeklywatering, weeklysunExposure,
+        PlantOfUser plantOfUser = new PlantOfUser(plantId, imageURL, namePlant, agePlant, heightPlant, weeklywatering, weeklysunExposure,
                 healthStatus, temperatureValue, environmentValue, typeValue, notePlant);
 
         plantOfUserRef.child(plantId).setValue(plantOfUser)
