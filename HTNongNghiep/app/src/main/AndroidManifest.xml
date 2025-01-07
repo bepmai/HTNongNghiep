@@ -48,9 +48,6 @@
             android:name=".Activity.TreeListActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.ui.theme.TreeReviewActivity"
-            android:exported="false" />
-        <activity
             android:name=".Activity.NotificationActivity"
             android:exported="false" />
         <activity
