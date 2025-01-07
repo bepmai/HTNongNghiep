@@ -153,7 +153,7 @@ public class ExpenditureDetailFragment extends Fragment {
 
         revenueDetailRef = FirebaseDatabase.getInstance()
                 .getReference("revenue")
-                .child(userId)
+                .child(expenditure.getIdSeller())
                 .child(expenditure.getId());
 
         if (expenditure!=null){

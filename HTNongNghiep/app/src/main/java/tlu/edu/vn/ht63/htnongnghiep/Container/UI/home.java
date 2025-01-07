@@ -195,6 +195,49 @@ public class home extends Fragment {
             }
         });
 
+        BarDataSet barDataSet1 = new BarDataSet(barEntries1(),"Thu");
+        barDataSet1.setColors(getResources().getColor(R.color.green));
+
+        BarDataSet barDataSet2 = new BarDataSet(barEntries2(),"Chi");
+        barDataSet2.setColor(getResources().getColor(R.color.green_white));
+
+        BarData barData1 = new BarData(barDataSet1,barDataSet2);
+        barChart1.setData(barData1);
+        barChart1.getDescription().setEnabled(false);
+
+        String[] days = new String[]{"Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7","Chủ nhật"};
+        if (filterSpinner.getSelectedItemPosition() == 1){
+            days = getDaysOfCurrentMonth();
+        }else if (filterSpinner.getSelectedItemPosition() == 2){
+            days = getMonthsOfCurrentYear();
+        }
+        XAxis xAxis = barChart1.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(days));
+        xAxis.setCenterAxisLabels(true);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1);
+        xAxis.setGranularityEnabled(true);
+
+        barChart1.setDragEnabled(true);
+        barChart1.setVisibleXRangeMaximum(4);
+
+        float barSpace = 0.1f;
+        float groupSpace = 0.4f;
+        barData1.setBarWidth(0.2f);
+
+        barChart1.getXAxis().setAxisMinimum(0);
+        barChart1.groupBars(0,groupSpace,barSpace);
+
+        // Điều chỉnh vị trí và kiểu của Legend
+        Legend legend = barChart1.getLegend();
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM); // Vị trí ngang dưới cùng
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER); // Ở giữa
+        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL); // Hiển thị ngang
+        legend.setDrawInside(false);
+        legend.setTextSize(12f); // Kích thước chữ
+
+        barChart1.invalidate();
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         String userId = sharedPreferences.getString("userId", null);
 
@@ -244,8 +287,8 @@ public class home extends Fragment {
                     Log.e("FirebaseError", "Error: " + error.getMessage());
                 }
             });
+            setBarChart();
         }
-        setBarChart();
 
         return view;
     }
@@ -319,48 +362,50 @@ public class home extends Fragment {
     }
 
     private void setBarChart(){
-        BarDataSet barDataSet1 = new BarDataSet(barEntries1(),"Thu");
-        barDataSet1.setColors(getResources().getColor(R.color.green));
+        if (isAdded()){
+            BarDataSet barDataSet1 = new BarDataSet(barEntries1(),"Thu");
+            barDataSet1.setColors(getResources().getColor(R.color.green));
 
-        BarDataSet barDataSet2 = new BarDataSet(barEntries2(),"Chi");
-        barDataSet2.setColor(getResources().getColor(R.color.green_white));
+            BarDataSet barDataSet2 = new BarDataSet(barEntries2(),"Chi");
+            barDataSet2.setColor(getResources().getColor(R.color.green_white));
 
-        BarData barData1 = new BarData(barDataSet1,barDataSet2);
-        barChart1.setData(barData1);
-        barChart1.getDescription().setEnabled(false);
+            BarData barData1 = new BarData(barDataSet1,barDataSet2);
+            barChart1.setData(barData1);
+            barChart1.getDescription().setEnabled(false);
 
-        String[] days = new String[]{"Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7","Chủ nhật"};
-        if (filterSpinner.getSelectedItemPosition() == 1){
-            days = getDaysOfCurrentMonth();
-        }else if (filterSpinner.getSelectedItemPosition() == 2){
-            days = getMonthsOfCurrentYear();
+            String[] days = new String[]{"Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7","Chủ nhật"};
+            if (filterSpinner.getSelectedItemPosition() == 1){
+                days = getDaysOfCurrentMonth();
+            }else if (filterSpinner.getSelectedItemPosition() == 2){
+                days = getMonthsOfCurrentYear();
+            }
+            XAxis xAxis = barChart1.getXAxis();
+            xAxis.setValueFormatter(new IndexAxisValueFormatter(days));
+            xAxis.setCenterAxisLabels(true);
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xAxis.setGranularity(1);
+            xAxis.setGranularityEnabled(true);
+
+            barChart1.setDragEnabled(true);
+            barChart1.setVisibleXRangeMaximum(4);
+
+            float barSpace = 0.1f;
+            float groupSpace = 0.4f;
+            barData1.setBarWidth(0.2f);
+
+            barChart1.getXAxis().setAxisMinimum(0);
+            barChart1.groupBars(0,groupSpace,barSpace);
+
+            // Điều chỉnh vị trí và kiểu của Legend
+            Legend legend = barChart1.getLegend();
+            legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM); // Vị trí ngang dưới cùng
+            legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER); // Ở giữa
+            legend.setOrientation(Legend.LegendOrientation.HORIZONTAL); // Hiển thị ngang
+            legend.setDrawInside(false);
+            legend.setTextSize(12f); // Kích thước chữ
+
+            barChart1.invalidate();
         }
-        XAxis xAxis = barChart1.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(days));
-        xAxis.setCenterAxisLabels(true);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setGranularity(1);
-        xAxis.setGranularityEnabled(true);
-
-        barChart1.setDragEnabled(true);
-        barChart1.setVisibleXRangeMaximum(4);
-
-        float barSpace = 0.1f;
-        float groupSpace = 0.4f;
-        barData1.setBarWidth(0.2f);
-
-        barChart1.getXAxis().setAxisMinimum(0);
-        barChart1.groupBars(0,groupSpace,barSpace);
-
-        // Điều chỉnh vị trí và kiểu của Legend
-        Legend legend = barChart1.getLegend();
-        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM); // Vị trí ngang dưới cùng
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER); // Ở giữa
-        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL); // Hiển thị ngang
-        legend.setDrawInside(false);
-        legend.setTextSize(12f); // Kích thước chữ
-
-        barChart1.invalidate();
     }
 
     public String[] getDaysOfCurrentMonth() {
