@@ -51,7 +51,7 @@ import android.Manifest;
 
 public class Weather extends AppCompatActivity {
 
-    private TextView cityNameTV, temperatureTV, conditionTV;
+    private TextView cityNameTV, temperatureTV, conditionTV, suggestionTV;
     private RecyclerView weatherRV;
     private TextInputEditText cityEdt;
     private ImageView backIV, iconIV, searcherIV;
@@ -79,6 +79,7 @@ public class Weather extends AppCompatActivity {
         cityEdt = findViewById(R.id.idEdtCity);
         backIV = findViewById(R.id.idTVBack);
         iconIV = findViewById(R.id.idTVIcon);
+        suggestionTV = findViewById(R.id.suggestionTV);
         searcherIV = findViewById(R.id.idTVSearch);
         weatherRVModalArrayList = new ArrayList<>();
         weatherRVAdapter = new WeatherRVAdapter(this, weatherRVModalArrayList);
@@ -218,9 +219,46 @@ public class Weather extends AppCompatActivity {
                     weatherConditionMap.put("Patchy light snow with thunder", "Tuyết nhẹ lác đác có sấm sét");
                     weatherConditionMap.put("Moderate or heavy snow with thunder", "Tuyết vừa hoặc lớn có sấm sét");
 
+//                  Gợi ý thời tiết
+                    Map<String, String> plantCareSuggestions = new HashMap<>();
+                    plantCareSuggestions.put("Sunny", "Tưới cây vào sáng sớm hoặc chiều tối để tránh cây mất nước. Cung cấp bóng râm nếu cần.");
+                    plantCareSuggestions.put("Clear", "Cung cấp nước và ánh sáng đầy đủ cho cây. Tránh để cây tiếp xúc với ánh nắng gay gắt.");
+                    plantCareSuggestions.put("Partly cloudy", "Kiểm tra độ ẩm của đất và tưới cây nếu cần. Đảm bảo cây nhận đủ ánh sáng.");
+                    plantCareSuggestions.put("Cloudy", "Đảm bảo cây nhận đủ ánh sáng. Có thể giảm tưới nước nếu độ ẩm cao.");
+                    plantCareSuggestions.put("Overcast", "Kiểm tra độ thoáng khí và độ ẩm của đất. Tránh để cây bị úng nước.");
+                    plantCareSuggestions.put("Mist", "Kiểm tra độ ẩm của cây và đất. Tránh để cây bị nấm mốc do sương mù.");
+                    plantCareSuggestions.put("Patchy rain possible", "Kiểm tra hệ thống thoát nước và tránh úng cây. Đảm bảo đất không bị đọng nước.");
+                    plantCareSuggestions.put("Rainy", "Kiểm tra hệ thống thoát nước để tránh úng. Tránh bón phân trong thời gian mưa lớn.");
+                    plantCareSuggestions.put("Patchy snow possible", "Che phủ cây để tránh băng giá làm hỏng. Giữ ấm cho cây bằng vật liệu che phủ.");
+                    plantCareSuggestions.put("Snowy", "Che phủ cây để tránh băng giá làm hỏng. Hạn chế tưới nước.");
+                    plantCareSuggestions.put("Blowing snow", "Bảo vệ cây khỏi gió lạnh và băng giá. Kiểm tra nhiệt độ đất thường xuyên.");
+                    plantCareSuggestions.put("Fog", "Tăng thông gió xung quanh cây để ngăn nấm mốc. Kiểm tra độ ẩm của đất.");
+                    plantCareSuggestions.put("Freezing fog", "Che chắn cây để bảo vệ khỏi sương giá. Giảm tần suất tưới nước.");
+                    plantCareSuggestions.put("Light drizzle", "Đảm bảo đất không bị đọng nước. Tăng thông thoáng nếu độ ẩm không khí cao.");
+                    plantCareSuggestions.put("Heavy rain", "Kiểm tra thoát nước cho cây. Không bón phân trong mưa lớn.");
+                    plantCareSuggestions.put("Light sleet", "Che phủ cây để bảo vệ khỏi mưa tuyết. Tưới nước ít hơn do độ ẩm cao.");
+                    plantCareSuggestions.put("Thundery outbreaks possible", "Kiểm tra cây sau mưa dông để phát hiện hư hại. Tránh hoạt động ngoài trời.");
+                    plantCareSuggestions.put("Heavy snow", "Bảo vệ cây bằng cách che phủ. Loại bỏ tuyết trên cành cây để tránh gãy đổ.");
+                    plantCareSuggestions.put("Patchy light snow with thunder", "Giữ cây trong nhà kính hoặc che phủ để tránh hư hại từ tuyết và sấm sét.");
+                    plantCareSuggestions.put("Moderate or heavy snow with thunder", "Cung cấp nhiệt và che chắn cây khỏi tuyết lớn và thời tiết lạnh.");
+
+                    plantCareSuggestions.put("Torrential rain shower", "Đảm bảo hệ thống thoát nước hoạt động tốt. Loại bỏ nước đọng quanh gốc cây.");
+                    plantCareSuggestions.put("Patchy light rain with thunder", "Kiểm tra cành cây có bị tổn thương do sét không. Tăng cường che chắn.");
+                    plantCareSuggestions.put("Moderate or heavy rain with thunder", "Kiểm tra tình trạng cây sau mưa lớn. Tránh tiếp xúc với cây nếu có sấm sét.");
+
+                    plantCareSuggestions.put("Ice pellets", "Che phủ cây để tránh tổn thương do mưa đá. Kiểm tra cây thường xuyên.");
+                    plantCareSuggestions.put("Moderate or heavy sleet showers", "Hạn chế tưới nước. Che chắn cây để bảo vệ khỏi mưa tuyết nặng.");
+                    plantCareSuggestions.put("Patchy moderate snow", "Giữ ấm cây bằng vật liệu che phủ. Loại bỏ tuyết thường xuyên.");
+                    plantCareSuggestions.put("Moderate or heavy snow showers", "Đảm bảo cây không bị gãy đổ do tuyết nặng. Cải thiện che chắn.");
+                    plantCareSuggestions.put("Light rain shower", "Đảm bảo đất không bị đọng nước. Kiểm tra cây sau cơn mưa nhẹ.");
+
                     String condition = response.getJSONObject("current").getJSONObject("condition").getString("text");
                     String conditionInVietnamese = weatherConditionMap.getOrDefault(condition, "Không rõ điều kiện thời tiết");
                     conditionTV.setText(conditionInVietnamese);
+
+                    String careSuggestion = plantCareSuggestions.getOrDefault(condition, "Không có gợi ý chăm sóc cây trồng cho điều kiện này.");
+                    suggestionTV.setText(careSuggestion);
+
 
                     String temperature = response.getJSONObject("current").getString("temp_c");
                     temperatureTV.setText(temperature + "°C");
