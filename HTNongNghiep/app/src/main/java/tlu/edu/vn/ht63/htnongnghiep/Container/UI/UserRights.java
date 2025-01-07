@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import tlu.edu.vn.ht63.htnongnghiep.Activity.InfUserDetail;
+import tlu.edu.vn.ht63.htnongnghiep.Activity.LibTreeAcitivity;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.LoginSignupActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.RevenueExpenditureActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.SignUpActivity;
@@ -79,6 +80,14 @@ public class UserRights extends Fragment {
         instruct = view.findViewById(R.id.instruct);
         support = view.findViewById(R.id.support);
         logout = view.findViewById(R.id.logout);
+
+        instruct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), LibTreeAcitivity.class);
+                startActivity(intent);
+            }
+        });
 
         infUser.setOnClickListener(new View.OnClickListener() {
             @Override

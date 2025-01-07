@@ -31,13 +31,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-        View menu = findViewById(R.id.menu);
-        MenuFragment.setMenu((AppCompatActivity) this,menu);
+//        View menu = findViewById(R.id.menu);
+//        MenuFragment.setMenu((AppCompatActivity) this,menu);
 
-        pagerAdapter = new ViewPagerAdapter1(getSupportFragmentManager());
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-//        abbTabs();
+//        pagerAdapter = new ViewPagerAdapter1(getSupportFragmentManager());
+//        viewPager.setAdapter(pagerAdapter);
+//        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        abbTabs();
         searchView = findViewById(R.id.searchView);
         searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

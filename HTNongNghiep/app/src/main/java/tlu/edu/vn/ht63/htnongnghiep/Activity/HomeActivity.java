@@ -91,12 +91,12 @@ public class HomeActivity extends AppCompatActivity {
                 communityBar.setColorFilter(getResources().getColor(R.color.active_bar));
                 barClick = R.id.community;
 
-//                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-//                startActivity(intent);
-                Fragment homeFragment = new HomeFragment();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.main, homeFragment);
-                transaction.commit();
+                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+                startActivity(intent);
+//                Fragment homeFragment = new HomeFragment();
+//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                transaction.replace(R.id.main, homeFragment);
+//                transaction.commit();
             }
         });
 
