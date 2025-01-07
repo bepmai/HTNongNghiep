@@ -66,6 +66,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -177,16 +178,20 @@ public class home extends Fragment {
         ArrayAdapter<CharSequence> filterAdapter = ArrayAdapter.createFromResource(
                 getContext(),
                 R.array.filter_array,
-                R.layout.spinner_item
+                R.layout.filter_item
         );
 
         filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         filterSpinner.setAdapter(filterAdapter);
 
-        filterSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 setBarChart();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
@@ -326,9 +331,9 @@ public class home extends Fragment {
 
         String[] days = new String[]{"Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7","Chủ nhật"};
         if (filterSpinner.getSelectedItemPosition() == 1){
-            days = new String[]{"Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7","Chủ nhật"};
+            days = getDaysOfCurrentMonth();
         }else if (filterSpinner.getSelectedItemPosition() == 2){
-            days = new String[]{"Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7","Chủ nhật"};
+            days = getMonthsOfCurrentYear();
         }
         XAxis xAxis = barChart1.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(days));
@@ -358,25 +363,73 @@ public class home extends Fragment {
         barChart1.invalidate();
     }
 
+    public String[] getDaysOfCurrentMonth() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", new Locale("vi")); // Định dạng ngày
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        int currentMonth = calendar.get(Calendar.MONTH);  // Tháng hiện tại (0-based)
+        int currentYear = calendar.get(Calendar.YEAR);    // Năm hiện tại
+        int daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH); // Số ngày trong tháng
+
+        String[] daysArray = new String[daysInMonth]; // Tạo mảng kích thước bằng số ngày trong tháng
+
+        for (int day = 1; day <= daysInMonth; day++) {
+            calendar.set(currentYear, currentMonth, day); // Thiết lập ngày trong tháng
+            Date date = calendar.getTime();              // Lấy đối tượng Date
+            String formattedDate = dateFormat.format(date); // Định dạng ngày thành chuỗi
+            daysArray[day - 1] = formattedDate;          // Lưu vào mảng (0-based index)
+        }
+
+        return daysArray;
+    }
+
+    public String[] getMonthsOfCurrentYear() {
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM yyyy", new Locale("vi")); // Định dạng tháng
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        int currentYear = calendar.get(Calendar.YEAR); // Năm hiện tại
+
+        String[] monthsArray = new String[12]; // Tạo mảng chứa 12 tháng
+
+        for (int month = 0; month < 12; month++) {
+            calendar.set(currentYear, month, 1); // Thiết lập tháng (1st day of the month)
+            String formattedMonth = monthFormat.format(calendar.getTime()); // Định dạng tháng
+            monthsArray[month] = formattedMonth; // Lưu vào mảng
+        }
+
+        return monthsArray;
+    }
+
     private ArrayList<BarEntry> barEntries1(){
         if (filterSpinner.getSelectedItemPosition() == 0){
             float[] totalPayments = new float[7];
 
             Calendar calendar = Calendar.getInstance(Locale.getDefault());
 
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+            Date startOfWeek = calendar.getTime();
+
+            calendar.add(Calendar.DAY_OF_WEEK, 6);
+            Date endOfWeek = calendar.getTime();
+
+            calendar.setTime(startOfWeek);
+
             for (Expenditure expenditure : expenditureArrayList) {
                 if (expenditure.getDate() != null) {
-                    calendar.setTime(expenditure.getDate());
-                    int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-                    int index = (dayOfWeek == Calendar.SUNDAY) ? 6 : dayOfWeek - Calendar.MONDAY;
-                    totalPayments[index] += expenditure.getTotalPayment();
+                    Date expenditureDate = expenditure.getDate();
+
+                    if (!expenditureDate.before(startOfWeek) && !expenditureDate.after(endOfWeek)) {
+                        calendar.setTime(expenditureDate);
+                        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+                        int index = (dayOfWeek == Calendar.SUNDAY) ? 6 : dayOfWeek - Calendar.MONDAY;
+                        totalPayments[index] += expenditure.getTotalPayment();
+                    }
                 }
             }
 
             ArrayList<BarEntry> barEntries = new ArrayList<>();
             for (int i = 0; i < totalPayments.length; i++) {
-                barEntries.add(new BarEntry(i+1, totalPayments[i]));
+                barEntries.add(new BarEntry(i + 1, totalPayments[i]));
             }
+
             return barEntries;
         }else if (filterSpinner.getSelectedItemPosition() == 1){
             float[] totalPaymentsByDay = new float[31]; // Lưu tổng cho 31 ngày trong tháng
@@ -400,9 +453,7 @@ public class home extends Fragment {
 
             ArrayList<BarEntry> barEntries = new ArrayList<>();
             for (int i = 0; i < totalPaymentsByDay.length; i++) {
-                if (totalPaymentsByDay[i] > 0) { // Chỉ thêm vào nếu có giá trị
-                    barEntries.add(new BarEntry(i + 1, totalPaymentsByDay[i])); // i + 1 là ngày trong tháng
-                }
+                barEntries.add(new BarEntry(i + 1, totalPaymentsByDay[i])); // i + 1 là ngày trong tháng
             }
 
             return barEntries;
@@ -426,9 +477,7 @@ public class home extends Fragment {
 
             ArrayList<BarEntry> barEntries = new ArrayList<>();
             for (int i = 0; i < totalPaymentsByMonth.length; i++) {
-                if (totalPaymentsByMonth[i] > 0) {
-                    barEntries.add(new BarEntry(i + 1, totalPaymentsByMonth[i])); // i + 1 là tháng trong năm
-                }
+                barEntries.add(new BarEntry(i + 1, totalPaymentsByMonth[i])); // i + 1 là tháng trong năm
             }
 
             return barEntries;
@@ -442,19 +491,32 @@ public class home extends Fragment {
 
             Calendar calendar = Calendar.getInstance(Locale.getDefault());
 
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+            Date startOfWeek = calendar.getTime();
+
+            calendar.add(Calendar.DAY_OF_WEEK, 6);
+            Date endOfWeek = calendar.getTime();
+
+            calendar.setTime(startOfWeek);
+
             for (Revenue revenue : revenueArrayList) {
                 if (revenue.getDate() != null) {
-                    calendar.setTime(revenue.getDate());
-                    int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-                    int index = (dayOfWeek == Calendar.SUNDAY) ? 6 : dayOfWeek - Calendar.MONDAY;
-                    totalPayments[index] += revenue.getTotalPayment();
+                    Date expenditureDate = revenue.getDate();
+
+                    if (!expenditureDate.before(startOfWeek) && !expenditureDate.after(endOfWeek)) {
+                        calendar.setTime(expenditureDate);
+                        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+                        int index = (dayOfWeek == Calendar.SUNDAY) ? 6 : dayOfWeek - Calendar.MONDAY;
+                        totalPayments[index] += revenue.getTotalPayment();
+                    }
                 }
             }
 
             ArrayList<BarEntry> barEntries = new ArrayList<>();
             for (int i = 0; i < totalPayments.length; i++) {
-                barEntries.add(new BarEntry(i+1, totalPayments[i]));
+                barEntries.add(new BarEntry(i + 1, totalPayments[i]));
             }
+
             return barEntries;
         }else if (filterSpinner.getSelectedItemPosition() == 1){
             float[] totalPaymentsByDay = new float[31]; // Lưu tổng cho 31 ngày trong tháng
