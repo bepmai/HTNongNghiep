@@ -7,9 +7,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,8 +75,15 @@ public class Library_informationTree_view extends Fragment {
                              Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.fragment_library_information_tree_view, container, false);
 
-        View menu = view.findViewById(R.id.menu);
-        MenuFragment.setMenu((AppCompatActivity)requireActivity(),menu);
+
+        EditText edt = view.findViewById(R.id.searchBar);
+        ImageView back = view.findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requireActivity().finish();
+            }
+        });
 
         RecyclerView contentRecycleView = view.findViewById(R.id.contentRecycleView);
         contentRecycleView.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -85,6 +97,45 @@ public class Library_informationTree_view extends Fragment {
         Classify_tree_classic classify_tree_classic = new Classify_tree_classic(list);
         classify_tree_classic.loadTreeData();
         contentRecycleView.setAdapter(classify_tree_classic);
+
+
+        edt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!s.toString().isEmpty()){
+                    list.clear();
+                    list.add("Tìm kiếm");
+                    list.add("Cây thân thảo");
+                    list.add("Cây thân gỗ");
+                    list.add("Cây thân leo");
+                    list.add("Cây thủy sinh");
+                    list.add("Cây khí sinh");
+
+                }
+                else{
+                    list.clear();
+                    list.add("Cây thân thảo");
+                    list.add("Cây thân gỗ");
+                    list.add("Cây thân leo");
+                    list.add("Cây thủy sinh");
+                    list.add("Cây khí sinh");
+                }
+                classify_tree_classic.setTextSearch(s.toString());
+                classify_tree_classic.notifyDataSetChanged();
+            }
+        });
+
+
 
         return view;
     }

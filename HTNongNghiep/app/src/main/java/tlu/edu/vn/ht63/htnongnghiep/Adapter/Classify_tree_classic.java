@@ -31,8 +31,14 @@ import tlu.edu.vn.ht63.htnongnghiep.R;
 public class Classify_tree_classic extends RecyclerView.Adapter<Classify_tree_classic.ViewHolder> {
     public List<String> list;
 
+    public void setTextSearch(String textSearch) {
+        this.textSearch = textSearch;
+    }
+
+    public String textSearch;
     private final List<TreeLib> treeLib = new ArrayList<>();
     private final List<TreeLib> treeCom = new ArrayList<>();
+
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
     public Classify_tree_classic(List<String> list) {
@@ -84,42 +90,113 @@ public class Classify_tree_classic extends RecyclerView.Adapter<Classify_tree_cl
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.classify.setText(list.get(position));
-        Classify_tree_to_feature_adapter adapterTreeCom = new Classify_tree_to_feature_adapter(treeCom);
-        holder.constraintLayout10.setOnClickListener(new View.OnClickListener() {
-            private boolean isExpanded = false;
+        if (!list.get(position).equals("Tìm kiếm")) {
+            treeCom.clear();
+            holder.classify.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
+            holder.dropdownImage.animate().rotation(0).setDuration(0).start();
+            holder.dropdownImage.setColorFilter(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
+            holder.classify.setText(list.get(position));
+            Classify_tree_to_feature_adapter adapterTreeCom = new Classify_tree_to_feature_adapter(treeCom);
+            holder.treeListContent.setAdapter(adapterTreeCom);
+            holder.constraintLayout10.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
+                private boolean isExpanded = false;
 
-                if (isExpanded) {
-                    treeCom.clear();
-                    adapterTreeCom.setTreelib(treeCom);
-                    holder.classify.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
-                    holder.dropdownImage.animate().rotation(0).setDuration(300).start();
-                    holder.dropdownImage.setColorFilter(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
-                } else {
-                    try {
-                        treeCom.clear();
-                        Log.d("Firebase", "Load data thành công!");
-                        for (TreeLib tb : treeLib) {
-                            if (tb.getTrunk() != null && tb.getTrunk().equals(list.get(holder.getAdapterPosition()))) {
-                                treeCom.add(tb);
-                            }
-                        }
-                        adapterTreeCom.setTreelib(treeCom);
-                    } catch (Exception e) {
-
+                @Override
+                public void onClick(View v) {
+                    int pos = holder.getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION) {
+                        holder.treeListContent.smoothScrollToPosition(pos);
                     }
-                    holder.treeListContent.setLayoutManager(new GridLayoutManager(holder.itemView.getContext(), 2));
-                    holder.treeListContent.setAdapter(adapterTreeCom);
-                    holder.dropdownImage.animate().rotation(180).setDuration(300).start();
-                    holder.classify.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.active_bar));
-                    holder.dropdownImage.setColorFilter(ContextCompat.getColor(holder.itemView.getContext(), R.color.active_bar));
+                    if (isExpanded) {
+                        treeCom.clear();
+                        adapterTreeCom.setTreelib(treeCom);
+                        holder.classify.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
+                        holder.dropdownImage.animate().rotation(0).setDuration(300).start();
+                        holder.dropdownImage.setColorFilter(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
+                    } else {
+                        try {
+                            treeCom.clear();
+                            Log.d("Firebase", "Load data thành công!");
+                            for (TreeLib tb : treeLib) {
+                                if (tb.getTrunk() != null && tb.getTrunk().equals(list.get(holder.getAdapterPosition()))) {
+                                    treeCom.add(tb);
+                                }
+                            }
+                            adapterTreeCom.setTreelib(treeCom);
+                        } catch (Exception e) {
+
+                        }
+                        holder.treeListContent.setLayoutManager(new GridLayoutManager(holder.itemView.getContext(), 2));
+                        holder.treeListContent.setAdapter(adapterTreeCom);
+                        holder.dropdownImage.animate().rotation(180).setDuration(300).start();
+                        holder.classify.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.active_bar));
+                        holder.dropdownImage.setColorFilter(ContextCompat.getColor(holder.itemView.getContext(), R.color.active_bar));
+                    }
+                    isExpanded = !isExpanded;
                 }
-                isExpanded = !isExpanded;
+            });
+        } else {
+            treeCom.clear();
+            if (!textSearch.isEmpty()) {
+                Log.d("Hello world", textSearch);
+                for (TreeLib tb : treeLib) {
+                    if ((tb.getTrunk() != null && tb.getTrunk().toLowerCase().contains(textSearch.toLowerCase()))
+                            || (tb.getName() != null && tb.getName().toLowerCase().contains(textSearch.toLowerCase()))
+                            || (tb.getUnique() != null && tb.getUnique().toLowerCase().contains(textSearch.toLowerCase()))
+                            || (tb.getEnvironmentLive() != null && tb.getEnvironmentLive().toLowerCase().contains(textSearch.toLowerCase()))
+                            || (tb.getArea() != null && tb.getArea().toLowerCase().contains(textSearch.toLowerCase()))) {
+                        treeCom.add(tb);
+                    }
+                }
+            } else {
+                Log.d("Hello world", "2");
             }
-        });
+            holder.classify.setText(list.get(position));
+            Classify_tree_to_feature_adapter adapterTreeCom = new Classify_tree_to_feature_adapter(treeCom);
+            holder.treeListContent.setLayoutManager(new GridLayoutManager(holder.itemView.getContext(), 2));
+            holder.treeListContent.setAdapter(adapterTreeCom);
+            holder.dropdownImage.animate().rotation(180).setDuration(0).start();
+            holder.classify.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.active_bar));
+            holder.dropdownImage.setColorFilter(ContextCompat.getColor(holder.itemView.getContext(), R.color.active_bar));
+            holder.constraintLayout10.setOnClickListener(new View.OnClickListener() {
+                private boolean isExpanded = true;
+
+                @Override
+                public void onClick(View v) {
+                    int pos = holder.getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION) {
+                        holder.treeListContent.smoothScrollToPosition(pos);
+                    }
+                    if (isExpanded) {
+                        treeCom.clear();
+                        adapterTreeCom.setTreelib(treeCom);
+                        holder.classify.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
+                        holder.dropdownImage.animate().rotation(0).setDuration(300).start();
+                        holder.dropdownImage.setColorFilter(ContextCompat.getColor(holder.itemView.getContext(), R.color.black));
+                    } else {
+                        try {
+                            treeCom.clear();
+                            Log.d("Firebase", "Load data thành công!");
+                            for (TreeLib tb : treeLib) {
+                                if (tb.getTrunk() != null && tb.getTrunk().toLowerCase().contains(textSearch.toLowerCase()) || tb.getName() != null && tb.getName().toLowerCase().contains(textSearch.toLowerCase()) || tb.getUnique() != null && tb.getUnique().toLowerCase().contains(textSearch.toLowerCase()) || tb.getEnvironmentLive() != null && tb.getEnvironmentLive().toLowerCase().contains(textSearch.toLowerCase()) || tb.getArea() != null && tb.getArea().toLowerCase().contains(textSearch.toLowerCase())) {
+                                    treeCom.add(tb);
+                                }
+                            }
+                            adapterTreeCom.setTreelib(treeCom);
+                        } catch (Exception e) {
+
+                        }
+                        holder.treeListContent.setLayoutManager(new GridLayoutManager(holder.itemView.getContext(), 2));
+                        holder.treeListContent.setAdapter(adapterTreeCom);
+                        holder.dropdownImage.animate().rotation(180).setDuration(300).start();
+                        holder.classify.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.active_bar));
+                        holder.dropdownImage.setColorFilter(ContextCompat.getColor(holder.itemView.getContext(), R.color.active_bar));
+                    }
+                    isExpanded = !isExpanded;
+                }
+            });
+        }
     }
 
     @Override

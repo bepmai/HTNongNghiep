@@ -59,7 +59,7 @@
 
                 <com.google.android.flexbox.FlexboxLayout
                     android:id="@+id/search"
-                    android:layout_width="300dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/border_radius_5dp"
                     android:backgroundTint="@color/white"
@@ -80,24 +80,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="Tìm kiếm"
+                        android:singleLine="true"
+                        android:maxLines="1"
                         android:textColor="#817E7E" />
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <ImageButton
-                    android:id="@+id/notification"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="8dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_notification" />
 
-                <ImageButton
-                    android:id="@+id/message"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="8dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_message" />
             </com.google.android.flexbox.FlexboxLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -110,6 +98,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/menu"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout9"/>
-        <include layout="@layout/component_menu"></include>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
