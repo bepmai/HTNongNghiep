@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -33,6 +34,7 @@ public class PlantShopDetailActivity extends AppCompatActivity {
     DatabaseReference expenditureDetailRef,revenueDetailRef;
     Plant plant;
     String userId,fullName,address;
+    ImageButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,13 @@ public class PlantShopDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 buyPlanteData();
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }
