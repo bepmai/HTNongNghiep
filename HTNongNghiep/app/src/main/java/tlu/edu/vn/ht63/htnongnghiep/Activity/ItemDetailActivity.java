@@ -22,9 +22,9 @@ public class ItemDetailActivity extends AppCompatActivity {
         TextView nameTextView = findViewById(R.id.detailButton);
         TextView ratingTextView = findViewById(R.id.rating_text);
         ImageView imageView = findViewById(R.id.img1);
-        ImageView image1 = findViewById(R.id.img2);
-        ImageView image2 = findViewById(R.id.img3);
-        ImageView image3 = findViewById(R.id.img4);
+        ImageView image1 = findViewById(R.id.imgTree);
+        ImageView image2 = findViewById(R.id.img1);
+        ImageView image3 = findViewById(R.id.imgTree);
 
         Intent intent = getIntent();
         nameTextView.setText(intent.getStringExtra("plant_name"));

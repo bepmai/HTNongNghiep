@@ -34,11 +34,7 @@ public class PlantShopActivity extends AppCompatActivity {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(gridLayoutManager);
         plantList = new ArrayList<>();
-        plantList.add(new Plant("Cây Ổi", "500.000đ", 4.8f, R.drawable.img, "1", "P001", "U001", "Nguyễn Văn A", "2023-01-01", "Hà Nội", "Cây ổi rất ngon"));
-        plantList.add(new Plant("Cây Xoài", "750.000đ",  4.5f, R.drawable.img_1, "2", "P002", "U002", "Trần Thị B", "2023-01-02", "Hải Phòng", "Cây xoài ngọt"));
-        plantList.add(new Plant("Cây Cam", "600.000đ",  4.7f , R.drawable.img_2, "3", "P003", "U003", "Lê Văn C", "2023-01-03", "Đà Nẵng", "Cây cam mọng nước"));
-        plantList.add(new Plant("Cây Bưởi", "900.000đ", 4.9f, R.drawable.img_3, "4", "P004", "U004", "Nguyễn Thị D", "2023-01-04", "Nha Trang", "Cây bưởi thơm"));
-        plantList.add(new Plant("Cây Chanh", "300.000đ", 4.6f, R.drawable.img, "5", "P005", "U005", "Phạm Văn E", "2023-01-05", "Hà Giang", "Cây chanh chua"));
+
         // Set adapter
         adapter = new PlantAdapter(plantList, new PlantAdapter.OnItemClickListener() {
             @Override
