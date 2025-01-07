@@ -58,15 +58,21 @@
             app:alignItems="center"
             app:flexDirection="column">
 
-            <ImageView
-                android:id="@+id/imgTree"
-                android:layout_width="350dp"
-                android:layout_height="350dp"
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/border_radius_10dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/congtao" />
+                app:cardCornerRadius="10dp">
+
+                <ImageView
+                    android:id="@+id/imgTree"
+                    android:layout_width="350dp"
+                    android:layout_height="350dp"
+                    android:background="@drawable/border_radius_10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/congtao" />
+            </androidx.cardview.widget.CardView>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewTree"
@@ -83,6 +89,7 @@
                 app:flexDirection="column">
 
                 <TextView
+                    android:id="@+id/treeName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -97,107 +104,123 @@
                     android:layout_marginBottom="10dp"
                     android:text="Họ nhà dong - chi Đuôi Công"
                     android:textColor="#474747"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:id="@+id/phapdanh"/>
             </com.google.android.flexbox.FlexboxLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="20dp">
+
                 <View
-                    android:layout_marginBottom="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#D9D9D9"/>
+                    android:layout_marginBottom="15dp"
+                    android:background="#D9D9D9" />
+
                 <com.google.android.flexbox.FlexboxLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:justifyContent="space_between"
-                    app:alignItems="center">
+                    app:alignItems="center"
+                    app:justifyContent="space_between">
+
                     <com.google.android.flexbox.FlexboxLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        app:alignItems="center"
                         app:flexDirection="column"
-                        app:justifyContent="center"
-                        app:alignItems="center">
+                        app:justifyContent="center">
+
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/border_circle"
                             android:backgroundTint="@color/light_gray"
                             android:padding="15dp"
-                            android:src="@drawable/ic_ruler"/>
+                            android:src="@drawable/ic_ruler" />
+
                         <TextView
-                            android:padding="5dp"
                             android:id="@+id/treeHeight"
-                            android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
-                            android:text="Chiều cao"/>
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="Chiều cao" />
                     </com.google.android.flexbox.FlexboxLayout>
+
                     <com.google.android.flexbox.FlexboxLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        app:alignItems="center"
                         app:flexDirection="column"
-                        app:justifyContent="center"
-                        app:alignItems="center">
+                        app:justifyContent="center">
+
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/border_circle"
                             android:backgroundTint="@color/light_gray"
                             android:padding="15dp"
-                            android:src="@drawable/ic_temperature"/>
+                            android:src="@drawable/ic_temperature" />
+
                         <TextView
-                            android:padding="5dp"
                             android:id="@+id/treeTemp"
-                            android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
-                            android:text="Nhiệt độ"/>
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="Nhiệt độ" />
                     </com.google.android.flexbox.FlexboxLayout>
+
                     <com.google.android.flexbox.FlexboxLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        app:alignItems="center"
                         app:flexDirection="column"
-                        app:justifyContent="center"
-                        app:alignItems="center">
+                        app:justifyContent="center">
+
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/border_circle"
                             android:backgroundTint="@color/light_gray"
                             android:padding="15dp"
-                            android:src="@drawable/ic_avg"/>
+                            android:src="@drawable/ic_avg" />
+
                         <TextView
-                            android:padding="5dp"
                             android:id="@+id/treeEncounter"
-                            android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
-                            android:text="Tỉ lệ xuất hiện"/>
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="Tỉ lệ xuất hiện" />
                     </com.google.android.flexbox.FlexboxLayout>
+
                     <com.google.android.flexbox.FlexboxLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        app:alignItems="center"
                         app:flexDirection="column"
-                        app:justifyContent="center"
-                        app:alignItems="center">
+                        app:justifyContent="center">
+
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/border_circle"
                             android:backgroundTint="@color/light_gray"
                             android:padding="15dp"
-                            android:src="@drawable/ic_location"/>
+                            android:src="@drawable/ic_location" />
+
                         <TextView
-                            android:padding="5dp"
                             android:id="@+id/treeArea"
-                            android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
-                            android:text="Khu vực"/>
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="Khu vực" />
                     </com.google.android.flexbox.FlexboxLayout>
                 </com.google.android.flexbox.FlexboxLayout>
 
             </LinearLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewFeature"
                 android:layout_width="match_parent"

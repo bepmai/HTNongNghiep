@@ -39,7 +39,8 @@ public class PostFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState){
         init(view);
         list = new ArrayList<>();
-        list.add(new HomeModel("Triệu Thị Hậu", "https://www.w3schools.com/w3images/avatar2.png", "Admin", "2 hours ago", "https://images.app.goo.gl/bziZFGi3EvHk5Zpo6", "Nature", "Nature is beautiful", "2 hours ago", 10, 5, 2));
+        list.add(new HomeModel("Trees Of Life", "https://www.w3schools.com/w3images/avatar3.png", "Admin", "1 hours ago", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhYg36JNEl--Lu9bUDVWF9SlG_64SSAhOINw&s", "Hello", "Hello", "1 hours ago", 100, 8, 2));
+        list.add(new HomeModel("Triệu Thị Hậu", "https://www.w3schools.com/w3images/avatar2.png", "User", "2 hours ago", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCyXg5x44xE1Kkenhwi3B3nefm1IisIaY1rQ&s", "Nature", "Nature is beautiful", "2 hours ago", 10, 5, 2));
         list.add(new HomeModel("Nguyễn Phương Mai", "https://www.w3schools.com/w3images/avatar6.png", "User", "3 hours ago", "hhttps://mowgarden.com/wp-content/uploads/2021/04/Monstera-adansonii-Philodendron-Monkey-Mask-MOWGARDEN-2.jpg", "Nature", "Nature is beautiful", "3 hours ago", 10, 5, 2));
         adapter = new HomeAdapter(list, getContext());
         recyclerView.setAdapter(adapter);

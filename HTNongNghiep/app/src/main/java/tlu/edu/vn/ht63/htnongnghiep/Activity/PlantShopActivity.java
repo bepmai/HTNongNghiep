@@ -33,13 +33,7 @@ public class PlantShopActivity extends AppCompatActivity {
         // Thêm sản phẩm vào danh sách
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(gridLayoutManager);
-
         plantList = new ArrayList<>();
-        plantList.add(new Plant("Cây Ổi", "500.000đ", 4.8f, R.drawable.img));
-        plantList.add(new Plant("Cây Xoài", "750.000đ",  4.5f, R.drawable.img_1));
-        plantList.add(new Plant("Cây Cam", "600.000đ",  4.7f , R.drawable.img_2));
-        plantList.add(new Plant("Cây Bưởi", "900.000đ", 4.9f, R.drawable.img_3));
-        plantList.add(new Plant("Cây Chanh", "300.000đ", 4.6f, R.drawable.img));
 
         // Set adapter
         adapter = new PlantAdapter(plantList, new PlantAdapter.OnItemClickListener() {
@@ -51,7 +45,14 @@ public class PlantShopActivity extends AppCompatActivity {
                 intent.putExtra("plant_name", plant.getName());
                 intent.putExtra("plant_price", plant.getPrice());
                 intent.putExtra("plant_rating", plant.getRating());
-                intent.putExtra("plant_image", plant.getImageResId());
+                intent.putExtra("plant_image", plant.getImage());
+                intent.putExtra("plant_id", plant.getId());
+                intent.putExtra("plant_idplant", plant.getIdplant());
+                intent.putExtra("plant_iduser", plant.getUserid());
+                intent.putExtra("plant_nameuser", plant.getNameuser());
+                intent.putExtra("plant_datesell", plant.getDatesell());
+                intent.putExtra("plant_address", plant.getAddress());
+                intent.putExtra("plant_description", plant.getDescription());
                 startActivity(intent);
             }
         });

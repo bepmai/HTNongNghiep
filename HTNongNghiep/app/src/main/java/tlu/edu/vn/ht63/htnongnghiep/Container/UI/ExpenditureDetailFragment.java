@@ -3,6 +3,7 @@ package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 import static android.content.Context.MODE_PRIVATE;
 import static android.content.Intent.getIntent;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -90,6 +91,8 @@ public class ExpenditureDetailFragment extends Fragment {
     EditText date_edt,buyer_edt,plant_edt,adress_edt,total_edt,payment_edt,totalPayment_edt,status_edt;
     ImageButton backButton;
     Button saveBtn,deleteBtn;
+    DatabaseReference expenditureDetailRef,revenueDetailRef;
+    ExpenditureViewModel expenditureViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -144,11 +147,11 @@ public class ExpenditureDetailFragment extends Fragment {
             return view;
         }
 
-        DatabaseReference expenditureDetailRef = FirebaseDatabase.getInstance()
+        expenditureDetailRef = FirebaseDatabase.getInstance()
                 .getReference("expenditure")
                 .child(userId);
 
-        DatabaseReference revenueDetailRef = FirebaseDatabase.getInstance()
+        revenueDetailRef = FirebaseDatabase.getInstance()
                 .getReference("revenue")
                 .child(userId)
                 .child(expenditure.getId());
@@ -161,71 +164,30 @@ public class ExpenditureDetailFragment extends Fragment {
                 status_edt.setText("Chưa xác nhận");
 
                 saveBtn.setBackgroundColor(getResources().getColor(R.color.green));
-                ExpenditureViewModel expenditureViewModel =
+                expenditureViewModel =
                         new ViewModelProvider(requireActivity()).get(ExpenditureViewModel.class);
 
                 saveBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        expenditure.setStatus(1);
-                        expenditure.setAdress(adress_edt.getText().toString().trim());
-                        expenditureViewModel.updateExpenditure(expenditure);
-
-                        expenditureDetailRef.child(expenditure.getId()).setValue(expenditure);
-
-                        revenueDetailRef.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                Revenue revenue = snapshot.getValue(Revenue.class);
-                                if (revenue == null) {
-                                    Toast.makeText(getContext(), "Hoá đơn chi không tồn tại", Toast.LENGTH_SHORT).show();
-                                }else {
-                                    revenue.setAdress(adress_edt.getText().toString().trim());
-                                    revenueDetailRef.setValue(revenue).addOnCompleteListener(task -> {
-                                        if (task.isSuccessful()) {
-                                            Toast.makeText(getContext(), "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
-                                            if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                                                requireActivity().getSupportFragmentManager().popBackStack();
-                                            } else {
-                                                requireActivity().finish();
-                                            }
-                                        }
-                                    })
-                                    .addOnFailureListener(e -> {
-                                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    });
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Log.e("FirebaseError", "Error: " + error.getMessage());
-                            }
-                        });
+                        new AlertDialog.Builder(getContext())
+                                .setTitle("Xác nhận thông tin")
+                                .setMessage("Bạn có chắc chắn xác nhận hoá đơn này không?")
+                                .setPositiveButton("Đồng ý", (dialog, which) -> agreeExpenditure())
+                                .setNegativeButton("Hủy", null)
+                                .show();
                     }
                 });
 
                 deleteBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        revenueDetailRef.removeValue().addOnSuccessListener(aVoid -> {
-//                            Toast.makeText(getContext(), "Xoá hoá đơn thành công", Toast.LENGTH_SHORT).show();
-                        })
-                        .addOnFailureListener(e -> {
-                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        });
-
-                        expenditureDetailRef.child(expenditure.getId()).removeValue().addOnSuccessListener(aVoid -> {
-                            Toast.makeText(getContext(), "Xoá hoá đơn thành công", Toast.LENGTH_SHORT).show();
-                            if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                                requireActivity().getSupportFragmentManager().popBackStack();
-                            } else {
-                                requireActivity().finish();
-                            }
-                        })
-                        .addOnFailureListener(e -> {
-                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        });
+                        new AlertDialog.Builder(getContext())
+                                .setTitle("Xác nhận xóa")
+                                .setMessage("Bạn có chắc chắn muốn xóa hoá đơn này không?")
+                                .setPositiveButton("Xóa", (dialog, which) -> deleterevenueData())
+                                .setNegativeButton("Hủy", null)
+                                .show();
                     }
                 });
             }else if(expenditure.getStatus() == RevenueExpenditure.TYPE_CONFIRM){
@@ -248,5 +210,62 @@ public class ExpenditureDetailFragment extends Fragment {
             totalPayment_edt.setText(expenditure.getTotalPayment().toString()+" vnđ");
         }
         return view;
+    }
+    private void agreeExpenditure(){
+        expenditure.setStatus(1);
+        expenditure.setAdress(adress_edt.getText().toString().trim());
+        expenditureViewModel.updateExpenditure(expenditure);
+
+        expenditureDetailRef.child(expenditure.getId()).setValue(expenditure);
+
+        revenueDetailRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Revenue revenue = snapshot.getValue(Revenue.class);
+                if (revenue == null) {
+                    Toast.makeText(getContext(), "Hoá đơn chi không tồn tại", Toast.LENGTH_SHORT).show();
+                }else {
+                    revenue.setAdress(adress_edt.getText().toString().trim());
+                    revenueDetailRef.setValue(revenue).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getContext(), "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
+                            if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                                requireActivity().getSupportFragmentManager().popBackStack();
+                            } else {
+                                requireActivity().finish();
+                            }
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Error: " + error.getMessage());
+            }
+        });
+    }
+    private void deleterevenueData(){
+        revenueDetailRef.removeValue().addOnSuccessListener(aVoid -> {
+//                            Toast.makeText(getContext(), "Xoá hoá đơn thành công", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+
+        expenditureDetailRef.child(expenditure.getId()).removeValue().addOnSuccessListener(aVoid -> {
+                    Toast.makeText(getContext(), "Xoá hoá đơn thành công", Toast.LENGTH_SHORT).show();
+                    if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                        requireActivity().getSupportFragmentManager().popBackStack();
+                    } else {
+                        requireActivity().finish();
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 }

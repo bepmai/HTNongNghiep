@@ -6,14 +6,14 @@
     android:padding="8dp">
     <!-- Ảnh đại diện -->
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profileImageChat"
+        android:id="@+id/profile_image"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/ic_ellipse"
+        android:background="@drawable/ic_user_chat"
         app:civ_border_color="#3CC18E"
         app:civ_border_width="1dp" />
 
@@ -35,7 +35,7 @@
 
             <!-- Tên người dùng -->
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/userNameList"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -45,7 +45,6 @@
 
             <!-- Thời gian -->
             <TextView
-                android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="14 phút"
@@ -55,7 +54,7 @@
 
         <!-- Vai trò -->
         <TextView
-            android:id="@+id/message"
+            android:id="@+id/lastMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Ông có thể để cây ra ban công hứng nắng khoảng 30 phút mỗi buổi sáng...."

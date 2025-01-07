@@ -25,8 +25,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +66,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -94,7 +98,7 @@ public class home extends Fragment {
 
     WebView webView;
     TextView detailButton, humidityTV, windSpeedTV, cityNameTV, temperatureTV, conditionTV;
-
+    Spinner filterSpinner;
     ImageView iconIV;
     BarChart barChart1;
 
@@ -118,6 +122,7 @@ public class home extends Fragment {
         iconIV = view.findViewById(R.id.idTVIcon);
         webView = view.findViewById(R.id.webView);
         detailButton = view.findViewById(R.id.detailButton);
+        filterSpinner = view.findViewById(R.id.filterSpinner);
         barChart1 = view.findViewById(R.id.barchart1);
 
         LinearLayout formWeather = view.findViewById(R.id.formweather);
@@ -170,55 +175,76 @@ public class home extends Fragment {
             }
         });
 
+        ArrayAdapter<CharSequence> filterAdapter = ArrayAdapter.createFromResource(
+                getContext(),
+                R.array.filter_array,
+                R.layout.filter_item
+        );
+
+        filterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        filterSpinner.setAdapter(filterAdapter);
+
+        filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                setBarChart();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         String userId = sharedPreferences.getString("userId", null);
 
-        expenditureRef = FirebaseDatabase.getInstance()
-                .getReference("expenditure")
-                .child(userId);
+        if(userId !=null) {
+            expenditureRef = FirebaseDatabase.getInstance()
+                    .getReference("expenditure")
+                    .child(userId);
 
-        eventExpenditureListener = expenditureRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@android.support.annotation.NonNull DataSnapshot snapshot) {
-                expenditureArrayList.clear();
-                for (DataSnapshot idExpenditureSnapshot : snapshot.getChildren()) {
-                    Expenditure expenditure = idExpenditureSnapshot.getValue(Expenditure.class);
-                    if (expenditure != null) {
-                        expenditureArrayList.add(expenditure);
+            eventExpenditureListener = expenditureRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@android.support.annotation.NonNull DataSnapshot snapshot) {
+                    expenditureArrayList.clear();
+                    for (DataSnapshot idExpenditureSnapshot : snapshot.getChildren()) {
+                        Expenditure expenditure = idExpenditureSnapshot.getValue(Expenditure.class);
+                        if (expenditure != null) {
+                            expenditureArrayList.add(expenditure);
+                        }
+                        setBarChart();
                     }
-                    setBarChart();
                 }
-            }
 
-            @Override
-            public void onCancelled(@android.support.annotation.NonNull DatabaseError error) {
-                Log.e("FirebaseError", "Error: " + error.getMessage());
-            }
-        });
+                @Override
+                public void onCancelled(@android.support.annotation.NonNull DatabaseError error) {
+                    Log.e("FirebaseError", "Error: " + error.getMessage());
+                }
+            });
 
-        revenueRef = FirebaseDatabase.getInstance()
-                .getReference("revenue")
-                .child(userId);
+            revenueRef = FirebaseDatabase.getInstance()
+                    .getReference("revenue")
+                    .child(userId);
 
-        eventRevenueListener = revenueRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@android.support.annotation.NonNull DataSnapshot snapshot) {
-                revenueArrayList.clear();
-                for (DataSnapshot idRevenueSnapshot : snapshot.getChildren()) {
-                    Revenue revenue = idRevenueSnapshot.getValue(Revenue.class);
-                    if (revenue != null) {
-                        revenueArrayList.add(revenue);
+            eventRevenueListener = revenueRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@android.support.annotation.NonNull DataSnapshot snapshot) {
+                    revenueArrayList.clear();
+                    for (DataSnapshot idRevenueSnapshot : snapshot.getChildren()) {
+                        Revenue revenue = idRevenueSnapshot.getValue(Revenue.class);
+                        if (revenue != null) {
+                            revenueArrayList.add(revenue);
+                        }
+                        setBarChart();
                     }
-                    setBarChart();
                 }
-            }
 
-            @Override
-            public void onCancelled(@android.support.annotation.NonNull DatabaseError error) {
-                Log.e("FirebaseError", "Error: " + error.getMessage());
-            }
-        });
-
+                @Override
+                public void onCancelled(@android.support.annotation.NonNull DatabaseError error) {
+                    Log.e("FirebaseError", "Error: " + error.getMessage());
+                }
+            });
+        }
         setBarChart();
 
         return view;
@@ -304,6 +330,11 @@ public class home extends Fragment {
         barChart1.getDescription().setEnabled(false);
 
         String[] days = new String[]{"Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7","Chủ nhật"};
+        if (filterSpinner.getSelectedItemPosition() == 1){
+            days = getDaysOfCurrentMonth();
+        }else if (filterSpinner.getSelectedItemPosition() == 2){
+            days = getMonthsOfCurrentYear();
+        }
         XAxis xAxis = barChart1.getXAxis();
         xAxis.setValueFormatter(new IndexAxisValueFormatter(days));
         xAxis.setCenterAxisLabels(true);
@@ -332,46 +363,217 @@ public class home extends Fragment {
         barChart1.invalidate();
     }
 
-    private ArrayList<BarEntry> barEntries1(){
-        float[] totalPayments = new float[7];
-
+    public String[] getDaysOfCurrentMonth() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", new Locale("vi")); // Định dạng ngày
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        int currentMonth = calendar.get(Calendar.MONTH);  // Tháng hiện tại (0-based)
+        int currentYear = calendar.get(Calendar.YEAR);    // Năm hiện tại
+        int daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH); // Số ngày trong tháng
 
-        for (Expenditure expenditure : expenditureArrayList) {
-            if (expenditure.getDate() != null) {
-                calendar.setTime(expenditure.getDate());
-                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-                int index = (dayOfWeek == Calendar.SUNDAY) ? 6 : dayOfWeek - Calendar.MONDAY;
-                totalPayments[index] += expenditure.getTotalPayment();
+        String[] daysArray = new String[daysInMonth]; // Tạo mảng kích thước bằng số ngày trong tháng
+
+        for (int day = 1; day <= daysInMonth; day++) {
+            calendar.set(currentYear, currentMonth, day); // Thiết lập ngày trong tháng
+            Date date = calendar.getTime();              // Lấy đối tượng Date
+            String formattedDate = dateFormat.format(date); // Định dạng ngày thành chuỗi
+            daysArray[day - 1] = formattedDate;          // Lưu vào mảng (0-based index)
+        }
+
+        return daysArray;
+    }
+
+    public String[] getMonthsOfCurrentYear() {
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM yyyy", new Locale("vi")); // Định dạng tháng
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        int currentYear = calendar.get(Calendar.YEAR); // Năm hiện tại
+
+        String[] monthsArray = new String[12]; // Tạo mảng chứa 12 tháng
+
+        for (int month = 0; month < 12; month++) {
+            calendar.set(currentYear, month, 1); // Thiết lập tháng (1st day of the month)
+            String formattedMonth = monthFormat.format(calendar.getTime()); // Định dạng tháng
+            monthsArray[month] = formattedMonth; // Lưu vào mảng
+        }
+
+        return monthsArray;
+    }
+
+    private ArrayList<BarEntry> barEntries1(){
+        if (filterSpinner.getSelectedItemPosition() == 0){
+            float[] totalPayments = new float[7];
+
+            Calendar calendar = Calendar.getInstance(Locale.getDefault());
+
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+            Date startOfWeek = calendar.getTime();
+
+            calendar.add(Calendar.DAY_OF_WEEK, 6);
+            Date endOfWeek = calendar.getTime();
+
+            calendar.setTime(startOfWeek);
+
+            for (Expenditure expenditure : expenditureArrayList) {
+                if (expenditure.getDate() != null) {
+                    Date expenditureDate = expenditure.getDate();
+
+                    if (!expenditureDate.before(startOfWeek) && !expenditureDate.after(endOfWeek)) {
+                        calendar.setTime(expenditureDate);
+                        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+                        int index = (dayOfWeek == Calendar.SUNDAY) ? 6 : dayOfWeek - Calendar.MONDAY;
+                        totalPayments[index] += expenditure.getTotalPayment();
+                    }
+                }
             }
-        }
 
-        ArrayList<BarEntry> barEntries = new ArrayList<>();
-        for (int i = 0; i < totalPayments.length; i++) {
-            barEntries.add(new BarEntry(i+1, totalPayments[i]));
+            ArrayList<BarEntry> barEntries = new ArrayList<>();
+            for (int i = 0; i < totalPayments.length; i++) {
+                barEntries.add(new BarEntry(i + 1, totalPayments[i]));
+            }
+
+            return barEntries;
+        }else if (filterSpinner.getSelectedItemPosition() == 1){
+            float[] totalPaymentsByDay = new float[31]; // Lưu tổng cho 31 ngày trong tháng
+
+            Calendar calendar = Calendar.getInstance(Locale.getDefault());
+            int currentMonth = calendar.get(Calendar.MONTH); // Lấy tháng hiện tại (0-based: 0 = Tháng 1)
+            int currentYear = calendar.get(Calendar.YEAR);  // Lấy năm hiện tại
+
+            for (Expenditure expenditure : expenditureArrayList) {
+                if (expenditure.getDate() != null) {
+                    calendar.setTime(expenditure.getDate());
+                    int month = calendar.get(Calendar.MONTH);
+                    int year = calendar.get(Calendar.YEAR);
+
+                    if (month == currentMonth && year == currentYear) {
+                        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH); // Lấy ngày trong tháng (1-31)
+                        totalPaymentsByDay[dayOfMonth - 1] += expenditure.getTotalPayment(); // Cộng dồn vào mảng
+                    }
+                }
+            }
+
+            ArrayList<BarEntry> barEntries = new ArrayList<>();
+            for (int i = 0; i < totalPaymentsByDay.length; i++) {
+                barEntries.add(new BarEntry(i + 1, totalPaymentsByDay[i])); // i + 1 là ngày trong tháng
+            }
+
+            return barEntries;
+        }else if (filterSpinner.getSelectedItemPosition() == 2){
+            float[] totalPaymentsByMonth = new float[12]; // Lưu tổng cho 12 tháng trong năm
+
+            Calendar calendar = Calendar.getInstance(Locale.getDefault());
+            int currentYear = calendar.get(Calendar.YEAR); // Lấy năm hiện tại
+
+            for (Expenditure expenditure : expenditureArrayList) {
+                if (expenditure.getDate() != null) {
+                    calendar.setTime(expenditure.getDate());
+                    int year = calendar.get(Calendar.YEAR);
+                    int month = calendar.get(Calendar.MONTH);
+
+                    if (year == currentYear) {
+                        totalPaymentsByMonth[month] += expenditure.getTotalPayment(); // Cộng dồn vào mảng
+                    }
+                }
+            }
+
+            ArrayList<BarEntry> barEntries = new ArrayList<>();
+            for (int i = 0; i < totalPaymentsByMonth.length; i++) {
+                barEntries.add(new BarEntry(i + 1, totalPaymentsByMonth[i])); // i + 1 là tháng trong năm
+            }
+
+            return barEntries;
         }
-        return barEntries;
+        return null;
     }
 
     private ArrayList<BarEntry> barEntries2(){
-        float[] totalPayments = new float[7];
+        if (filterSpinner.getSelectedItemPosition() == 0){
+            float[] totalPayments = new float[7];
 
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+            Calendar calendar = Calendar.getInstance(Locale.getDefault());
 
-        for (Revenue revenue : revenueArrayList) {
-            if (revenue.getDate() != null) {
-                calendar.setTime(revenue.getDate());
-                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-                int index = (dayOfWeek == Calendar.SUNDAY) ? 6 : dayOfWeek - Calendar.MONDAY;
-                totalPayments[index] += revenue.getTotalPayment();
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+            Date startOfWeek = calendar.getTime();
+
+            calendar.add(Calendar.DAY_OF_WEEK, 6);
+            Date endOfWeek = calendar.getTime();
+
+            calendar.setTime(startOfWeek);
+
+            for (Revenue revenue : revenueArrayList) {
+                if (revenue.getDate() != null) {
+                    Date expenditureDate = revenue.getDate();
+
+                    if (!expenditureDate.before(startOfWeek) && !expenditureDate.after(endOfWeek)) {
+                        calendar.setTime(expenditureDate);
+                        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+                        int index = (dayOfWeek == Calendar.SUNDAY) ? 6 : dayOfWeek - Calendar.MONDAY;
+                        totalPayments[index] += revenue.getTotalPayment();
+                    }
+                }
             }
-        }
 
-        ArrayList<BarEntry> barEntries = new ArrayList<>();
-        for (int i = 0; i < totalPayments.length; i++) {
-            barEntries.add(new BarEntry(i+1, totalPayments[i]));
+            ArrayList<BarEntry> barEntries = new ArrayList<>();
+            for (int i = 0; i < totalPayments.length; i++) {
+                barEntries.add(new BarEntry(i + 1, totalPayments[i]));
+            }
+
+            return barEntries;
+        }else if (filterSpinner.getSelectedItemPosition() == 1){
+            float[] totalPaymentsByDay = new float[31]; // Lưu tổng cho 31 ngày trong tháng
+
+            Calendar calendar = Calendar.getInstance(Locale.getDefault());
+            int currentMonth = calendar.get(Calendar.MONTH); // Lấy tháng hiện tại (0-based: 0 = Tháng 1)
+            int currentYear = calendar.get(Calendar.YEAR);  // Lấy năm hiện tại
+
+            for (Revenue revenue : revenueArrayList) {
+                if (revenue.getDate() != null) {
+                    calendar.setTime(revenue.getDate());
+                    int month = calendar.get(Calendar.MONTH);
+                    int year = calendar.get(Calendar.YEAR);
+
+                    if (month == currentMonth && year == currentYear) {
+                        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH); // Lấy ngày trong tháng (1-31)
+                        totalPaymentsByDay[dayOfMonth - 1] += revenue.getTotalPayment(); // Cộng dồn vào mảng
+                    }
+                }
+            }
+
+            ArrayList<BarEntry> barEntries = new ArrayList<>();
+            for (int i = 0; i < totalPaymentsByDay.length; i++) {
+                if (totalPaymentsByDay[i] > 0) { // Chỉ thêm vào nếu có giá trị
+                    barEntries.add(new BarEntry(i + 1, totalPaymentsByDay[i])); // i + 1 là ngày trong tháng
+                }
+            }
+
+            return barEntries;
+        }else if (filterSpinner.getSelectedItemPosition() == 2){
+            float[] totalPaymentsByMonth = new float[12]; // Lưu tổng cho 12 tháng trong năm
+
+            Calendar calendar = Calendar.getInstance(Locale.getDefault());
+            int currentYear = calendar.get(Calendar.YEAR); // Lấy năm hiện tại
+
+            for (Revenue revenue : revenueArrayList) {
+                if (revenue.getDate() != null) {
+                    calendar.setTime(revenue.getDate());
+                    int year = calendar.get(Calendar.YEAR);
+                    int month = calendar.get(Calendar.MONTH);
+
+                    if (year == currentYear) {
+                        totalPaymentsByMonth[month] += revenue.getTotalPayment(); // Cộng dồn vào mảng
+                    }
+                }
+            }
+
+            ArrayList<BarEntry> barEntries = new ArrayList<>();
+            for (int i = 0; i < totalPaymentsByMonth.length; i++) {
+                if (totalPaymentsByMonth[i] > 0) {
+                    barEntries.add(new BarEntry(i + 1, totalPaymentsByMonth[i])); // i + 1 là tháng trong năm
+                }
+            }
+
+            return barEntries;
         }
-        return barEntries;
+        return null;
     }
 
     private void getWeatherInfo(String cityName) {
