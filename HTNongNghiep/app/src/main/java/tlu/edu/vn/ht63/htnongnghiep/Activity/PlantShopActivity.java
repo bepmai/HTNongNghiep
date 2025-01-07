@@ -36,26 +36,7 @@ public class PlantShopActivity extends AppCompatActivity {
         plantList = new ArrayList<>();
 
         // Set adapter
-        adapter = new PlantAdapter(plantList, new PlantAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Plant plant) {
-                // Handle item click to navigate to another activity
-                Log.d("PlantListActivity", "Navigating to ItemDetailActivity");
-                Intent intent = new Intent(PlantShopActivity.this, ItemDetailActivity.class);
-                intent.putExtra("plant_name", plant.getName());
-                intent.putExtra("plant_price", plant.getPrice());
-                intent.putExtra("plant_rating", plant.getRating());
-                intent.putExtra("plant_image", plant.getImageResId());
-                intent.putExtra("plant_id", plant.getId());
-                intent.putExtra("plant_idplant", plant.getIdplant());
-                intent.putExtra("plant_iduser", plant.getUserid());
-                intent.putExtra("plant_nameuser", plant.getNameuser());
-                intent.putExtra("plant_datesell", plant.getDatesell());
-                intent.putExtra("plant_address", plant.getAddress());
-                intent.putExtra("plant_description", plant.getDescription());
-                startActivity(intent);
-            }
-        });
+        adapter = new PlantAdapter(this, plantList);
         recyclerView.setAdapter(adapter);
 
         cartButton.setOnClickListener(new View.OnClickListener() {

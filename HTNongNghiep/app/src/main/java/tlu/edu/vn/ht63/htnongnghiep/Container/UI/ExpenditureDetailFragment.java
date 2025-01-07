@@ -153,7 +153,7 @@ public class ExpenditureDetailFragment extends Fragment {
 
         revenueDetailRef = FirebaseDatabase.getInstance()
                 .getReference("revenue")
-                .child(userId)
+                .child(expenditure.getIdSeller())
                 .child(expenditure.getId());
 
         if (expenditure!=null){
@@ -227,18 +227,18 @@ public class ExpenditureDetailFragment extends Fragment {
                 }else {
                     revenue.setAdress(adress_edt.getText().toString().trim());
                     revenueDetailRef.setValue(revenue).addOnCompleteListener(task -> {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(getContext(), "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
-                                    if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                                        requireActivity().getSupportFragmentManager().popBackStack();
-                                    } else {
-                                        requireActivity().finish();
-                                    }
-                                }
-                            })
-                            .addOnFailureListener(e -> {
-                                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                            });
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getContext(), "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
+                            if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                                requireActivity().getSupportFragmentManager().popBackStack();
+                            } else {
+                                requireActivity().finish();
+                            }
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
                 }
             }
 
