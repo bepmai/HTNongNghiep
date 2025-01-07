@@ -137,6 +137,9 @@ public class PlantShopDetailActivity extends AppCompatActivity {
         expenditureDetailRef.child(expenditureDetailId).setValue(expenditure).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(PlantShopDetailActivity.this, "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, RevenueExpenditureActivity.class);
+                startActivity(intent);
+                finish();
             }
         })
         .addOnFailureListener(e -> {
