@@ -1,13 +1,42 @@
 package tlu.edu.vn.ht63.htnongnghiep.Model;
 
 public class Friend {
-    private String name, image,time,position,friendCount;
-    public Friend(String name, String image, String time, String position, String friendCount) {
+    private String name, image,time,position,friendCount, friendId,status ,firebasePath;
+    public Friend(){
+
+    }
+    public Friend(String name, String image, String time, String position, String friendCount,String friendId,String status, String firebasePath) {
         this.name = name;
         this.image = image;
         this.time = time;
-        this.position = position;
-        this.friendCount = friendCount;
+        //this.position = position;
+        //this.friendCount = friendCount;
+        this.friendId = friendId;
+        this.status = status;
+        this.firebasePath = firebasePath;
+    }
+
+    public String getFirebasePath() {
+        return firebasePath;
+    }
+
+    public void setFirebasePath(String firebasePath) {
+        this.firebasePath = firebasePath;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getFriendId() {
+        return friendId;
+    }
+    public void setFriendId(String friendId){
+        this.friendId = friendId;
     }
 
     public String getName() {
@@ -34,19 +63,5 @@ public class Friend {
         this.time = time;
     }
 
-    public String getPosition() {
-        return position;
-    }
 
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public String getFriendCount() {
-        return friendCount;
-    }
-
-    public void setFriendCount(String friendCount) {
-        this.friendCount = friendCount;
-    }
 }

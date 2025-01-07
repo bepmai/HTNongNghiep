@@ -1,16 +1,16 @@
 package tlu.edu.vn.ht63.htnongnghiep.Model;
 
 public class HomeModel {
-    private String userName, userImage,userRole,timestamp, postImage, postTitle, postDescription, postTime;
+    private String userName, userImage,userRole,timestamp, postImage, postContent, postDescription, postTime;
     private int likeCount, commentCount, shareCount;
     public HomeModel(){
 
     }
-    public HomeModel(String userName, String userImage,String userRole,String timestamp, String postImage, String postTitle, String postDescription, String postTime, int likeCount, int commentCount, int shareCount) {
+    public HomeModel(String userName, String userImage,String userRole,String timestamp, String postImage, String postContent, String postDescription, String postTime, int likeCount, int commentCount, int shareCount) {
         this.userName = userName;
         this.userImage = userImage;
         this.postImage = postImage;
-        this.postTitle = postTitle;
+        this.postContent = postContent;
         this.postDescription = postDescription;
         this.postTime = postTime;
         this.likeCount = likeCount;
@@ -34,12 +34,12 @@ public class HomeModel {
         this.postImage = postImage;
     }
 
-    public String getPostTitle() {
-        return postTitle;
+    public String getPostContent() {
+        return postContent;
     }
 
-    public void setPostTitle(String postTitle) {
-        this.postTitle = postTitle;
+    public void setPostContent(String postContent) {
+        this.postContent = postContent;
     }
 
     public String getPostDescription() {

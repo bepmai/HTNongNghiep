@@ -95,30 +95,31 @@ public class GardenFragment extends Fragment {
         String userId = sharedPreferences.getString("userId", null);
 
 
-//        if (userId == null) {
-//            Toast.makeText(requireContext(), "User ID is missing", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
+        if (userId == null) {
+            Toast.makeText(requireContext(), "User ID is missing", Toast.LENGTH_SHORT).show();
+        }
+        else {
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("PlantOfUser").child(userId);
-        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                plantOfUserList.clear();
-                for (DataSnapshot idPlantSnapshot : snapshot.getChildren()) {
-                    PlantOfUser plantOfUser = idPlantSnapshot.getValue(PlantOfUser.class);
-                    if (plantOfUser != null) {
-                        plantOfUserList.add(plantOfUser);
+            databaseReference = FirebaseDatabase.getInstance().getReference("PlantOfUser").child(userId);
+            eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    plantOfUserList.clear();
+                    for (DataSnapshot idPlantSnapshot : snapshot.getChildren()) {
+                        PlantOfUser plantOfUser = idPlantSnapshot.getValue(PlantOfUser.class);
+                        if (plantOfUser != null) {
+                            plantOfUserList.add(plantOfUser);
+                        }
                     }
+                    plantOfUserAdapter.notifyDataSetChanged();
                 }
-                plantOfUserAdapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("FirebaseError", "Error: " + error.getMessage());
-            }
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("FirebaseError", "Error: " + error.getMessage());
+                }
+            });
+        }
 
         btn_add.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), AddPlant.class);

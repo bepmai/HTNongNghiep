@@ -87,8 +87,7 @@ public class Weather extends AppCompatActivity {
         backIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Weather.this, HomeActivity.class);
-                startActivity(intent);
+                onBackPressed();
             }
         });
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

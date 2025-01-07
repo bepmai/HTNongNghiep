@@ -1,5 +1,6 @@
 package tlu.edu.vn.ht63.htnongnghiep.Adapter;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,14 +9,16 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class analysis_imageInfor_adapter extends RecyclerView.Adapter<analysis_imageInfor_adapter.ImageViewHolder> {
-    private List<Integer> imageResourceList;
+    private List<String> imageResourceList;
 
-    public analysis_imageInfor_adapter(List<Integer> imageInfoList) {
+    public analysis_imageInfor_adapter(List<String> imageInfoList) {
         this.imageResourceList = imageInfoList;
     }
 
@@ -28,8 +31,9 @@ public class analysis_imageInfor_adapter extends RecyclerView.Adapter<analysis_i
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder,int position){
-        int imageResId = imageResourceList.get(position);
-        holder.imageView.setImageResource(imageResId);
+        String imageResId = imageResourceList.get(position);
+        Uri uri = Uri.parse(imageResId);
+        Glide.with(holder.imageView).load(uri).into(holder.imageView);
     }
 
     @Override

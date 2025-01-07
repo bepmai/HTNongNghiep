@@ -1,10 +1,12 @@
 package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
+import static android.content.Context.MODE_PRIVATE;
 import static androidx.core.content.ContextCompat.getSystemService;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
@@ -46,6 +48,11 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -57,12 +64,16 @@ import android.webkit.WebViewClient;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.HashMap;
 import java.util.Map;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.RevenueExpenditureActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.Weather;
+import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
+import tlu.edu.vn.ht63.htnongnghiep.Model.Revenue;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 /**
@@ -86,6 +97,12 @@ public class home extends Fragment {
 
     ImageView iconIV;
     BarChart barChart1;
+
+    ArrayList<Expenditure> expenditureArrayList = new ArrayList<>();
+    ArrayList<Revenue> revenueArrayList = new ArrayList<>();
+
+    DatabaseReference expenditureRef,revenueRef;
+    ValueEventListener eventExpenditureListener,eventRevenueListener;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
     private FusedLocationProviderClient fusedLocationClient;
@@ -153,43 +170,57 @@ public class home extends Fragment {
             }
         });
 
-        BarDataSet barDataSet1 = new BarDataSet(barEntries1(),"Thu");
-        barDataSet1.setColors(getResources().getColor(R.color.green));
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        String userId = sharedPreferences.getString("userId", null);
 
-        BarDataSet barDataSet2 = new BarDataSet(barEntries2(),"Chi");
-        barDataSet2.setColor(getResources().getColor(R.color.green_white));
+        if(userId !=null) {
+            expenditureRef = FirebaseDatabase.getInstance()
+                    .getReference("expenditure")
+                    .child(userId);
 
-        BarData barData1 = new BarData(barDataSet1,barDataSet2);
-        barChart1.setData(barData1);
-        barChart1.getDescription().setEnabled(false);
+            eventExpenditureListener = expenditureRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@android.support.annotation.NonNull DataSnapshot snapshot) {
+                    expenditureArrayList.clear();
+                    for (DataSnapshot idExpenditureSnapshot : snapshot.getChildren()) {
+                        Expenditure expenditure = idExpenditureSnapshot.getValue(Expenditure.class);
+                        if (expenditure != null) {
+                            expenditureArrayList.add(expenditure);
+                        }
+                        setBarChart();
+                    }
+                }
 
-        String[] days = new String[]{"Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7","Chủ nhật"};
-        XAxis xAxis = barChart1.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(days));
-        xAxis.setCenterAxisLabels(true);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setGranularity(1);
-        xAxis.setGranularityEnabled(true);
+                @Override
+                public void onCancelled(@android.support.annotation.NonNull DatabaseError error) {
+                    Log.e("FirebaseError", "Error: " + error.getMessage());
+                }
+            });
 
-        barChart1.setDragEnabled(true);
-        barChart1.setVisibleXRangeMaximum(4);
+            revenueRef = FirebaseDatabase.getInstance()
+                    .getReference("revenue")
+                    .child(userId);
 
-        float barSpace = 0.1f;
-        float groupSpace = 0.4f;
-        barData1.setBarWidth(0.2f);
+            eventRevenueListener = revenueRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@android.support.annotation.NonNull DataSnapshot snapshot) {
+                    revenueArrayList.clear();
+                    for (DataSnapshot idRevenueSnapshot : snapshot.getChildren()) {
+                        Revenue revenue = idRevenueSnapshot.getValue(Revenue.class);
+                        if (revenue != null) {
+                            revenueArrayList.add(revenue);
+                        }
+                        setBarChart();
+                    }
+                }
 
-        barChart1.getXAxis().setAxisMinimum(0);
-        barChart1.groupBars(0,groupSpace,barSpace);
-
-        // Điều chỉnh vị trí và kiểu của Legend
-        Legend legend = barChart1.getLegend();
-        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM); // Vị trí ngang dưới cùng
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER); // Ở giữa
-        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL); // Hiển thị ngang
-        legend.setDrawInside(false);
-        legend.setTextSize(12f); // Kích thước chữ
-
-        barChart1.invalidate();
+                @Override
+                public void onCancelled(@android.support.annotation.NonNull DatabaseError error) {
+                    Log.e("FirebaseError", "Error: " + error.getMessage());
+                }
+            });
+        }
+        setBarChart();
 
         return view;
     }
@@ -262,27 +293,85 @@ public class home extends Fragment {
         return cityName;
     }
 
+    private void setBarChart(){
+        BarDataSet barDataSet1 = new BarDataSet(barEntries1(),"Thu");
+        barDataSet1.setColors(getResources().getColor(R.color.green));
+
+        BarDataSet barDataSet2 = new BarDataSet(barEntries2(),"Chi");
+        barDataSet2.setColor(getResources().getColor(R.color.green_white));
+
+        BarData barData1 = new BarData(barDataSet1,barDataSet2);
+        barChart1.setData(barData1);
+        barChart1.getDescription().setEnabled(false);
+
+        String[] days = new String[]{"Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7","Chủ nhật"};
+        XAxis xAxis = barChart1.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(days));
+        xAxis.setCenterAxisLabels(true);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1);
+        xAxis.setGranularityEnabled(true);
+
+        barChart1.setDragEnabled(true);
+        barChart1.setVisibleXRangeMaximum(4);
+
+        float barSpace = 0.1f;
+        float groupSpace = 0.4f;
+        barData1.setBarWidth(0.2f);
+
+        barChart1.getXAxis().setAxisMinimum(0);
+        barChart1.groupBars(0,groupSpace,barSpace);
+
+        // Điều chỉnh vị trí và kiểu của Legend
+        Legend legend = barChart1.getLegend();
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM); // Vị trí ngang dưới cùng
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER); // Ở giữa
+        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL); // Hiển thị ngang
+        legend.setDrawInside(false);
+        legend.setTextSize(12f); // Kích thước chữ
+
+        barChart1.invalidate();
+    }
+
     private ArrayList<BarEntry> barEntries1(){
+        float[] totalPayments = new float[7];
+
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+
+        for (Expenditure expenditure : expenditureArrayList) {
+            if (expenditure.getDate() != null) {
+                calendar.setTime(expenditure.getDate());
+                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+                int index = (dayOfWeek == Calendar.SUNDAY) ? 6 : dayOfWeek - Calendar.MONDAY;
+                totalPayments[index] += expenditure.getTotalPayment();
+            }
+        }
+
         ArrayList<BarEntry> barEntries = new ArrayList<>();
-        barEntries.add(new BarEntry(1,2000));
-        barEntries.add(new BarEntry(2,791));
-        barEntries.add(new BarEntry(3,630));
-        barEntries.add(new BarEntry(4,450));
-        barEntries.add(new BarEntry(5,2724));
-        barEntries.add(new BarEntry(6,500));
-        barEntries.add(new BarEntry(7,2173));
+        for (int i = 0; i < totalPayments.length; i++) {
+            barEntries.add(new BarEntry(i+1, totalPayments[i]));
+        }
         return barEntries;
     }
 
     private ArrayList<BarEntry> barEntries2(){
+        float[] totalPayments = new float[7];
+
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+
+        for (Revenue revenue : revenueArrayList) {
+            if (revenue.getDate() != null) {
+                calendar.setTime(revenue.getDate());
+                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+                int index = (dayOfWeek == Calendar.SUNDAY) ? 6 : dayOfWeek - Calendar.MONDAY;
+                totalPayments[index] += revenue.getTotalPayment();
+            }
+        }
+
         ArrayList<BarEntry> barEntries = new ArrayList<>();
-        barEntries.add(new BarEntry(1,900));
-        barEntries.add(new BarEntry(2,631));
-        barEntries.add(new BarEntry(3,1040));
-        barEntries.add(new BarEntry(4,382));
-        barEntries.add(new BarEntry(5,2614));
-        barEntries.add(new BarEntry(6,5000));
-        barEntries.add(new BarEntry(7,1173));
+        for (int i = 0; i < totalPayments.length; i++) {
+            barEntries.add(new BarEntry(i+1, totalPayments[i]));
+        }
         return barEntries;
     }
 

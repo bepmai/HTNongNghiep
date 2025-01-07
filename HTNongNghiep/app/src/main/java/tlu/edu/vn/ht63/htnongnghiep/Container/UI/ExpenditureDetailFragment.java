@@ -168,6 +168,7 @@ public class ExpenditureDetailFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         expenditure.setStatus(1);
+                        expenditure.setAdress(adress_edt.getText().toString().trim());
                         expenditureViewModel.updateExpenditure(expenditure);
 
                         expenditureDetailRef.child(expenditure.getId()).setValue(expenditure);
@@ -179,6 +180,7 @@ public class ExpenditureDetailFragment extends Fragment {
                                 if (revenue == null) {
                                     Toast.makeText(getContext(), "Hoá đơn chi không tồn tại", Toast.LENGTH_SHORT).show();
                                 }else {
+                                    revenue.setAdress(adress_edt.getText().toString().trim());
                                     revenueDetailRef.setValue(revenue).addOnCompleteListener(task -> {
                                         if (task.isSuccessful()) {
                                             Toast.makeText(getContext(), "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
@@ -200,24 +202,29 @@ public class ExpenditureDetailFragment extends Fragment {
                                 Log.e("FirebaseError", "Error: " + error.getMessage());
                             }
                         });
+                    }
+                });
 
-                        deleteBtn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                revenueDetailRef.removeValue();
+                deleteBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        revenueDetailRef.removeValue().addOnSuccessListener(aVoid -> {
+//                            Toast.makeText(getContext(), "Xoá hoá đơn thành công", Toast.LENGTH_SHORT).show();
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
 
-                                expenditureDetailRef.child(expenditure.getId()).removeValue().addOnSuccessListener(aVoid -> {
-                                    Toast.makeText(getContext(), "Xoá hoá đơn thành công", Toast.LENGTH_SHORT).show();
-                                    if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                                        requireActivity().getSupportFragmentManager().popBackStack();
-                                    } else {
-                                        requireActivity().finish();
-                                    }
-                                })
-                                .addOnFailureListener(e -> {
-                                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                                });;
+                        expenditureDetailRef.child(expenditure.getId()).removeValue().addOnSuccessListener(aVoid -> {
+                            Toast.makeText(getContext(), "Xoá hoá đơn thành công", Toast.LENGTH_SHORT).show();
+                            if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                                requireActivity().getSupportFragmentManager().popBackStack();
+                            } else {
+                                requireActivity().finish();
                             }
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                         });
                     }
                 });
@@ -225,10 +232,14 @@ public class ExpenditureDetailFragment extends Fragment {
                 status_edt.setTextColor(getResources().getColor(R.color.search_opaque));
                 status_edt.setText("Đã xác nhận");
                 deleteBtn.setVisibility(View.GONE);
+                adress_edt.setFocusable(false);
+                adress_edt.setFocusableInTouchMode(false);
             }else if(expenditure.getStatus() == RevenueExpenditure.TYPE_SUCCESS){
                 status_edt.setTextColor(getResources().getColor(R.color.red));
                 status_edt.setText("Thành công");
                 deleteBtn.setVisibility(View.GONE);
+                adress_edt.setFocusable(false);
+                adress_edt.setFocusableInTouchMode(false);
             }
             adress_edt.setText(expenditure.getAdress());
             date_edt.setText(dateFormat.format(expenditure.getDate()));

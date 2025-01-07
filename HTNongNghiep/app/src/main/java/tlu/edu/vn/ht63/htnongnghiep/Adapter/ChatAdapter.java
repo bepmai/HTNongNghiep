@@ -5,45 +5,60 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.ChatDetailActivity;
-import tlu.edu.vn.ht63.htnongnghiep.R;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Chat;
+import tlu.edu.vn.ht63.htnongnghiep.Model.InforUser;
+import tlu.edu.vn.ht63.htnongnghiep.R;
 
-public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
-    private List<Chat> list;
+
+public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
+    private List<InforUser> list;
     Context context;
-    public ChatAdapter(List<Chat> list, Context context){
+
+    public ChatAdapter(List<InforUser> list, Context context) {
         this.list = list;
         this.context = context;
     }
+
     @NonNull
     @Override
-    public ChatAdapter.ChatHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat, parent, false);
-        return new ChatHolder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_chat,parent,false);
+        return new ViewHolder(view);
     }
+
     @Override
-    public void onBindViewHolder(@NonNull ChatAdapter.ChatHolder holder, int position) {
-        holder.userName.setText(list.get(position).getUserName());
-        holder.message.setText(list.get(position).getMessage());
-        holder.timestamp.setText(list.get(position).getTimestamp());
-        Glide.with(context.getApplicationContext())
-                .load(list.get(position).getProfileImage())
-                .placeholder(R.drawable.ic_ellipse)
-                .into(holder.profileImage);
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, ChatDetailActivity.class);
-            context.startActivity(intent);
+    public void onBindViewHolder(@NonNull ChatAdapter.ViewHolder holder, int position) {
+        InforUser inforUser = list.get(position);
+        //Picasso.get().load(inforUser.getImage()).placeholder(R.drawable.ic_user_chat).into(holder.image);
+        String image = inforUser.getImage();
+        if (image != null && !image.isEmpty()) {
+            Picasso.get().load(image).placeholder(R.drawable.ic_user_chat).into(holder.image);
+        } else {
+            // Đặt hình ảnh mặc định nếu không có hình ảnh
+            holder.image.setImageResource(R.drawable.ic_user_chat);
+        }
+        holder.userName.setText(list.get(position).getFullName());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ChatDetailActivity.class);
+                intent.putExtra("userId", inforUser.getUserId());
+                intent.putExtra("userName", inforUser.getFullName());
+                intent.putExtra("image", inforUser.getImage());
+                context.startActivity(intent);
+            }
         });
     }
 
@@ -51,15 +66,20 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatHolder> {
     public int getItemCount() {
         return list.size();
     }
-    static class ChatHolder extends RecyclerView.ViewHolder {
-        private CircleImageView profileImage;
-        private TextView userName, message, timestamp;
-        public ChatHolder(@NonNull View itemView) {
+
+    public  class ViewHolder extends RecyclerView.ViewHolder{
+        ImageView image;
+        TextView userName, lastMessage;
+
+        public ViewHolder(@NonNull View itemView){
             super(itemView);
-            profileImage = itemView.findViewById(R.id.profileImageChat);
-            userName = itemView.findViewById(R.id.name);
-            message = itemView.findViewById(R.id.message);
-            timestamp = itemView.findViewById(R.id.date);
-        }
+
+            image = itemView.findViewById(R.id.profile_image);
+            userName = itemView.findViewById(R.id.userNameList);
+            lastMessage = itemView.findViewById(R.id.lastMessage);
     }
+
+
+    }
+
 }

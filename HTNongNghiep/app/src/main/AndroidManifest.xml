@@ -4,7 +4,8 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
+    <uses-feature android:name="android.software.leanback" android:required="false" />
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
     <uses-feature
         android:name="android.hardware.camera.any"
         android:required="false" />
@@ -15,7 +16,8 @@
         android:name="android.hardware.camera"
         android:required="false" />
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -42,9 +44,6 @@
         </activity>
         <activity
             android:name=".Container.UI.AddPlant"
-            android:exported="false" />
-        <activity
-            android:name=".Container.UI.Weather"
             android:exported="false" />
         <activity
             android:name=".Container.UI.DetailPlant"
@@ -99,7 +98,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -130,6 +128,9 @@
             android:exported="false"
             android:label="@string/title_activity_chat"
             android:theme="@style/Theme.Social" />
-
+        <activity android:name=".Container.UI.SearchActivity"
+            android:exported="false"
+            android:label="SearchActivity"
+            android:theme="@style/Theme.Social"/>
     </application>
 </manifest>
