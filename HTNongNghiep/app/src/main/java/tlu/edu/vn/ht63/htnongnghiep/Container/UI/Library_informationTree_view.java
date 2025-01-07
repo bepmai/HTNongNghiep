@@ -2,20 +2,28 @@ package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import tlu.edu.vn.ht63.htnongnghiep.Adapter.Classify_tree_classic;
+import tlu.edu.vn.ht63.htnongnghiep.Component.Subcomponent.MenuFragment;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link library_informationTree_view#newInstance} factory method to
+ * Use the {@link Library_informationTree_view#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class library_informationTree_view extends Fragment {
+public class Library_informationTree_view extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +34,7 @@ public class library_informationTree_view extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public library_informationTree_view() {
+    public Library_informationTree_view() {
         // Required empty public constructor
     }
 
@@ -39,8 +47,8 @@ public class library_informationTree_view extends Fragment {
      * @return A new instance of fragment library_informationTree_view.
      */
     // TODO: Rename and change types and number of parameters
-    public static library_informationTree_view newInstance(String param1, String param2) {
-        library_informationTree_view fragment = new library_informationTree_view();
+    public static Library_informationTree_view newInstance(String param1, String param2) {
+        Library_informationTree_view fragment = new Library_informationTree_view();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,8 +68,24 @@ public class library_informationTree_view extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view  = inflater.inflate(R.layout.fragment_library_information_tree_view, container, false);
+
+        View menu = view.findViewById(R.id.menu);
+        MenuFragment.setMenu((AppCompatActivity)requireActivity(),menu);
+
+        RecyclerView contentRecycleView = view.findViewById(R.id.contentRecycleView);
+        contentRecycleView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        List<String> list = new ArrayList<>();
+        list.add("Cây thân thảo");
+        list.add("Cây thân gỗ");
+        list.add("Cây thân leo");
+        list.add("Cây thủy sinh");
+        list.add("Cây khí sinh");
+        Classify_tree_classic classify_tree_classic = new Classify_tree_classic(list);
+        classify_tree_classic.loadTreeData();
+        contentRecycleView.setAdapter(classify_tree_classic);
+
         return view;
     }
 }

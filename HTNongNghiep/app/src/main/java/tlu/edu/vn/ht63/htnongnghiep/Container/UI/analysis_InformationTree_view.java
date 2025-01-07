@@ -98,7 +98,7 @@ public class analysis_InformationTree_view extends Fragment {
             treeHeight.setText(tree.getHeightMean());
             treeTemp.setText(tree.getTemperature());
             treeEncounter.setText(tree.getTrunk());
-            treeArea.setText(tree.getEnviromentLive());
+            treeArea.setText(tree.getEnvironmentLive());
             treeName.setText(tree.getName());
             phapdanh.setText(tree.getUnique());
         }

@@ -549,7 +549,7 @@ public class analysis_ImageAnalysis_view extends Fragment {
                                             tree.setArea(treeF.getArea());
                                             tree.setDiscription(treeF.getDiscription());
                                             tree.setDistribution(treeF.getDistribution());
-                                            tree.setEnviromentLive(treeF.getEnviromentLive());
+                                            tree.setEnviromentLive(treeF.getEnvironmentLive());
                                             tree.setFeature(treeF.getFeature());
                                             tree.setHeightMean(treeF.getHeightMean());
                                             tree.setSuns(treeF.getSuns());
