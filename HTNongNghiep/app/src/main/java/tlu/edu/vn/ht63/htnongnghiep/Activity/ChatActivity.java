@@ -28,6 +28,7 @@ import tlu.edu.vn.ht63.htnongnghiep.R;
 public class ChatActivity extends AppCompatActivity {
     private List<InforUser> chatList;
     private RecyclerView recyclerView;
+
     private EditText searchInput;
     private ChatAdapter adapter;
     private ImageView imageView;

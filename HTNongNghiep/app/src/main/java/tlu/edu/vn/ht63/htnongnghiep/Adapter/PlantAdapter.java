@@ -1,5 +1,6 @@
 package tlu.edu.vn.ht63.htnongnghiep.Adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,19 +9,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import tlu.edu.vn.ht63.htnongnghiep.Activity.ItemDetailActivity;
+import tlu.edu.vn.ht63.htnongnghiep.Activity.PlantShopDetailActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Plant;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHolder> {
+    private Context context;
     private List<Plant> plantList;
-    private final OnItemClickListener listener;
 
-    public PlantAdapter(List<Plant> plantList, OnItemClickListener listener) {
+    public PlantAdapter(Context context,List<Plant> plantList) {
         this.plantList = plantList;
-        this.listener = listener;
+        this.context = context;
     }
 
     @NonNull
@@ -34,21 +40,29 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
     public void onBindViewHolder(@NonNull PlantViewHolder holder, int position) {
         Plant plant = plantList.get(position);
         holder.name.setText(plant.getName());
-        holder.price.setText(plant.getPrice());
+        holder.price.setText(plant.getPrice().toString());
         holder.rating.setText(plant.getRating().toString());
-        holder.image.setImageResource(plant.getImageResId());
+        Glide.with(holder.image.getContext())
+                .load(plant.getImage())
+                .placeholder(R.drawable.group260) // Ảnh hiển thị khi đang tải
+                .error(R.drawable.group260)       // Ảnh hiển thị khi lỗi
+                .into(holder.image);
+//        holder.id.setText(plant.getId());
+//        holder.idPlant.setText(plant.getIdplant());
+//        holder.idUser.setText(plant.getUserid());
+        holder.nameUser.setText(plant.getNameuser());
+//        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+//        holder.dateSell.setText(dateTimeFormat.format(plant.getDatesell()));
+//        holder.address.setText(plant.getAddress());
+        holder.description.setText(plant.getDescription());
 
         // Thiết lập sự kiện click trực tiếp trong adapter
         holder.itemView.setOnClickListener(v -> {
             // Tạo Intent để chuyển sang activity chi tiết
-            Intent intent = new Intent(holder.itemView.getContext(), ItemDetailActivity.class);
-            intent.putExtra("plant_name", plant.getName());
-            intent.putExtra("plant_price", plant.getPrice());
-            intent.putExtra("plant_rating", plant.getRating());
-            intent.putExtra("plant_image", plant.getImageResId());
+            Intent intent = new Intent(context, PlantShopDetailActivity.class);
+            intent.putExtra("plant",plant);
 
-            // Start activity
-            holder.itemView.getContext().startActivity(intent);
+            context.startActivity(intent);
         });
     }
 
@@ -59,7 +73,7 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
     }
 
     static class PlantViewHolder extends RecyclerView.ViewHolder {
-        TextView name, price, discount, rating;
+        TextView name, price, discount, rating, id, idPlant, idUser, nameUser, dateSell, address, description;
         ImageView image;
 
         public PlantViewHolder(@NonNull View itemView) {
@@ -69,10 +83,13 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
             discount = itemView.findViewById(R.id.product_discount);
             rating = itemView.findViewById(R.id.product_rating);
             image = itemView.findViewById(R.id.product_image);
+            nameUser = itemView.findViewById(R.id.product_nameuser);
+            description = itemView.findViewById(R.id.product_description);
+//            id = itemView.findViewById(R.id.product_id);
+//            idPlant = itemView.findViewById(R.id.product_idplant);
+//            idUser = itemView.findViewById(R.id.product_iduser);
+//            dateSell = itemView.findViewById(R.id.product_datesell);
+//            address = itemView.findViewById(R.id.product_address);
         }
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(Plant plant);
     }
 }

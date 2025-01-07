@@ -33,28 +33,10 @@ public class PlantShopActivity extends AppCompatActivity {
         // Thêm sản phẩm vào danh sách
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(gridLayoutManager);
-
         plantList = new ArrayList<>();
-        plantList.add(new Plant("Cây Ổi", "500.000đ", 4.8f, R.drawable.img));
-        plantList.add(new Plant("Cây Xoài", "750.000đ",  4.5f, R.drawable.img_1));
-        plantList.add(new Plant("Cây Cam", "600.000đ",  4.7f , R.drawable.img_2));
-        plantList.add(new Plant("Cây Bưởi", "900.000đ", 4.9f, R.drawable.img_3));
-        plantList.add(new Plant("Cây Chanh", "300.000đ", 4.6f, R.drawable.img));
 
         // Set adapter
-        adapter = new PlantAdapter(plantList, new PlantAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Plant plant) {
-                // Handle item click to navigate to another activity
-                Log.d("PlantListActivity", "Navigating to ItemDetailActivity");
-                Intent intent = new Intent(PlantShopActivity.this, ItemDetailActivity.class);
-                intent.putExtra("plant_name", plant.getName());
-                intent.putExtra("plant_price", plant.getPrice());
-                intent.putExtra("plant_rating", plant.getRating());
-                intent.putExtra("plant_image", plant.getImageResId());
-                startActivity(intent);
-            }
-        });
+        adapter = new PlantAdapter(this, plantList);
         recyclerView.setAdapter(adapter);
 
         cartButton.setOnClickListener(new View.OnClickListener() {

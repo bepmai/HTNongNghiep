@@ -41,7 +41,7 @@ public class DetailPlant extends AppCompatActivity {
     ImageView image, ic_back;
     EditText nameplant, ageplant, height, weeklyWatering, weeklySunExposure, health, note;
     Spinner temperature, environment, type;
-    Button btnDelete, btnUpdate;
+    Button btnDelete, btnUpdate,btn_sell;
     String imageUrl = "";
     private String currentImageUrl;
     Uri uri;
@@ -65,6 +65,7 @@ public class DetailPlant extends AppCompatActivity {
         note = findViewById(R.id.input_Note);
         btnDelete = findViewById(R.id.btn_delete);
         btnUpdate = findViewById(R.id.btn_update);
+        btn_sell = findViewById(R.id.btn_sell);
         String plantId = getIntent().getStringExtra("plantId");
         if (plantId != null) {
             SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
@@ -172,6 +173,18 @@ public class DetailPlant extends AppCompatActivity {
             }
         });
         btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(DetailPlant.this)
+                        .setTitle("Xác nhận xóa")
+                        .setMessage("Bạn có chắc chắn muốn xóa cây này không?")
+                        .setPositiveButton("Xóa", (dialog, which) -> deletePlantData())
+                        .setNegativeButton("Hủy", null)
+                        .show();
+            }
+        });
+
+        btn_sell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(DetailPlant.this)

@@ -2,6 +2,7 @@ package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import tlu.edu.vn.ht63.htnongnghiep.Activity.AddPlant;
+import tlu.edu.vn.ht63.htnongnghiep.Activity.DetailPlant;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 import tlu.edu.vn.ht63.htnongnghiep.ViewModel.ExpenditureViewModel;
@@ -87,6 +89,7 @@ public class ProductDetailFragment extends Fragment {
     EditText date_edt,plant_edt,adress_edt,total_edt,payment_edt,totalPayment_edt;
     ImageButton backButton;
     Button saveBtn,deleteBtn;
+    DatabaseReference productDetailRef;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -154,7 +157,7 @@ public class ProductDetailFragment extends Fragment {
             return view;
         }
 
-        DatabaseReference productDetailRef = FirebaseDatabase.getInstance()
+        productDetailRef = FirebaseDatabase.getInstance()
                 .getReference("expenditure")
                 .child(userId);
 
@@ -210,7 +213,20 @@ public class ProductDetailFragment extends Fragment {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                productDetailRef.child(productDetailId).removeValue().addOnSuccessListener(aVoid -> {
+                new AlertDialog.Builder(getContext())
+                        .setTitle("Xác nhận xóa")
+                        .setMessage("Bạn có chắc chắn muốn xóa hoá đơn này không?")
+                        .setPositiveButton("Xóa", (dialog, which) -> deleteproductData())
+                        .setNegativeButton("Hủy", null)
+                        .show();
+            }
+        });
+
+        return view;
+    }
+
+    private void deleteproductData(){
+        productDetailRef.child(expenditure.getId()).removeValue().addOnSuccessListener(aVoid -> {
                     Toast.makeText(getContext(), "Xoá hoá đơn thành công", Toast.LENGTH_SHORT).show();
                     if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
                         requireActivity().getSupportFragmentManager().popBackStack();
@@ -221,9 +237,5 @@ public class ProductDetailFragment extends Fragment {
                 .addOnFailureListener(e -> {
                     Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 });;
-            }
-        });
-
-        return view;
     }
 }

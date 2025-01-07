@@ -2,6 +2,7 @@ package tlu.edu.vn.ht63.htnongnghiep.Container.UI;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -86,6 +87,8 @@ public class RevenueDetailFragment extends Fragment {
     EditText date_edt,buyer_edt,plant_edt,adress_edt,total_edt,payment_edt,totalPayment_edt,status_edt;
     ImageButton backButton;
     Button saveBtn;
+    DatabaseReference revenueDetailRef,expenditureDetailRef;
+    RevenueViewModel revenueViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -149,11 +152,11 @@ public class RevenueDetailFragment extends Fragment {
             return view;
         }
 
-        DatabaseReference revenueDetailRef = FirebaseDatabase.getInstance()
+        revenueDetailRef = FirebaseDatabase.getInstance()
                 .getReference("revenue")
                 .child(userId);
 
-        DatabaseReference expenditureDetailRef = FirebaseDatabase.getInstance()
+        expenditureDetailRef = FirebaseDatabase.getInstance()
                 .getReference("expenditure")
                 .child(revenue.getIdBuyer())
                 .child(revenue.getId());
@@ -169,45 +172,18 @@ public class RevenueDetailFragment extends Fragment {
                 status_edt.setTextColor(getResources().getColor(R.color.search_opaque));
                 status_edt.setText("Đã xác nhận");
                 saveBtn.setBackgroundColor(getResources().getColor(R.color.green));
-                RevenueViewModel revenueViewModel =
+                revenueViewModel =
                         new ViewModelProvider(requireActivity()).get(RevenueViewModel.class);
 
                 saveBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        revenue.setStatus(2);
-                        revenueViewModel.updateRevenue(revenue);
-
-                        revenueDetailRef.child(revenue.getId()).setValue(revenue);
-
-                        expenditureDetailRef.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                Expenditure expenditure = snapshot.getValue(Expenditure.class);
-                                if (expenditure == null) {
-                                    Toast.makeText(getContext(), "Hoá đơn chi không tồn tại", Toast.LENGTH_SHORT).show();
-                                }else {
-                                    expenditureDetailRef.setValue(expenditure).addOnCompleteListener(task -> {
-                                                if (task.isSuccessful()) {
-                                                    Toast.makeText(getContext(), "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
-                                                    if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                                                        requireActivity().getSupportFragmentManager().popBackStack();
-                                                    } else {
-                                                        requireActivity().finish();
-                                                    }
-                                                }
-                                            })
-                                            .addOnFailureListener(e -> {
-                                                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                                            });
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Log.e("FirebaseError", "Error: " + error.getMessage());
-                            }
-                        });
+                        new AlertDialog.Builder(getContext())
+                                .setTitle("Xác nhận thông tin")
+                                .setMessage("Bạn có chắc chắn xác nhận hoá đơn này không?")
+                                .setPositiveButton("Đồng ý", (dialog, which) -> agreeRevenue())
+                                .setNegativeButton("Hủy", null)
+                                .show();
                     }
                 });
             }else if(revenue.getStatus() == RevenueExpenditure.TYPE_SUCCESS){
@@ -221,5 +197,41 @@ public class RevenueDetailFragment extends Fragment {
         }
 
         return view;
+    }
+
+    private void agreeRevenue(){
+        revenue.setStatus(2);
+        revenueViewModel.updateRevenue(revenue);
+
+        revenueDetailRef.child(revenue.getId()).setValue(revenue);
+
+        expenditureDetailRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Expenditure expenditure = snapshot.getValue(Expenditure.class);
+                if (expenditure == null) {
+                    Toast.makeText(getContext(), "Hoá đơn chi không tồn tại", Toast.LENGTH_SHORT).show();
+                }else {
+                    expenditureDetailRef.setValue(expenditure).addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getContext(), "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
+                                    if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                                        requireActivity().getSupportFragmentManager().popBackStack();
+                                    } else {
+                                        requireActivity().finish();
+                                    }
+                                }
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Error: " + error.getMessage());
+            }
+        });
     }
 }

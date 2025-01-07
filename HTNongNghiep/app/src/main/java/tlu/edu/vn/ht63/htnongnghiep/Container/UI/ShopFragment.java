@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import tlu.edu.vn.ht63.htnongnghiep.Activity.ItemDetailActivity;
@@ -42,15 +43,6 @@ public class ShopFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ShopFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ShopFragment newInstance(String param1, String param2) {
         ShopFragment fragment = new ShopFragment();
         Bundle args = new Bundle();
@@ -99,26 +91,43 @@ public class ShopFragment extends Fragment {
         recyclerView.setLayoutManager(gridLayoutManager);
 
         plantList = new ArrayList<>();
-        plantList.add(new Plant("Cây Ổi", "500.000đ", 4.8f, R.drawable.img));
-        plantList.add(new Plant("Cây Xoài", "750.000đ",  4.5f, R.drawable.img_1));
-        plantList.add(new Plant("Cây Cam", "600.000đ",  4.7f , R.drawable.img_2));
-        plantList.add(new Plant("Cây Bưởi", "900.000đ", 4.9f, R.drawable.img_3));
-        plantList.add(new Plant("Cây Chanh", "300.000đ", 4.6f, R.drawable.img));
+        plantList.add(new Plant(
+                "1", "PL001", "U001", "John Doe", new Date(),
+                "123 Green St, Springfield",
+                "Beautiful indoor plant",
+                "Aloe Vera", 10.5f, 4.8f,
+                ""
+        ));
+        plantList.add(new Plant(
+                "2", "PL002", "U002", "Jane Smith", new Date(),
+                "456 Oak Dr, Shelbyville",
+                "Perfect for your garden",
+                "Rose", 15.0f, 4.5f,
+                "https://upload.wikimedia.org/wikipedia/commons/4/40/Sunflower_sky_backdrop.jpg"
+        ));
+        plantList.add(new Plant(
+                "3", "PL003", "U003", "Alice Johnson", new Date(),
+                "789 Pine Ln, Ogdenville",
+                "Low maintenance succulent",
+                "Cactus", 7.0f, 4.9f,
+                "https://upload.wikimedia.org/wikipedia/commons/4/40/Sunflower_sky_backdrop.jpg"
+        ));
+        plantList.add(new Plant(
+                "4", "PL004", "U004", "Bob Brown", new Date(),
+                "101 Maple St, North Haverbrook",
+                "Aromatic herb plant",
+                "Basil", 5.0f, 4.7f,
+                "https://upload.wikimedia.org/wikipedia/commons/4/40/Sunflower_sky_backdrop.jpg"
+        ));
+        plantList.add(new Plant(
+                "5", "PL005", "VjK9BviFrJOlEkTnnC1RJ5rvvO23", "Charlie Green", new Date(),
+                "202 Elm Ave, Capital City",
+                "Brightens up any space",
+                "Sunflower", 12.0f, 4.6f,
+                "https://upload.wikimedia.org/wikipedia/commons/4/40/Sunflower_sky_backdrop.jpg"
+        ));
 
-        // Set adapter
-        adapter = new PlantAdapter(plantList, new PlantAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Plant plant) {
-                // Handle item click to navigate to another activity
-                Log.d("PlantListActivity", "Navigating to ItemDetailActivity");
-                Intent intent = new Intent(getContext(), ItemDetailActivity.class);
-                intent.putExtra("plant_name", plant.getName());
-                intent.putExtra("plant_price", plant.getPrice());
-                intent.putExtra("plant_rating", plant.getRating());
-                intent.putExtra("plant_image", plant.getImageResId());
-                startActivity(intent);
-            }
-        });
+        adapter = new PlantAdapter(getActivity(), plantList);
         recyclerView.setAdapter(adapter);
 
         return view;
