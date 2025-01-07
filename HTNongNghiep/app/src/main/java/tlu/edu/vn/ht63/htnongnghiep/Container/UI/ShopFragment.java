@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import tlu.edu.vn.ht63.htnongnghiep.Activity.ItemDetailActivity;
@@ -99,23 +100,52 @@ public class ShopFragment extends Fragment {
         recyclerView.setLayoutManager(gridLayoutManager);
 
         plantList = new ArrayList<>();
-        plantList.add(new Plant("Cây Ổi", "500.000đ", 4.8f, R.drawable.img, "1", "P001", "U001", "Nguyễn Văn A", "2023-01-01", "Hà Nội", "Cây ổi rất ngon"));
-        plantList.add(new Plant("Cây Xoài", "750.000đ",  4.5f, R.drawable.img_1, "2", "P002", "U002", "Trần Thị B", "2023-01-02", "Hải Phòng", "Cây xoài ngọt"));
-        plantList.add(new Plant("Cây Cam", "600.000đ",  4.7f , R.drawable.img_2, "3", "P003", "U003", "Lê Văn C", "2023-01-03", "Đà Nẵng", "Cây cam mọng nước"));
-        plantList.add(new Plant("Cây Bưởi", "900.000đ", 4.9f, R.drawable.img_3, "4", "P004", "U004", "Nguyễn Thị D", "2023-01-04", "Nha Trang", "Cây bưởi thơm"));
-        plantList.add(new Plant("Cây Chanh", "300.000đ", 4.6f, R.drawable.img, "5", "P005", "U005", "Phạm Văn E", "2023-01-05", "Hà Giang", "Cây chanh chua"));
+        plantList.add(new Plant(
+                "1", "PL001", "U001", "John Doe", new Date(),
+                "123 Green St, Springfield",
+                "Beautiful indoor plant",
+                "Aloe Vera", 10.5f, 4.8f,
+                "https://upload.wikimedia.org/wikipedia/commons/3/36/Aloe_vera_flower.JPG"
+        ));
+        plantList.add(new Plant(
+                "2", "PL002", "U002", "Jane Smith", new Date(),
+                "456 Oak Dr, Shelbyville",
+                "Perfect for your garden",
+                "Rose", 15.0f, 4.5f,
+                "https://upload.wikimedia.org/wikipedia/commons/3/39/Rose_flower.JPG"
+        ));
+        plantList.add(new Plant(
+                "3", "PL003", "U003", "Alice Johnson", new Date(),
+                "789 Pine Ln, Ogdenville",
+                "Low maintenance succulent",
+                "Cactus", 7.0f, 4.9f,
+                "https://upload.wikimedia.org/wikipedia/commons/e/e8/Cactaceae_-_Echinopsis_pachanoi.jpg"
+        ));
+        plantList.add(new Plant(
+                "4", "PL004", "U004", "Bob Brown", new Date(),
+                "101 Maple St, North Haverbrook",
+                "Aromatic herb plant",
+                "Basil", 5.0f, 4.7f,
+                "https://upload.wikimedia.org/wikipedia/commons/a/a1/Basil-Basilico-Ocimum_basilicum-albahaca.jpg"
+        ));
+        plantList.add(new Plant(
+                "5", "PL005", "U005", "Charlie Green", new Date(),
+                "202 Elm Ave, Capital City",
+                "Brightens up any space",
+                "Sunflower", 12.0f, 4.6f,
+                "https://upload.wikimedia.org/wikipedia/commons/4/40/Sunflower_sky_backdrop.jpg"
+        ));
 
         // Set adapter
         adapter = new PlantAdapter(plantList, new PlantAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Plant plant) {
-                // Handle item click to navigate to another activity
                 Log.d("PlantListActivity", "Navigating to ItemDetailActivity");
                 Intent intent = new Intent(getContext(), ItemDetailActivity.class);
                 intent.putExtra("plant_name", plant.getName());
                 intent.putExtra("plant_price", plant.getPrice());
                 intent.putExtra("plant_rating", plant.getRating());
-                intent.putExtra("plant_image", plant.getImageResId());
+                intent.putExtra("plant_image", plant.getImage());
                 intent.putExtra("plant_id", plant.getId());
                 intent.putExtra("plant_idplant", plant.getIdplant());
                 intent.putExtra("plant_iduser", plant.getUserid());

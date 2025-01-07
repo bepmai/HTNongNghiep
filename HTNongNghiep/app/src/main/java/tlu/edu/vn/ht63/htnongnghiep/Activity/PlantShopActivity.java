@@ -45,7 +45,7 @@ public class PlantShopActivity extends AppCompatActivity {
                 intent.putExtra("plant_name", plant.getName());
                 intent.putExtra("plant_price", plant.getPrice());
                 intent.putExtra("plant_rating", plant.getRating());
-                intent.putExtra("plant_image", plant.getImageResId());
+                intent.putExtra("plant_image", plant.getImage());
                 intent.putExtra("plant_id", plant.getId());
                 intent.putExtra("plant_idplant", plant.getIdplant());
                 intent.putExtra("plant_iduser", plant.getUserid());

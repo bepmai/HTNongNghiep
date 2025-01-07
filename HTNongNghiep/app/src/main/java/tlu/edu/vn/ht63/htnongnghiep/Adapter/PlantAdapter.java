@@ -8,6 +8,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import tlu.edu.vn.ht63.htnongnghiep.Activity.ItemDetailActivity;
@@ -34,14 +38,19 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
     public void onBindViewHolder(@NonNull PlantViewHolder holder, int position) {
         Plant plant = plantList.get(position);
         holder.name.setText(plant.getName());
-        holder.price.setText(plant.getPrice());
+        holder.price.setText(plant.getPrice().toString());
         holder.rating.setText(plant.getRating().toString());
-        holder.image.setImageResource(plant.getImageResId());
+        Glide.with(holder.image.getContext())
+                .load(plant.getImage())
+                .placeholder(R.drawable.group260) // Ảnh hiển thị khi đang tải
+                .error(R.drawable.group260)       // Ảnh hiển thị khi lỗi
+                .into(holder.image);
         holder.id.setText(plant.getId());
         holder.idPlant.setText(plant.getIdplant());
         holder.idUser.setText(plant.getUserid());
         holder.nameUser.setText(plant.getNameuser());
-        holder.dateSell.setText(plant.getDatesell());
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
+        holder.dateSell.setText(dateTimeFormat.format(plant.getDatesell()));
         holder.address.setText(plant.getAddress());
         holder.description.setText(plant.getDescription());
 
@@ -49,10 +58,12 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
         holder.itemView.setOnClickListener(v -> {
             // Tạo Intent để chuyển sang activity chi tiết
             Intent intent = new Intent(holder.itemView.getContext(), ItemDetailActivity.class);
+            intent.putExtra("plant",plant);
+
             intent.putExtra("plant_name", plant.getName());
             intent.putExtra("plant_price", plant.getPrice());
             intent.putExtra("plant_rating", plant.getRating());
-            intent.putExtra("plant_image", plant.getImageResId());
+            intent.putExtra("plant_image", plant.getImage());
             intent.putExtra("plant_id", plant.getId());
             intent.putExtra("plant_idplant", plant.getIdplant());
             intent.putExtra("plant_iduser", plant.getUserid());
