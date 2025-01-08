@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -30,11 +32,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import tlu.edu.vn.ht63.htnongnghiep.Adapter.ReviewPlantAdapter;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Plant;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Revenue;
+import tlu.edu.vn.ht63.htnongnghiep.Model.ReviewPlant;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class PlantShopDetailActivity extends AppCompatActivity {
@@ -45,6 +51,10 @@ public class PlantShopDetailActivity extends AppCompatActivity {
     String userId,fullName,address;
     ImageButton backButton;
     TextView namePlantTxt,dateSellTxt,nameSellTxt,adressTxt,priceTxt,descreptionTxt,ratingTxt,ratingTotalTxt;
+    RecyclerView recyclerView;
+    List<ReviewPlant> reviewPlantList;
+    DatabaseReference databaseReference;
+    ReviewPlantAdapter reviewPlantAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +78,7 @@ public class PlantShopDetailActivity extends AppCompatActivity {
         button1 = findViewById(R.id.button1);
         img1 = findViewById(R.id.img1);
         backButton = findViewById(R.id.backButton);
+        recyclerView = findViewById(R.id.recycler_view);
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         userId = sharedPreferences.getString("userId", null);
@@ -196,6 +207,16 @@ public class PlantShopDetailActivity extends AppCompatActivity {
         .addOnFailureListener(e -> {
             Toast.makeText(PlantShopDetailActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         });
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1);
+        recyclerView.setLayoutManager(gridLayoutManager);
+
+        reviewPlantList = new ArrayList<>();
+        reviewPlantAdapter = new ReviewPlantAdapter(this, reviewPlantList);
+        recyclerView.setAdapter(reviewPlantAdapter);
+        reviewPlantList.add(new ReviewPlant("User1", "Plant1", "01/01/2023", "5", "Excellent"));
+        reviewPlantList.add(new ReviewPlant("User2", "Plant2", "02/01/2023", "4", "Good quality"));
+        reviewPlantAdapter.notifyDataSetChanged();
 
 //        plantShopDetailRef.removeValue().addOnSuccessListener(aVoid -> {
 //            Toast.makeText(PlantShopDetailActivity.this, "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();

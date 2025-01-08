@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginVertical="10dp"
+    android:layout_marginHorizontal="10dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="8dp"
+    android:id="@+id/recCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_green">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:id="@+id/username"
+            android:text="user name"
+            android:textColor="@color/green"
+            android:textSize="20sp"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="50dp" />
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:id="@+id/nameplant"
+            android:text="Name plant"
+            android:textColor="@color/green"
+            android:textSize="20sp"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="50dp"
+            android:layout_below="@id/username"/>
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:id="@+id/statrating"
+            android:text="1.5"
+            android:textSize="16sp"
+            android:layout_below="@+id/nameplant"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="25dp"
+            android:textColor="@color/green"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:id="@+id/date"
+            android:text="00/00/00"
+            android:textSize="16sp"
+            android:layout_toEndOf="@id/statrating"
+            android:layout_below="@+id/nameplant"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="70dp"
+            android:textColor="@color/green"/>
+
+        <TextView
+            android:id="@+id/review"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/statrating"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="22dp"
+            android:text="Danh gia"
+            android:textColor="@color/green"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
