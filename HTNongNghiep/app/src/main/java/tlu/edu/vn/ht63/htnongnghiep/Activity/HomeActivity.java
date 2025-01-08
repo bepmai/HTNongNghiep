@@ -10,15 +10,20 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
+import tlu.edu.vn.ht63.htnongnghiep.Adapter.ViewPagerAdapter1;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.GardenFragment;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.HomeFragment;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.ShopFragment;
@@ -27,7 +32,11 @@ import tlu.edu.vn.ht63.htnongnghiep.Container.UI.home;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class HomeActivity extends AppCompatActivity {
-
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    ViewPagerAdapter1 pagerAdapter;
+    private ImageView chat;
+    private EditText searchView;
     private ImageButton homeBar, communityBar, shopBar, analysisBar, farmBar, userBar;
     private int barClick = R.id.home;
 
@@ -42,6 +51,16 @@ public class HomeActivity extends AppCompatActivity {
 //            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 //            transaction.replace(R.id.main, homeFragment);
 //            transaction.commit();
+            viewPager = findViewById(R.id.viewPager);
+            chat = findViewById(R.id.chat);
+            chat.setOnClickListener(v->{
+                Intent intent = new Intent(HomeActivity.this, ChatActivity.class);
+                startActivity(intent);
+            });
+            pagerAdapter = new ViewPagerAdapter1(getSupportFragmentManager());
+            pagerAdapter.noOfTabs = 1;
+
+
             String openFragment = getIntent().getStringExtra("open_fragment");
             if ("garden".equals(openFragment)) {
                 Fragment gardenFragment = new GardenFragment();
@@ -80,6 +99,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Thay đổi màu nền của nút khi click vào
                 unsetColorBar();
+                unsetAdapter();
                 homeBar.setColorFilter(getResources().getColor(R.color.active_bar)); // Màu bạn muốn
                 barClick = R.id.home;
 
@@ -97,8 +117,9 @@ public class HomeActivity extends AppCompatActivity {
                 communityBar.setColorFilter(getResources().getColor(R.color.active_bar));
                 barClick = R.id.community;
 
-                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-                startActivity(intent);
+                abbTabs();
+                FrameLayout frame = findViewById(R.id.main);
+                frame.removeAllViews();
 //                Fragment homeFragment = new HomeFragment();
 //                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 //                transaction.replace(R.id.main, homeFragment);
@@ -110,6 +131,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 unsetColorBar();
+                unsetAdapter();
                 shopBar.setColorFilter(getResources().getColor(R.color.active_bar));
                 barClick = R.id.shop;
 
@@ -155,6 +177,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 unsetColorBar();
+                unsetAdapter();
                 farmBar.setColorFilter(getResources().getColor(R.color.active_bar));
                 barClick = R.id.farm;
 
@@ -169,6 +192,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 unsetColorBar();
+                unsetAdapter();
                 userBar.setColorFilter(getResources().getColor(R.color.active_bar));
                 barClick = R.id.user;
 
@@ -176,14 +200,6 @@ public class HomeActivity extends AppCompatActivity {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.main, userRights);
                 transaction.commit();
-            }
-        });
-        FloatingActionButton robot = findViewById(R.id.chatbot);
-        robot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent chatIntent = new Intent(HomeActivity.this,ChatActivity1.class);
-                startActivity(chatIntent);
             }
         });
     }
@@ -207,5 +223,15 @@ public class HomeActivity extends AppCompatActivity {
         communityBar.setColorFilter(colorInt);
         userBar.setColorFilter(colorInt);
         farmBar.setColorFilter(colorInt);
+    }
+    private void abbTabs(){
+        pagerAdapter = new ViewPagerAdapter1(getSupportFragmentManager());
+        pagerAdapter.noOfTabs = 1;
+
+        viewPager.setAdapter(pagerAdapter);
+
+    }
+    private void unsetAdapter(){
+        viewPager.setAdapter(null);
     }
 }

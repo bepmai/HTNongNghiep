@@ -154,6 +154,10 @@
             android:theme="@style/Theme.Social" />
         <activity android:name=".Activity.ChatActivity1"
             android:exported="false" />
+        <activity android:name=".Activity.FriendAcceptsActivity"
+            android:exported="false"/>
+        <activity android:name=".Activity.GroupChatActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

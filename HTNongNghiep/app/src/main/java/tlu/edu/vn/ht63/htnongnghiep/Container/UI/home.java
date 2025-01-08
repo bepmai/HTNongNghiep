@@ -51,6 +51,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -74,6 +75,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.HashMap;
 import java.util.Map;
+
+import tlu.edu.vn.ht63.htnongnghiep.Activity.ChatActivity1;
+import tlu.edu.vn.ht63.htnongnghiep.Activity.HomeActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.RevenueExpenditureActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Activity.Weather;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
@@ -291,7 +295,14 @@ public class home extends Fragment {
             });
             setBarChart();
         }
-
+        FloatingActionButton robot = view.findViewById(R.id.chatbot);
+        robot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent chatIntent = new Intent(requireActivity(), ChatActivity1.class);
+                startActivity(chatIntent);
+            }
+        });
         return view;
     }
 
