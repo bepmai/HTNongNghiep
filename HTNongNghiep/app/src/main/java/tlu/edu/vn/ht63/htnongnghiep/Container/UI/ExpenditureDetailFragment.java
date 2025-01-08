@@ -20,8 +20,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -93,6 +95,7 @@ public class ExpenditureDetailFragment extends Fragment {
     Button saveBtn,deleteBtn;
     DatabaseReference expenditureDetailRef,revenueDetailRef;
     ExpenditureViewModel expenditureViewModel;
+    ImageView imageView4;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -111,6 +114,7 @@ public class ExpenditureDetailFragment extends Fragment {
         backButton = view.findViewById(R.id.backButton);
         saveBtn = view.findViewById(R.id.saveBtn);
         deleteBtn = view.findViewById(R.id.deleteBtn);
+        imageView4 = view.findViewById(R.id.imageView4);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,24 +124,6 @@ public class ExpenditureDetailFragment extends Fragment {
         });
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd MMMM yyyy", new Locale("vi"));
-
-//        date_edt.setOnClickListener(v -> {
-//            Calendar calendar = Calendar.getInstance();
-//
-//            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
-//                    (view1, year, month, dayOfMonth) -> {
-//                        calendar.set(Calendar.YEAR, year);
-//                        calendar.set(Calendar.MONTH, month);
-//                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-//
-//                        date_edt.setText(dateFormat.format(calendar.getTime()));
-//                    },
-//                    calendar.get(Calendar.YEAR),
-//                    calendar.get(Calendar.MONTH),
-//                    calendar.get(Calendar.DAY_OF_MONTH)
-//            );
-//            datePickerDialog.show();
-//        });
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         String userId = sharedPreferences.getString("userId", null);
@@ -159,6 +145,11 @@ public class ExpenditureDetailFragment extends Fragment {
         if (expenditure!=null){
             buyer_edt.setText(expenditure.getNameSeller());
             plant_edt.setText(expenditure.getNameProduct());
+            Glide.with(imageView4)
+                    .load(expenditure.getProductImage())
+                    .placeholder(R.drawable.group260) // Ảnh hiển thị khi đang tải
+                    .error(R.drawable.group260)       // Ảnh hiển thị khi lỗi
+                    .into(imageView4);
             if(expenditure.getStatus() == RevenueExpenditure.TYPE_NOT_CONFIRMED){
                 status_edt.setTextColor(getResources().getColor(R.color.black));
                 status_edt.setText("Chưa xác nhận");

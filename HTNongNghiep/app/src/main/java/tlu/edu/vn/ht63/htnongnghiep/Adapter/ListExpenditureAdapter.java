@@ -13,6 +13,8 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -118,7 +120,11 @@ public class ListExpenditureAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 listStatus.setTextColor(Color.parseColor("#FF6F69"));
                 listStatus.setText("Thành công");
             }
-//        imageView4.setImageURI();
+            Glide.with(imageView4)
+                    .load(expenditure.getProductImage())
+                    .placeholder(R.drawable.group260) // Ảnh hiển thị khi đang tải
+                    .error(R.drawable.group260)       // Ảnh hiển thị khi lỗi
+                    .into(imageView4);
             listNameProduct.setText(expenditure.getNameProduct());
             listTotal.setText("Số lượng: "+expenditure.getTotal()+" cây");
             listPayment.setText("Số tiền: đ"+expenditure.getProductCost());

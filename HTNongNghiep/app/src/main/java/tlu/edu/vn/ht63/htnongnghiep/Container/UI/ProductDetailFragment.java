@@ -227,15 +227,15 @@ public class ProductDetailFragment extends Fragment {
 
     private void deleteproductData(){
         productDetailRef.child(expenditure.getId()).removeValue().addOnSuccessListener(aVoid -> {
-                    Toast.makeText(getContext(), "Xoá hoá đơn thành công", Toast.LENGTH_SHORT).show();
-                    if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                        requireActivity().getSupportFragmentManager().popBackStack();
-                    } else {
-                        requireActivity().finish();
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                });;
+            Toast.makeText(getContext(), "Xoá hoá đơn thành công", Toast.LENGTH_SHORT).show();
+            if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                requireActivity().getSupportFragmentManager().popBackStack();
+            } else {
+                requireActivity().finish();
+            }
+        })
+        .addOnFailureListener(e -> {
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        });;
     }
 }
