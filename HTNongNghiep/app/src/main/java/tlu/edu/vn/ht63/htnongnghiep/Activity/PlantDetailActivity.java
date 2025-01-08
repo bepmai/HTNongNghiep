@@ -45,7 +45,7 @@ public class PlantDetailActivity extends AppCompatActivity {
     private String imageURL;
     private Uri uri;
     Plant plant;
-    ImageView backButton;
+    ImageView backButton,delete_button;
     String fullName;
 
     @Override
@@ -56,6 +56,7 @@ public class PlantDetailActivity extends AppCompatActivity {
         tree_name = findViewById(R.id.tree_name);
         tree_name_duplicate = findViewById(R.id.tree_name_duplicate);
         tree_price = findViewById(R.id.tree_price);
+        delete_button = findViewById(R.id.delete_button);
         tree_description = findViewById(R.id.tree_description);
         img1 = findViewById(R.id.img1);
         submit_button = findViewById(R.id.submit_button);
