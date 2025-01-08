@@ -346,6 +346,7 @@ public class analysis_ImageAnalysis_view extends Fragment {
 //                            saveImageToPicture(croppedBitmap);
 //                            loadLastImage(listImage);
                             File file = saveBitmapToTempFile(croppedBitmap, requireContext());
+                            DialogFragment.openDialogImage(requireContext(),Uri.parse(""));
                             uploadImage(file);
                         } else {
                             ToastFragment toastFragment = new ToastFragment(3, "Cắt ảnh không thành công!");
