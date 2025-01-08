@@ -17,7 +17,7 @@
         android:padding="10dp"
         app:alignItems="center"
         app:flexDirection="row"
-        app:justifyContent="flex_start"
+        app:justifyContent="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -50,13 +50,6 @@
         </com.google.android.flexbox.FlexboxLayout>
 
         <ImageButton
-            android:id="@+id/notification"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@android:color/transparent"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/ic_notification"/>
-        <ImageButton
             android:id="@+id/message"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -75,4 +68,18 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/statusBar" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/chatbot"
+        android:src="@drawable/robot"
+        app:tint="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/active_bar"
+        app:layout_constraintBottom_toTopOf="@+id/menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statusBar"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintVertical_bias="0.95"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

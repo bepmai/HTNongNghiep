@@ -79,7 +79,7 @@
             android:exported="false" />
         <activity
             android:name=".Activity.PlantShopDetailActivity"
-            android:exported="false"></activity>
+            android:exported="false"/>
         <activity
             android:name=".Activity.AddPlant"
             android:exported="false" />
@@ -152,6 +152,8 @@
             android:exported="false"
             android:label="SearchActivity"
             android:theme="@style/Theme.Social" />
+        <activity android:name=".Activity.ChatActivity1"
+            android:exported="false" />
     </application>
 
 </manifest>

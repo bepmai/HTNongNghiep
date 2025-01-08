@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -15,6 +16,8 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.GardenFragment;
 import tlu.edu.vn.ht63.htnongnghiep.Container.UI.HomeFragment;
@@ -175,7 +178,14 @@ public class HomeActivity extends AppCompatActivity {
                 transaction.commit();
             }
         });
-
+        FloatingActionButton robot = findViewById(R.id.chatbot);
+        robot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent chatIntent = new Intent(HomeActivity.this,ChatActivity1.class);
+                startActivity(chatIntent);
+            }
+        });
     }
 
     @Override
