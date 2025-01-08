@@ -16,12 +16,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -177,6 +183,8 @@ public class PlantShopDetailActivity extends AppCompatActivity {
                 plant.getPrice()
         );
 
+        sendDataToGoogleSheet(expenditure);
+
         expenditureDetailRef.child(expenditureDetailId).setValue(expenditure).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(PlantShopDetailActivity.this, "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
@@ -198,5 +206,42 @@ public class PlantShopDetailActivity extends AppCompatActivity {
 //        .addOnFailureListener(e -> {
 //            Toast.makeText(PlantShopDetailActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
 //        });
+    }
+
+    private void sendDataToGoogleSheet(Expenditure expenditure) {
+        String url = "https://script.google.com/macros/s/AKfycbw8oYb3wwHLDXnkVFolqypN1gSu3FFdJs1qmMCsTa4bARQOelUYcxdOBWt8Eug6zwIJ/exec"; // Thay bằng URL của Apps Script
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            // Chuyển dữ liệu sang JSON
+            jsonObject.put("id", expenditure.getId());
+            jsonObject.put("userId", expenditure.getIdSeller());
+            jsonObject.put("name", expenditure.getNameSeller());
+            jsonObject.put("total", 1);
+            jsonObject.put("address", expenditure.getAdress());
+            jsonObject.put("dateSell", expenditure.getDate().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Tạo request POST
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
+                response -> {
+                    try {
+                        JSONObject res = new JSONObject(response.toString());
+                        String status = res.getString("status");
+                        if (status.equals("success")) {
+                            Toast.makeText(this, "Gửi dữ liệu thành công", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(this, "Lỗi: " + res.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Toast.makeText(this, "Lỗi: " + error.getMessage(), Toast.LENGTH_SHORT).show());
+
+        // Gửi request
+        Volley.newRequestQueue(this).add(request);
     }
 }

@@ -165,7 +165,9 @@ public class home extends Fragment {
         webView.setWebChromeClient(new WebChromeClient());
         webView.setWebViewClient(new WebViewClient());
 
-        webView.loadUrl("http://192.168.55.106:8088/superset/dashboard/p/27Wlg0RLPkE/");
+        // http://localhost:8088/superset/dashboard/p/4Q3qKZ2gpWJ/
+        // superset/dashboard/p/27Wlg0RLPkE/
+        webView.loadUrl("http://192.168.55.103:8088/superset/dashboard/p/4Q3qKZ2gpWJ/");
 
         detailButton.setOnClickListener(new View.OnClickListener() {
             @Override
