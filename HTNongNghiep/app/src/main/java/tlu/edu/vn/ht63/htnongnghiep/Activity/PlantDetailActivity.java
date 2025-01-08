@@ -45,7 +45,7 @@ public class PlantDetailActivity extends AppCompatActivity {
     private String imageURL;
     private Uri uri;
     Plant plant;
-    ImageView backButton,delete_button;
+    ImageView backButton;
     String fullName;
 
     @Override
