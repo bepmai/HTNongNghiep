@@ -11,10 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.support.annotation.NonNull;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -151,6 +154,66 @@ public class RevenueFragment extends Fragment {
                 Log.e("FirebaseError", "Error: " + error.getMessage());
             }
         });
+
+        EditText edt = requireActivity().findViewById(R.id.searchBar);
+        edt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!s.toString().isEmpty()){
+                    databaseRevenueReference = FirebaseDatabase.getInstance().getReference("revenue").child(userId);
+                    eventRevenueListener = databaseRevenueReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            revenueList.clear();
+                            for (DataSnapshot idRevenueSnapshot : snapshot.getChildren()) {
+                                Revenue revenue = idRevenueSnapshot.getValue(Revenue.class);
+                                if (revenue != null && (revenue.getNameBuyer().toLowerCase().contains(s.toString().toLowerCase())|| revenue.getNameProduct().toLowerCase().contains(s.toString().toLowerCase()) )) {
+                                    revenueList.add(revenue);
+                                }
+                            }
+                            revenueViewModel.setData(revenueList);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Log.e("FirebaseError", "Error: " + error.getMessage());
+                        }
+                    });
+                }
+                else{
+                    databaseRevenueReference = FirebaseDatabase.getInstance().getReference("revenue").child(userId);
+                    eventRevenueListener = databaseRevenueReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            revenueList.clear();
+                            for (DataSnapshot idRevenueSnapshot : snapshot.getChildren()) {
+                                Revenue revenue = idRevenueSnapshot.getValue(Revenue.class);
+                                if (revenue != null) {
+                                    revenueList.add(revenue);
+                                }
+                            }
+                            revenueViewModel.setData(revenueList);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Log.e("FirebaseError", "Error: " + error.getMessage());
+                        }
+                    });
+                }
+            }
+        });
+
 
         adapter.setOnItemClickListener(new OnItemRevenueClickListener() {
             @Override

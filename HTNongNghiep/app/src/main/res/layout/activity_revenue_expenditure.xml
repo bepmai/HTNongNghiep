@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -13,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/statusBar"
             android:layout_width="match_parent"
@@ -48,19 +48,23 @@
                     android:layout_marginEnd="10dp"
                     android:src="@drawable/ic_search" />
 
-                <TextView
+                <EditText
+                    android:id="@+id/searchBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tìm kiếm"
-                    android:textColor="#817E7E"/>
+                    android:hint="Tìm kiếm"
+                    android:background="@color/white"
+                    app:layout_flexGrow="1"
+                    android:textColor="#817E7E" />
             </com.google.android.flexbox.FlexboxLayout>
         </com.google.android.flexbox.FlexboxLayout>
 
         <LinearLayout
-            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -80,30 +84,34 @@
                     android:id="@+id/revenueBottomBolder"
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
-                    android:background="@color/green"/>
+                    android:background="@color/green" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
                 <Button
                     android:id="@+id/expenditureBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/white"
                     android:text="Báo cáo chi"
                     android:textColor="@color/white_black"
-                    android:layout_weight="1"
-                    android:textSize="16sp"
-                    android:backgroundTint="@color/white"/>
+                    android:textSize="16sp" />
+
                 <View
                     android:id="@+id/expenditureBottomBolder"
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
-                    android:background="@color/white"/>
+                    android:background="@color/white" />
             </LinearLayout>
 
         </LinearLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -112,7 +120,7 @@
                 android:id="@+id/frameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/super_white_gray"/>
+                android:background="@color/super_white_gray" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/floatingActionButton"
@@ -122,8 +130,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_margin="40dp"
                 android:backgroundTint="@color/green"
-                android:visibility="gone"
                 android:src="@drawable/ic_baseline_add_24"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:tint="@color/white" />

@@ -39,10 +39,13 @@
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_search" />
 
-            <TextView
+            <EditText
+                android:id="@+id/searchBar"
+                app:layout_flexGrow="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tìm kiếm"
+                android:hint="Tìm kiếm"
+                android:background="@color/white"
                 android:textColor="#817E7E"/>
         </com.google.android.flexbox.FlexboxLayout>
 
@@ -72,6 +75,4 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/statusBar" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -119,6 +119,7 @@ public class analysis_InformationTree_view extends Fragment {
         inforTreeFeatures.add(new InforTreeFeature("Thời gian trung bình tắm nắng",tree != null ? tree.getSuns() : "Không có thông tin"));
         inforTreeFeatures.add(new InforTreeFeature("Thời gian trung bình tưới nước",tree != null ? tree.getWaters() : "Không có thông tin"));
         inforTreeFeatures.add(new InforTreeFeature("Khu vực",tree != null ? tree.getArea() : "Không có thông tin"));
+        inforTreeFeatures.add(new InforTreeFeature("Mua bán",""));
 
 
 

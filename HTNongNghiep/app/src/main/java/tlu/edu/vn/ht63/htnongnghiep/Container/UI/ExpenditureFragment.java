@@ -11,10 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.support.annotation.NonNull;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,6 +32,7 @@ import tlu.edu.vn.ht63.htnongnghiep.Component.Interface.OnItemExpenditureClickLi
 import tlu.edu.vn.ht63.htnongnghiep.Adapter.ListExpenditureAdapter;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
 import tlu.edu.vn.ht63.htnongnghiep.Model.PlantOfUser;
+import tlu.edu.vn.ht63.htnongnghiep.Model.Revenue;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 import tlu.edu.vn.ht63.htnongnghiep.ViewModel.ExpenditureViewModel;
 
@@ -167,6 +171,64 @@ public class ExpenditureFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.e("FirebaseError", "Error: " + error.getMessage());
+            }
+        });
+        EditText edt = requireActivity().findViewById(R.id.searchBar);
+        edt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!s.toString().isEmpty()){
+                    databaseExpenditureReference = FirebaseDatabase.getInstance().getReference("expenditure").child(userId);
+                    eventExpenditureListener = databaseExpenditureReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            expenditureList.clear();
+                            for (DataSnapshot idRevenueSnapshot : snapshot.getChildren()) {
+                                Expenditure revenue = idRevenueSnapshot.getValue(Expenditure.class);
+                                if (revenue != null && (revenue.getNameProduct().toLowerCase().contains(s.toString().toLowerCase())|| revenue.getNameSeller().toLowerCase().contains(s.toString().toLowerCase()) )) {
+                                    expenditureList.add(revenue);
+                                }
+                            }
+                            expenditureViewModel.setData(expenditureList);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Log.e("FirebaseError", "Error: " + error.getMessage());
+                        }
+                    });
+                }
+                else{
+                    databaseExpenditureReference = FirebaseDatabase.getInstance().getReference("expenditure").child(userId);
+                    eventExpenditureListener = databaseExpenditureReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            expenditureList.clear();
+                            for (DataSnapshot idRevenueSnapshot : snapshot.getChildren()) {
+                                Expenditure revenue = idRevenueSnapshot.getValue(Expenditure.class);
+                                if (revenue != null) {
+                                    expenditureList.add(revenue);
+                                }
+                            }
+                            expenditureViewModel.setData(expenditureList);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Log.e("FirebaseError", "Error: " + error.getMessage());
+                        }
+                    });
+                }
             }
         });
 
