@@ -46,7 +46,7 @@ import tlu.edu.vn.ht63.htnongnghiep.Model.InforUser;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class InfUserDetail extends AppCompatActivity {
-    EditText input_name, input_nameplant, input_birthday;
+    EditText input_name, input_nameplant, input_birthday, input_address;
     Spinner input_gender;
     Button btn_update;
     ImageView ic_back,amazonImage;
@@ -68,6 +68,7 @@ public class InfUserDetail extends AppCompatActivity {
         input_nameplant = findViewById(R.id.input_nameplant);
         input_birthday = findViewById(R.id.input_birthday);
         input_gender = findViewById(R.id.input_gender);
+        input_address = findViewById(R.id.input_address);
         btn_update = findViewById(R.id.btn_update);
         amazonImage = findViewById(R.id.amazonImage);
         ic_back =  findViewById(R.id.ic_back);
@@ -117,7 +118,7 @@ public class InfUserDetail extends AppCompatActivity {
                         String image = dataSnapshot.child("image").getValue(String.class);
 
                         input_name.setText(fullName);
-                        input_nameplant.setText(address);
+                        input_address.setText(address);
                         input_nameplant.setText(nameplant);
                         Glide.with(amazonImage.getContext())
                                 .load(image)
@@ -146,7 +147,8 @@ public class InfUserDetail extends AppCompatActivity {
 
         btn_update.setOnClickListener(view -> {
             String fullName = input_name.getText().toString().trim();
-            String address = input_nameplant.getText().toString().trim();
+            String address = input_address.getText().toString().trim();
+            String nameplant = input_nameplant.getText().toString().trim();
             String dateOfBirth = input_birthday.getText().toString().trim();
             String gender = input_gender.getSelectedItem().toString();
 
@@ -156,7 +158,7 @@ public class InfUserDetail extends AppCompatActivity {
             }
 
             if (userId != null) {
-                saveData(fullName,address,dateOfBirth,gender,userId);
+                saveData(fullName,address,dateOfBirth, nameplant,gender,userId);
             } else {
                 Toast.makeText(InfUserDetail.this, "Không thể lấy userId để cập nhật!", Toast.LENGTH_SHORT).show();
             }
@@ -210,7 +212,7 @@ public class InfUserDetail extends AppCompatActivity {
         input_gender.setAdapter(adapter_gender);
     }
 
-    private void saveData(String fullName,String address,String dateOfBirth,String gender,String userId) {
+    private void saveData(String fullName,String address, String nameplant, String dateOfBirth,String gender,String userId) {
         if (uri != null) {
             StorageReference storageReference = FirebaseStorage.getInstance()
                     .getReference("images")
@@ -232,11 +234,13 @@ public class InfUserDetail extends AppCompatActivity {
                         Map<String, Object> updates = new HashMap<>();
                         updates.put("image", imageURL);
                         updates.put("fullName", fullName);
+                        updates.put("plant", nameplant);
                         updates.put("adress", address);
                         updates.put("dateOfBirth", dateOfBirth);
                         updates.put("gender", gender);
 
                         input_name.clearFocus();
+                        input_address.clearFocus();
                         input_nameplant.clearFocus();
                         input_birthday.clearFocus();
 

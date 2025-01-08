@@ -71,7 +71,6 @@ public class DetailPlant extends AppCompatActivity {
         note = findViewById(R.id.input_Note);
         btnDelete = findViewById(R.id.btn_delete);
         btnUpdate = findViewById(R.id.btn_update);
-        btn_sell = findViewById(R.id.btn_sell);
         String plantId = getIntent().getStringExtra("plantId");
         if (plantId != null) {
             SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
