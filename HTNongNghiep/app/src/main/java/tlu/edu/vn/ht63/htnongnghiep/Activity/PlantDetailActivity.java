@@ -46,6 +46,7 @@ public class PlantDetailActivity extends AppCompatActivity {
     private Uri uri;
     Plant plant;
     ImageView backButton;
+    String fullName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +89,7 @@ public class PlantDetailActivity extends AppCompatActivity {
             tree_name_duplicate.setText(plant.getAddress());
             tree_price.setText(plant.getPrice().toString());
             tree_description.setText(plant.getDescription());
-            Glide.with(img1.getContext())
+            Glide.with(img1)
                     .load(plant.getImage())
                     .placeholder(R.drawable.group260) // Ảnh hiển thị khi đang tải
                     .error(R.drawable.group260)       // Ảnh hiển thị khi lỗi
@@ -97,6 +98,23 @@ public class PlantDetailActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         userId = sharedPreferences.getString("userId", null);
+
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("inforUser");
+        userRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    fullName = dataSnapshot.child("fullName").getValue(String.class);
+                } else {
+                    Toast.makeText(PlantDetailActivity.this, "Người dùng không tồn tại!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(PlantDetailActivity.this, "Lỗi khi lấy dữ liệu: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         plantDetailRef = FirebaseDatabase.getInstance()
                 .getReference("PlantShop")
@@ -111,7 +129,12 @@ public class PlantDetailActivity extends AppCompatActivity {
                 AlertDialog dialog = builder.create();
                 dialog.show();
 
-                String plantDetailId = plantDetailRef.push().getKey();
+                String plantDetailId;
+                if (plant.getId().isEmpty() || plant.getId() == "" || plant.getId() == null){
+                    plantDetailId = plantDetailRef.push().getKey();
+                }else {
+                    plantDetailId = plant.getId();
+                }
 
                 Plant plant_new = new Plant(
                         plantDetailId,
@@ -127,24 +150,13 @@ public class PlantDetailActivity extends AppCompatActivity {
                         ""
                 );
 
-                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("inforUser");
-                userRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            String fullName = dataSnapshot.child("fullName").getValue(String.class);
+                plant_new.setNameuser(fullName);
 
-                            plant_new.setNameuser(fullName);
-                        } else {
-                            Toast.makeText(PlantDetailActivity.this, "Người dùng không tồn tại!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
+                if (plant.getImage().isEmpty() || plant.getImage() == "" || plant.getImage() == null){
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Toast.makeText(PlantDetailActivity.this, "Lỗi khi lấy dữ liệu: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                }else {
+                    plant_new.setImage(plant.getImage());
+                }
 
                 if (uri != null) {
                     StorageReference storageReference = FirebaseStorage.getInstance()
