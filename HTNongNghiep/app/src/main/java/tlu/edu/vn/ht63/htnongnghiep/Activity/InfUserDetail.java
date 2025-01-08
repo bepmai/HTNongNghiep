@@ -258,6 +258,36 @@ public class InfUserDetail extends AppCompatActivity {
                 ToastFragment toastFragment = new ToastFragment(3, "Cập nhật thông tin thất bại!");
                 toastFragment.showToast(getSupportFragmentManager(),R.id.main);
             });
+        }else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setCancelable(false);
+            builder.setView(R.layout.progress_layout);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("inforUser").child(userId);
+
+            Map<String, Object> updates = new HashMap<>();
+            updates.put("fullName", fullName);
+            updates.put("adress", address);
+            updates.put("dateOfBirth", dateOfBirth);
+            updates.put("gender", gender);
+
+            input_name.clearFocus();
+            input_nameplant.clearFocus();
+            input_birthday.clearFocus();
+
+            userRef.updateChildren(updates).addOnCompleteListener(task2 -> {
+                if (task2.isSuccessful()) {
+                    dialog.dismiss();
+                    ToastFragment toastFragment = new ToastFragment(1, "Cập nhật thông tin thành công!");
+                    toastFragment.showToast(getSupportFragmentManager(),R.id.main);
+                } else {
+                    dialog.dismiss();
+                    ToastFragment toastFragment = new ToastFragment(3, "Cập nhật thông tin thất bại!");
+                    toastFragment.showToast(getSupportFragmentManager(),R.id.main);
+                }
+            });
         }
     }
 }

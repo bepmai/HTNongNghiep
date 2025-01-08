@@ -55,39 +55,40 @@ public class PlantShopDetailActivity extends AppCompatActivity {
         userId = sharedPreferences.getString("userId", null);
 
         plant = (Plant) getIntent().getSerializableExtra("plant");
+        if (plant != null){
+            expenditureDetailRef = FirebaseDatabase.getInstance()
+                    .getReference("expenditure")
+                    .child(userId);
 
-        expenditureDetailRef = FirebaseDatabase.getInstance()
-                .getReference("expenditure")
-                .child(userId);
+            revenueDetailRef = FirebaseDatabase.getInstance()
+                    .getReference("revenue")
+                    .child(plant.getUserid());
 
-        revenueDetailRef = FirebaseDatabase.getInstance()
-                .getReference("revenue")
-                .child(plant.getUserid());
-
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("inforUser");
-        userRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    fullName = dataSnapshot.child("fullName").getValue(String.class);
-                    address = dataSnapshot.child("adress").getValue(String.class);
-                } else {
-                    Toast.makeText(PlantShopDetailActivity.this, "Người dùng không tồn tại!", Toast.LENGTH_SHORT).show();
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("inforUser");
+            userRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        fullName = dataSnapshot.child("fullName").getValue(String.class);
+                        address = dataSnapshot.child("adress").getValue(String.class);
+                    } else {
+                        Toast.makeText(PlantShopDetailActivity.this, "Người dùng không tồn tại!", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(PlantShopDetailActivity.this, "Lỗi khi lấy dữ liệu: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Toast.makeText(PlantShopDetailActivity.this, "Lỗi khi lấy dữ liệu: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buyPlanteData();
-            }
-        });
+            button1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    buyPlanteData();
+                }
+            });
+        }
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

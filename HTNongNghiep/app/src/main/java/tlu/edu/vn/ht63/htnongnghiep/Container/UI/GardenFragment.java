@@ -94,7 +94,6 @@ public class GardenFragment extends Fragment {
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
         String userId = sharedPreferences.getString("userId", null);
 
-
         if (userId == null) {
             Toast.makeText(requireContext(), "User ID is missing", Toast.LENGTH_SHORT).show();
         }
