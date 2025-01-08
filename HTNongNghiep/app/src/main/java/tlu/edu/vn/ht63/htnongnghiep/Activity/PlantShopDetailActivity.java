@@ -49,6 +49,7 @@ public class PlantShopDetailActivity extends AppCompatActivity {
 
         imageView = findViewById(R.id.img1);
         button1 = findViewById(R.id.button1);
+        backButton = findViewById(R.id.backButton);
 
         SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         userId = sharedPreferences.getString("userId", null);

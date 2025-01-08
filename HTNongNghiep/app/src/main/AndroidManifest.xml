@@ -66,6 +66,9 @@
             android:name=".Activity.ShopActivity"
             android:exported="false" />
         <activity
+            android:name=".Activity.PlantShopDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.AddPlant"
             android:exported="false" />
         <activity
