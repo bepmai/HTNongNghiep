@@ -5,6 +5,7 @@ import static android.content.Intent.getIntent;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -41,9 +42,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import tlu.edu.vn.ht63.htnongnghiep.Activity.ProductReviewActivity;
+import tlu.edu.vn.ht63.htnongnghiep.Activity.RevenueExpenditureActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Expenditure;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Revenue;
 import tlu.edu.vn.ht63.htnongnghiep.Model.RevenueExpenditure;
+import tlu.edu.vn.ht63.htnongnghiep.Model.ReviewPlant;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 import tlu.edu.vn.ht63.htnongnghiep.ViewModel.ExpenditureViewModel;
 import tlu.edu.vn.ht63.htnongnghiep.ViewModel.RevenueViewModel;
@@ -98,8 +102,8 @@ public class ExpenditureDetailFragment extends Fragment {
 
     EditText date_edt,buyer_edt,plant_edt,adress_edt,total_edt,payment_edt,totalPayment_edt,status_edt;
     ImageButton backButton;
-    Button saveBtn,deleteBtn;
-    DatabaseReference expenditureDetailRef,revenueDetailRef;
+    Button saveBtn,deleteBtn,reviewBtn;
+    DatabaseReference expenditureDetailRef,revenueDetailRef,reviewDetailRef;
     ExpenditureViewModel expenditureViewModel;
     ImageView imageView4;
 
@@ -120,6 +124,7 @@ public class ExpenditureDetailFragment extends Fragment {
         backButton = view.findViewById(R.id.backButton);
         saveBtn = view.findViewById(R.id.saveBtn);
         deleteBtn = view.findViewById(R.id.deleteBtn);
+        reviewBtn = view.findViewById(R.id.reviewBtn);
         imageView4 = view.findViewById(R.id.imageView4);
 
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -159,7 +164,7 @@ public class ExpenditureDetailFragment extends Fragment {
             if(expenditure.getStatus() == RevenueExpenditure.TYPE_NOT_CONFIRMED){
                 status_edt.setTextColor(getResources().getColor(R.color.black));
                 status_edt.setText("Chưa xác nhận");
-
+                reviewBtn.setVisibility(View.GONE);
                 saveBtn.setBackgroundColor(getResources().getColor(R.color.green));
                 expenditureViewModel =
                         new ViewModelProvider(requireActivity()).get(ExpenditureViewModel.class);
@@ -193,12 +198,46 @@ public class ExpenditureDetailFragment extends Fragment {
                 deleteBtn.setVisibility(View.GONE);
                 adress_edt.setFocusable(false);
                 adress_edt.setFocusableInTouchMode(false);
+                reviewBtn.setVisibility(View.GONE);
             }else if(expenditure.getStatus() == RevenueExpenditure.TYPE_SUCCESS){
                 status_edt.setTextColor(getResources().getColor(R.color.red));
                 status_edt.setText("Thành công");
                 deleteBtn.setVisibility(View.GONE);
                 adress_edt.setFocusable(false);
                 adress_edt.setFocusableInTouchMode(false);
+                reviewBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (expenditure.getIdPlantShop()!=null&expenditure.getIdPlantShop()!=""){
+                            reviewDetailRef = FirebaseDatabase.getInstance()
+                                    .getReference("review")
+                                    .child(userId)
+                                    .child(expenditure.getIdPlantShop());
+
+                            reviewDetailRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@androidx.annotation.NonNull DataSnapshot snapshot) {
+                                    if (isAdded()){
+                                        if (!snapshot.exists()){
+                                            Intent intent = new Intent(getContext(), ProductReviewActivity.class);
+                                            intent.putExtra("expenditure",expenditure);
+                                            startActivity(intent);
+                                        }else {
+                                            Toast.makeText(getContext(), "Bạn đã dánh giá rồi!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@androidx.annotation.NonNull DatabaseError error) {
+                                    Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }else {
+                            Toast.makeText(getContext(), "Bạn đã dánh giá rồi!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
             adress_edt.setText(expenditure.getAdress());
             date_edt.setText(dateFormat.format(expenditure.getDate()));
@@ -218,24 +257,29 @@ public class ExpenditureDetailFragment extends Fragment {
         revenueDetailRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Revenue revenue = snapshot.getValue(Revenue.class);
-                if (revenue == null) {
-                    Toast.makeText(getContext(), "Hoá đơn chi không tồn tại", Toast.LENGTH_SHORT).show();
-                }else {
-                    revenue.setAdress(adress_edt.getText().toString().trim());
-                    revenueDetailRef.setValue(revenue).addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getContext(), "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
-                            if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                                requireActivity().getSupportFragmentManager().popBackStack();
-                            } else {
-                                requireActivity().finish();
+                if (isAdded()){
+                    Revenue revenue = snapshot.getValue(Revenue.class);
+                    if (revenue == null) {
+                        Toast.makeText(getContext(), "Hoá đơn chi không tồn tại", Toast.LENGTH_SHORT).show();
+                    }else {
+                        revenue.setAdress(adress_edt.getText().toString().trim());
+                        revenue.setStatus(1);
+                        revenueDetailRef.setValue(revenue).addOnCompleteListener(task -> {
+                            if (isAdded()){
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getContext(), "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
+                                    if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                                        requireActivity().getSupportFragmentManager().popBackStack();
+                                    } else {
+                                        requireActivity().finish();
+                                    }
+                                }
                             }
-                        }
-                    })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+                    }
                 }
             }
 
@@ -256,16 +300,18 @@ public class ExpenditureDetailFragment extends Fragment {
         deleteDataFromGoogleSheet(expenditure.getId());
 
         expenditureDetailRef.child(expenditure.getId()).removeValue().addOnSuccessListener(aVoid -> {
-                    Toast.makeText(getContext(), "Xoá hoá đơn thành công", Toast.LENGTH_SHORT).show();
-                    if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                        requireActivity().getSupportFragmentManager().popBackStack();
-                    } else {
-                        requireActivity().finish();
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
+            if (isAdded()) {
+                Toast.makeText(getContext(), "Xoá hoá đơn thành công", Toast.LENGTH_SHORT).show();
+                if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    requireActivity().getSupportFragmentManager().popBackStack();
+                } else {
+                    requireActivity().finish();
+                }
+            }
+        })
+        .addOnFailureListener(e -> {
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void deleteDataFromGoogleSheet(String id) {

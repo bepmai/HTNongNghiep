@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import tlu.edu.vn.ht63.htnongnghiep.Activity.DetailPlant;
@@ -38,30 +39,30 @@ public class ReviewPlantAdapter extends RecyclerView.Adapter<ReviewPlantAdapter.
     @Override
     public void onBindViewHolder(@NonNull ReviewPlantAdapter.MyViewHolder holder, int position) {
         holder.username.setText(reviewPlantList.get(position).getNameuser());
-        holder.nameplant.setText(reviewPlantList.get(position).getNameplant());
-        holder.date.setText(reviewPlantList.get(position).getDate());
-        holder.statrating.setText(reviewPlantList.get(position).getStatrating());
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
+        holder.date.setText(dateTimeFormat.format(reviewPlantList.get(position).getDate()));
+        holder.statrating.setText(reviewPlantList.get(position).getStatrating().toString() + " sao");
         holder.review.setText(reviewPlantList.get(position).getReview());
 
-        holder.recCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int position = holder.getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION) {
-                    Intent intent = new Intent(context, DetailPlant.class);
-                    ReviewPlant reviewPlant = reviewPlantList.get(position);
-
-                    intent.putExtra("nameuser", reviewPlant.getNameuser());
-                    intent.putExtra("nameplant", reviewPlant.getNameplant());
-                    intent.putExtra("date", reviewPlant.getDate());
-                    intent.putExtra("statrating", reviewPlant.getStatrating());
-                    intent.putExtra("review", reviewPlant.getReview());
-
-//                    intent.putExtra("plant",reviewPlant);
-                    context.startActivity(intent);
-                }
-            }
-        });
+//        holder.recCard.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                int position = holder.getAdapterPosition();
+//                if (position != RecyclerView.NO_POSITION) {
+//                    Intent intent = new Intent(context, DetailPlant.class);
+//                    ReviewPlant reviewPlant = reviewPlantList.get(position);
+//
+//                    intent.putExtra("nameuser", reviewPlant.getNameuser());
+//                    intent.putExtra("nameplant", reviewPlant.getNameplant());
+//                    intent.putExtra("date", reviewPlant.getDate());
+//                    intent.putExtra("statrating", reviewPlant.getStatrating());
+//                    intent.putExtra("review", reviewPlant.getReview());
+//
+////                    intent.putExtra("plant",reviewPlant);
+//                    context.startActivity(intent);
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -70,12 +71,11 @@ public class ReviewPlantAdapter extends RecyclerView.Adapter<ReviewPlantAdapter.
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView username, nameplant, statrating, date, review;
+        TextView username, statrating, date, review;
         CardView recCard;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             username = itemView.findViewById(R.id.username);
-            nameplant = itemView.findViewById(R.id.nameplant);
             statrating = itemView.findViewById(R.id.statrating);
             date = itemView.findViewById(R.id.date);
             review = itemView.findViewById(R.id.review);

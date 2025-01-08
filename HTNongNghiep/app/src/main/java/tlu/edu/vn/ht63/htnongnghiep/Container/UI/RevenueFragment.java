@@ -94,34 +94,6 @@ public class RevenueFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         revenueList = new ArrayList<>();
-//        revenueList.add(new Revenue(
-//                "REV001",
-//                "BUYER001",
-//                "PRODUCT001",
-//                "https://example.com/image2.jpg",
-//                "Nguyễn Văn A",
-//                "456 Đường XYZ, Hà Nội",
-//                new Date(),
-//                0,
-//                "Sản phẩm A",
-//                1,
-//                150.0f,
-//                150.0f
-//        ));
-//        revenueList.add(new Revenue(
-//                "REV002",
-//                "BUYER002",
-//                "PRODUCT002",
-//                "https://example.com/image2.jpg",
-//                "Nguyễn Văn B",
-//                "456 Đường XYZ, Hà Nội",
-//                new Date(),
-//                1,
-//                "Sản phẩm B",
-//                1,
-//                150.0f,
-//                150.0f
-//        ));
 
         RevenueViewModel revenueViewModel =
                 new ViewModelProvider(requireActivity()).get(RevenueViewModel.class);
@@ -143,7 +115,9 @@ public class RevenueFragment extends Fragment {
                         revenueList.add(revenue);
                     }
                 }
-                revenueViewModel.setData(revenueList);
+                if(isAdded()){
+                    revenueViewModel.setData(revenueList);
+                }
             }
 
             @Override
@@ -151,6 +125,8 @@ public class RevenueFragment extends Fragment {
                 Log.e("FirebaseError", "Error: " + error.getMessage());
             }
         });
+
+        revenueViewModel.setData(revenueList);
 
         adapter.setOnItemClickListener(new OnItemRevenueClickListener() {
             @Override

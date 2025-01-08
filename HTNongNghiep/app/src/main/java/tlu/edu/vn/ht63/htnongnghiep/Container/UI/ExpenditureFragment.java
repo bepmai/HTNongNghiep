@@ -95,52 +95,6 @@ public class ExpenditureFragment extends Fragment {
 
         expenditureList = new ArrayList<>();
 
-//        expenditureList.add(new Expenditure(
-//                "EXP002",
-//                0,
-//                "SELLER002",
-//                "PRODUCT002",
-//                "https://example.com/image2.jpg",
-//                "Nguyễn Văn A",
-//                "456 Đường XYZ, Hà Nội",
-//                new Date(),
-//                0,
-//                "Sản phẩm A",
-//                1,
-//                200.0f,
-//                200.0f
-//        ));
-//        expenditureList.add(new Expenditure(
-//                "EXP003",
-//                1,
-//                "SELLER003",
-//                "PRODUCT003",
-//                "https://example.com/image2.jpg",
-//                "Nguyễn Văn B",
-//                "456 Đường XYZ, Hà Nội",
-//                new Date(),
-//                2,
-//                "Sản phẩm B",
-//                1,
-//                200.0f,
-//                200.0f
-//        ));
-//        expenditureList.add(new Expenditure(
-//                "EXP004",
-//                0,
-//                "SELLER003",
-//                "PRODUCT003",
-//                "https://example.com/image2.jpg",
-//                "Nguyễn Văn C",
-//                "456 Đường XYZ, Hà Nội",
-//                new Date(),
-//                1,
-//                "Sản phẩm C",
-//                1,
-//                200.0f,
-//                200.0f
-//        ));
-
         ExpenditureViewModel expenditureViewModel =
                 new ViewModelProvider(requireActivity()).get(ExpenditureViewModel.class);
 
@@ -161,7 +115,9 @@ public class ExpenditureFragment extends Fragment {
                         expenditureList.add(expenditure);
                     }
                 }
-                expenditureViewModel.setData(expenditureList);
+                if(isAdded()){
+                    expenditureViewModel.setData(expenditureList);
+                }
             }
 
             @Override
@@ -169,6 +125,8 @@ public class ExpenditureFragment extends Fragment {
                 Log.e("FirebaseError", "Error: " + error.getMessage());
             }
         });
+
+        expenditureViewModel.setData(expenditureList);
 
         adapter.setOnItemClickListener(new OnItemExpenditureClickListener() {
             @Override

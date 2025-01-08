@@ -3,6 +3,8 @@ package tlu.edu.vn.ht63.htnongnghiep.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -55,6 +57,8 @@ public class PlantShopDetailActivity extends AppCompatActivity {
     List<ReviewPlant> reviewPlantList;
     DatabaseReference databaseReference;
     ReviewPlantAdapter reviewPlantAdapter;
+    Float star = 0f;
+    int total = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,9 +95,45 @@ public class PlantShopDetailActivity extends AppCompatActivity {
             nameSellTxt.setText("Người bán: "+plant.getNameuser());
             adressTxt.setText("Địa chỉ: "+plant.getAddress());
             priceTxt.setText("Giá bán: "+plant.getPrice().toString()+" vnđ");
-            descreptionTxt.setText("Mô tả"+plant.getDescription());
-//            ratingTxt.setText(plant.getName());
-//            ratingTotalTxt.setText(plant.getName());
+            descreptionTxt.setText("Mô tả: "+plant.getDescription());
+
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1);
+            recyclerView.setLayoutManager(gridLayoutManager);
+
+            reviewPlantList = new ArrayList<>();
+            reviewPlantAdapter = new ReviewPlantAdapter(this, reviewPlantList);
+            recyclerView.setAdapter(reviewPlantAdapter);
+
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("review").child(plant.getId());
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    reviewPlantList.clear();
+                    star = 0f;
+                    total = 0;
+                    for (DataSnapshot idPlantSnapshot : snapshot.getChildren()) {
+                        ReviewPlant reviewPlant = idPlantSnapshot.getValue(ReviewPlant.class);
+                        if (reviewPlant != null) {
+                            reviewPlantList.add(reviewPlant);
+                            star+=reviewPlant.getStatrating();
+                            total+=1;
+                        }
+                    }
+                    if(total!=0){
+                        ratingTxt.setText((star/total) + "");
+                    }else {
+                        ratingTxt.setText("0");
+                    }
+                    ratingTotalTxt.setText("( "+total+" lượt đánh giá )");
+                    reviewPlantAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("FirebaseError", "Error: " + error.getMessage());
+                }
+            });
+
             Glide.with(img1)
                     .load(plant.getImage())
                     .placeholder(R.drawable.group260) // Ảnh hiển thị khi đang tải
@@ -153,6 +193,7 @@ public class PlantShopDetailActivity extends AppCompatActivity {
 
         Revenue revenue = new Revenue(
                 expenditureDetailId,
+                plant.getId(),
                 userId,
                 plant.getIdplant(),
                 plant.getImage(),
@@ -180,6 +221,7 @@ public class PlantShopDetailActivity extends AppCompatActivity {
 
         Expenditure expenditure = new Expenditure(
                 expenditureDetailId,
+                plant.getId(),
                 0,
                 plant.getUserid(),
                 plant.getIdplant(),
@@ -207,16 +249,6 @@ public class PlantShopDetailActivity extends AppCompatActivity {
         .addOnFailureListener(e -> {
             Toast.makeText(PlantShopDetailActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         });
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1);
-        recyclerView.setLayoutManager(gridLayoutManager);
-
-        reviewPlantList = new ArrayList<>();
-        reviewPlantAdapter = new ReviewPlantAdapter(this, reviewPlantList);
-        recyclerView.setAdapter(reviewPlantAdapter);
-        reviewPlantList.add(new ReviewPlant("User1", "Plant1", "01/01/2023", "5", "Excellent"));
-        reviewPlantList.add(new ReviewPlant("User2", "Plant2", "02/01/2023", "4", "Good quality"));
-        reviewPlantAdapter.notifyDataSetChanged();
 
 //        plantShopDetailRef.removeValue().addOnSuccessListener(aVoid -> {
 //            Toast.makeText(PlantShopDetailActivity.this, "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();

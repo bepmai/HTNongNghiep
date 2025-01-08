@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activity.PlantShopDetailActivity"
-    android:background="@color/green">
+    android:background="@color/super_white_gray">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
@@ -92,7 +92,7 @@
 
                 <TextView
                     android:id="@+id/nameSellTxt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:text="người bán"
@@ -103,7 +103,7 @@
 
                 <TextView
                     android:id="@+id/adressTxt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:text="địa chỉ"
@@ -114,7 +114,7 @@
 
                 <TextView
                     android:id="@+id/priceTxt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:text="giá bán"
@@ -125,7 +125,7 @@
 
                 <TextView
                     android:id="@+id/descreptionTxt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:text="mô tả"
@@ -150,6 +150,7 @@
                 android:text="4,2"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:layout_marginLeft="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -181,14 +182,12 @@
             android:id="@+id/srollview_facitily_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:fillViewport="true">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:paddingBottom="16dp"/>
         </ScrollView>
         <LinearLayout

@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class Revenue implements Serializable {
     private String id;
+    private String idPlantShop;
     private String idBuyer;
     private String idProduct;
     private String productImage;
@@ -20,8 +21,9 @@ public class Revenue implements Serializable {
     public Revenue() {
     }
 
-    public Revenue(String id, String idBuyer, String idProduct, String productImage, String nameBuyer, String adress, Date date, int status, String nameProduct, int total, Float productCost, Float totalPayment) {
+    public Revenue(String id, String idPlantShop, String idBuyer, String idProduct, String productImage, String nameBuyer, String adress, Date date, int status, String nameProduct, int total, Float productCost, Float totalPayment) {
         this.id = id;
+        this.idPlantShop = idPlantShop;
         this.idBuyer = idBuyer;
         this.idProduct = idProduct;
         this.productImage = productImage;
@@ -33,6 +35,14 @@ public class Revenue implements Serializable {
         this.total = total;
         this.productCost = productCost;
         this.totalPayment = totalPayment;
+    }
+
+    public String getIdPlantShop() {
+        return idPlantShop;
+    }
+
+    public void setIdPlantShop(String idPlantShop) {
+        this.idPlantShop = idPlantShop;
     }
 
     public String getId() {

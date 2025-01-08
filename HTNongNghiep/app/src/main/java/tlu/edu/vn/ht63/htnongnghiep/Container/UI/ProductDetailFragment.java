@@ -179,6 +179,7 @@ public class ProductDetailFragment extends Fragment {
                 }
                 Expenditure expenditure_new = new Expenditure(
                         productDetailId,
+                        "",
                         1,
                         "",
                         "",

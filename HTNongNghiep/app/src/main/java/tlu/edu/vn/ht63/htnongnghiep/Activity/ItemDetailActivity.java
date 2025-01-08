@@ -106,6 +106,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         Revenue revenue = new Revenue(
                 expenditureDetailId,
+                plant.getId(),
                 userId,
                 plant.getIdplant(),
                 plant.getImage(),
@@ -133,6 +134,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         Expenditure expenditure = new Expenditure(
                 expenditureDetailId,
+                plant.getId(),
                 0,
                 plant.getUserid(),
                 plant.getIdplant(),

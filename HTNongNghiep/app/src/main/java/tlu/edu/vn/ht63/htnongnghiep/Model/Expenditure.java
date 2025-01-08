@@ -8,6 +8,7 @@ public class Expenditure implements Serializable {
     public static final int TYPE_PRODUCT = 1;
 
     private String id;
+    private String idPlantShop;
     private int viewType; // Phân loại kiểu View
     private String idSeller;
     private String idProduct;
@@ -23,8 +24,9 @@ public class Expenditure implements Serializable {
 
     public Expenditure(){}
 
-    public Expenditure(String id, int viewType, String idSeller, String idProduct, String productImage, String nameSeller, String adress, Date date, int status, String nameProduct, int total, Float productCost, Float totalPayment) {
+    public Expenditure(String id, String idPlantShop, int viewType, String idSeller, String idProduct, String productImage, String nameSeller, String adress, Date date, int status, String nameProduct, int total, Float productCost, Float totalPayment) {
         this.id = id;
+        this.idPlantShop = idPlantShop;
         this.viewType = viewType;
         this.idSeller = idSeller;
         this.idProduct = idProduct;
@@ -45,6 +47,14 @@ public class Expenditure implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getIdPlantShop() {
+        return idPlantShop;
+    }
+
+    public void setIdPlantShop(String idPlantShop) {
+        this.idPlantShop = idPlantShop;
     }
 
     public int getViewType() {

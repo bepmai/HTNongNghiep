@@ -198,11 +198,14 @@ public class RevenueDetailFragment extends Fragment {
         expenditureDetailRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Expenditure expenditure = snapshot.getValue(Expenditure.class);
-                if (expenditure == null) {
-                    Toast.makeText(getContext(), "Hoá đơn chi không tồn tại", Toast.LENGTH_SHORT).show();
-                }else {
-                    expenditureDetailRef.setValue(expenditure).addOnCompleteListener(task -> {
+                if (isAdded()) {
+                    Expenditure expenditure = snapshot.getValue(Expenditure.class);
+                    if (expenditure == null) {
+                        Toast.makeText(getContext(), "Hoá đơn chi không tồn tại", Toast.LENGTH_SHORT).show();
+                    }else {
+                        expenditure.setStatus(2);
+                        expenditureDetailRef.setValue(expenditure).addOnCompleteListener(task -> {
+                            if (isAdded()){
                                 if (task.isSuccessful()) {
                                     Toast.makeText(getContext(), "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
                                     if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
@@ -211,10 +214,12 @@ public class RevenueDetailFragment extends Fragment {
                                         requireActivity().finish();
                                     }
                                 }
-                            })
-                            .addOnFailureListener(e -> {
-                                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                            });
+                            }
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+                    }
                 }
             }
 
