@@ -31,9 +31,17 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <ImageView
+                android:id="@+id/img1"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/tree"
+                android:scaleType="centerCrop"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
                 android:text="Tên cây:"
                 android:textColor="#555" />
@@ -49,6 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:layout_marginTop="16dp"
                 android:text="Địa chỉ"
                 android:textColor="#555" />
 
@@ -104,8 +113,9 @@
             android:layout_height="wrap_content"
             android:text="Gửi thông tin"
             android:backgroundTint="#4CAF50"
+            android:textSize="16sp"
             android:textColor="#FFFFFF"
-            android:padding="16dp"
+            android:padding="8dp"
             android:layout_marginTop="16dp"/>
     </LinearLayout>
 </ScrollView>
