@@ -180,9 +180,15 @@ public class SignUpActivity extends AppCompatActivity {
         if (user.isEmpty()){
             signin_username.setError("Tài khoản không được để trống");
             check = false;
+        } else if (!user.endsWith("@gmail.com")) {
+            signin_username.setError("Email không hợp lệ. Vui lòng kiểm tra lại.");
+            check = false;
         }
         if (pass.isEmpty()){
             signin_password.setError("Mật khẩu không được để trống");
+            check = false;
+        }else if (!isValidPassword(pass)) {
+            signin_username.setError("Mật khẩu phải bao gồm cả chữ cái và số.");
             check = false;
         }
         if (re_pass.isEmpty()){
@@ -212,6 +218,11 @@ public class SignUpActivity extends AppCompatActivity {
     public boolean isValidPhone(String phone) {
         String phonePattern = "^(0[3|5|7|8|9])+([0-9]{8})$";
         return Pattern.matches(phonePattern, phone);
+    }
+
+    public boolean isValidPassword(String password) {
+        String passwordPattern = "^(?=.*[A-Za-z])(?=.*\\d).+$";
+        return Pattern.matches(passwordPattern, password);
     }
 
     public boolean isValidEmail(String email) {

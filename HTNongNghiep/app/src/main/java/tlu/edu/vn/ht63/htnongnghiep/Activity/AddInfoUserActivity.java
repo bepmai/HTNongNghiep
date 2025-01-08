@@ -32,11 +32,10 @@ import tlu.edu.vn.ht63.htnongnghiep.R;
 public class AddInfoUserActivity extends AppCompatActivity {
     Spinner genderSpinner,plantsSpinner;
     EditText datePickerEditText,nameEditText,adressEditText;
-    TextView genderSpinnerError,plantSpinnerError;
     Button addInfoBtn;
     FirebaseDatabase database;
     DatabaseReference reference;
-    String genderText , plantText ;
+    String genderText , plantText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +52,8 @@ public class AddInfoUserActivity extends AppCompatActivity {
         plantsSpinner = findViewById(R.id.plantsSpinner);
         datePickerEditText = findViewById(R.id.datePickerEditText);
         addInfoBtn = findViewById(R.id.addInfoBtn);
-//        skipButton = findViewById(R.id.skipButton);
         nameEditText = findViewById(R.id.nameEditText);
         adressEditText = findViewById(R.id.adressEditText);
-        genderSpinnerError = findViewById(R.id.genderSpinnerError);
-        plantSpinnerError = findViewById(R.id.plantSpinnerError);
 
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("inforUser");
@@ -74,6 +70,7 @@ public class AddInfoUserActivity extends AppCompatActivity {
 
                         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd MMMM yyyy", new Locale("vi"));
                         datePickerEditText.setText(dateFormat.format(calendar.getTime()));
+                        datePickerEditText.setError(null);
                     },
                     calendar.get(Calendar.YEAR),
                     calendar.get(Calendar.MONTH),
@@ -95,12 +92,7 @@ public class AddInfoUserActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 genderText = ((TextView) view).getText().toString();
-                if (position==0){
-                    ((TextView) view).setTextColor(getResources().getColor(R.color.super_white_black));
-                }else {
-                    ((TextView) view).setTextColor(getResources().getColor(R.color.black));
-                    genderSpinnerError.setVisibility(View.GONE);
-                }
+                ((TextView) view).setTextColor(getResources().getColor(R.color.black));
             }
 
             @Override
@@ -121,12 +113,7 @@ public class AddInfoUserActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 plantText = ((TextView) view).getText().toString();
-                if (position==0){
-                    ((TextView) view).setTextColor(getResources().getColor(R.color.super_white_black));
-                }else {
-                    ((TextView) view).setTextColor(getResources().getColor(R.color.black));
-                    plantSpinnerError.setVisibility(View.GONE);
-                }
+                ((TextView) view).setTextColor(getResources().getColor(R.color.black));
             }
 
             @Override
@@ -159,16 +146,6 @@ public class AddInfoUserActivity extends AppCompatActivity {
                 }
             }
         });
-
-//        skipButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
-//                String userId = sharedPreferences.getString("userId", null);
-//                InforUser inforUser = new InforUser("", "", "", "", "", plantText);
-//                reference.child(userId).setValue(inforUser);
-//            }
-//        });
     }
 
     private boolean checkSignUp(){
@@ -188,24 +165,8 @@ public class AddInfoUserActivity extends AppCompatActivity {
         }
 
         if (adress.isEmpty()){
-            adressEditText.setError("Mật khẩu nhập lại không được để trống");
+            adressEditText.setError("Trường địa chỉ không được để trống");
             check = false;
-        }
-
-        if (genderSpinner.getSelectedItemPosition() == 0){
-            genderSpinnerError.setText("Bạn phải chọn một giá trị");
-            genderSpinnerError.setVisibility(View.VISIBLE);
-            check = false;
-        } else {
-            genderSpinnerError.setVisibility(View.GONE);
-        }
-
-        if(plantsSpinner.getSelectedItemPosition() == 0){
-            plantSpinnerError.setText("Bạn phải chọn một giá trị");
-            plantSpinnerError.setVisibility(View.VISIBLE);
-            check = false;
-        }else {
-            plantSpinnerError.setVisibility(View.GONE);
         }
 
         return check;

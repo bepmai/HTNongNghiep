@@ -92,8 +92,8 @@ public class PlantDetailActivity extends AppCompatActivity {
             tree_description.setText(plant.getDescription());
             Glide.with(img1)
                     .load(plant.getImage())
-                    .placeholder(R.drawable.group260) // Ảnh hiển thị khi đang tải
-                    .error(R.drawable.group260)       // Ảnh hiển thị khi lỗi
+                    .placeholder(R.drawable.group260)
+                    .error(R.drawable.group260)
                     .into(img1);
         }
 
