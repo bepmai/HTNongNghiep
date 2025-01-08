@@ -39,7 +39,7 @@ import tlu.edu.vn.ht63.htnongnghiep.R;
 public class PlantDetailActivity extends AppCompatActivity {
     EditText tree_name,tree_name_duplicate,tree_price,tree_description;
     ImageView img1;
-    Button submit_button;
+    Button submit_button,delete_button;
     DatabaseReference plantDetailRef;
     String userId;
     private String imageURL;
@@ -207,6 +207,18 @@ public class PlantDetailActivity extends AppCompatActivity {
             }
         });
 
+        delete_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new android.app.AlertDialog.Builder(PlantDetailActivity.this)
+                        .setTitle("Xác nhận xóa")
+                        .setMessage("Bạn có chắc chắn muốn xóa bài đăng này không?")
+                        .setPositiveButton("Xóa", (dialog, which) -> deletePlantData())
+                        .setNegativeButton("Hủy", null)
+                        .show();
+            }
+        });
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,6 +226,16 @@ public class PlantDetailActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
+        });
+    }
+
+    private void deletePlantData() {
+        plantDetailRef.child(plant.getId()).removeValue().addOnSuccessListener(aVoid -> {
+            Toast.makeText(this, "Xoá bài đăng thành công", Toast.LENGTH_SHORT).show();
+            finish();
+        })
+        .addOnFailureListener(e -> {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         });
     }
 }

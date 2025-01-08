@@ -134,17 +134,36 @@
                 android:inputType="textMultiLine"
                 android:minHeight="100dp"
                 android:padding="8dp" />
-
-            <Button
-                android:id="@+id/submit_button"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Gửi thông tin"
-                android:backgroundTint="@color/green"
-                android:textSize="16sp"
-                android:textColor="#FFFFFF"
-                android:padding="8dp"
-                android:layout_marginTop="16dp"/>
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/delete_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Xoá"
+                    android:backgroundTint="@color/red"
+                    android:textSize="16sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:padding="8dp"
+                    android:layout_marginTop="16dp"/>
+
+                <Button
+                    android:id="@+id/submit_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Gửi thông tin"
+                    android:backgroundTint="@color/green"
+                    android:textSize="16sp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="#FFFFFF"
+                    android:padding="8dp"
+                    android:layout_marginTop="16dp"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
