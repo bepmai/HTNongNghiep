@@ -124,6 +124,7 @@ public class PlantShopDetailActivity extends AppCompatActivity {
                     }else {
                         ratingTxt.setText("0");
                     }
+
                     ratingTotalTxt.setText("( "+total+" lượt đánh giá )");
                     reviewPlantAdapter.notifyDataSetChanged();
                 }

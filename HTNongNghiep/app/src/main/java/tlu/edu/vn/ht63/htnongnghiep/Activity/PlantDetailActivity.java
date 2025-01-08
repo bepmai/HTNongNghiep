@@ -131,10 +131,14 @@ public class PlantDetailActivity extends AppCompatActivity {
                 dialog.show();
 
                 String plantDetailId;
-                if (plant.getId().isEmpty() || plant.getId() == "" || plant.getId() == null){
-                    plantDetailId = plantDetailRef.push().getKey();
+                if (plant != null){
+                    if (plant.getId() == "" || plant.getId() == null){
+                        plantDetailId = plantDetailRef.push().getKey();
+                    }else {
+                        plantDetailId = plant.getId();
+                    }
                 }else {
-                    plantDetailId = plant.getId();
+                    plantDetailId = plantDetailRef.push().getKey();
                 }
 
                 Plant plant_new = new Plant(
@@ -150,14 +154,13 @@ public class PlantDetailActivity extends AppCompatActivity {
                         0f,
                         ""
                 );
+                if (plant != null){
+                    if (!plant.getImage().isEmpty() & plant.getImage() != "" & plant.getImage() != null){
+                        plant_new.setImage(plant.getImage());
+                    }
+                }
 
                 plant_new.setNameuser(fullName);
-
-                if (plant.getImage().isEmpty() || plant.getImage() == "" || plant.getImage() == null){
-
-                }else {
-                    plant_new.setImage(plant.getImage());
-                }
 
                 if (uri != null) {
                     StorageReference storageReference = FirebaseStorage.getInstance()
@@ -174,8 +177,6 @@ public class PlantDetailActivity extends AppCompatActivity {
                                     if (task2.isSuccessful()) {
                                         Toast.makeText(PlantDetailActivity.this, "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
                                         dialog.dismiss();
-                                        Intent intent = new Intent(PlantDetailActivity.this, PlantShopDetailActivity.class);
-                                        startActivity(intent);
                                         finish();
                                     }
                                 })
@@ -195,8 +196,6 @@ public class PlantDetailActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(PlantDetailActivity.this, "Lưu thông tin thành công", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
-                            Intent intent = new Intent(PlantDetailActivity.this, PlantShopDetailActivity.class);
-                            startActivity(intent);
                             finish();
                         }
                     })

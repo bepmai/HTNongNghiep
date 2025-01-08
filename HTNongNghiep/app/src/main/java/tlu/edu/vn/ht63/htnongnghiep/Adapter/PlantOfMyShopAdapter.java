@@ -40,8 +40,8 @@ public class PlantOfMyShopAdapter extends RecyclerView.Adapter<PlantOfMyShopAdap
     public void onBindViewHolder(@NonNull PlantViewHolder holder, int position) {
         Plant plant = plantList.get(position);
         holder.name.setText(plant.getName());
-        holder.price.setText(plant.getPrice().toString());
-        holder.rating.setText(plant.getRating().toString());
+        holder.price.setText("Giá: "+plant.getPrice().toString());
+//        holder.rating.setText(plant.getRating().toString());
         Glide.with(holder.image.getContext())
                 .load(plant.getImage())
                 .placeholder(R.drawable.group260) // Ảnh hiển thị khi đang tải
@@ -54,14 +54,13 @@ public class PlantOfMyShopAdapter extends RecyclerView.Adapter<PlantOfMyShopAdap
 //        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("HH:mm dd/MM/yyyy");
 //        holder.dateSell.setText(dateTimeFormat.format(plant.getDatesell()));
 //        holder.address.setText(plant.getAddress());
-        holder.description.setText(plant.getDescription());
+//        holder.description.setText(plant.getDescription());
 
         // Thiết lập sự kiện click trực tiếp trong adapter
         holder.itemView.setOnClickListener(v -> {
             // Tạo Intent để chuyển sang activity chi tiết
             Intent intent = new Intent(context, PlantDetailActivity.class);
             intent.putExtra("plant",plant);
-
             context.startActivity(intent);
         });
     }
@@ -80,11 +79,11 @@ public class PlantOfMyShopAdapter extends RecyclerView.Adapter<PlantOfMyShopAdap
             super(itemView);
             name = itemView.findViewById(R.id.product_name);
             price = itemView.findViewById(R.id.product_price);
-            discount = itemView.findViewById(R.id.product_discount);
-            rating = itemView.findViewById(R.id.product_rating);
+//            discount = itemView.findViewById(R.id.product_discount);
+//            rating = itemView.findViewById(R.id.product_rating);
             image = itemView.findViewById(R.id.product_image);
             nameUser = itemView.findViewById(R.id.product_nameuser);
-            description = itemView.findViewById(R.id.product_description);
+//            description = itemView.findViewById(R.id.product_description);
 //            id = itemView.findViewById(R.id.product_id);
 //            idPlant = itemView.findViewById(R.id.product_idplant);
 //            idUser = itemView.findViewById(R.id.product_iduser);
