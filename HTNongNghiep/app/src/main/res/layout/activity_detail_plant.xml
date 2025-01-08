@@ -451,6 +451,20 @@
                     android:textSize="13dp"
                     android:text="Xóa" />
             </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_sell"
+                android:textColor="@color/white"
+                android:background="@drawable/border_gray"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="13dp"
+                android:text="Bán"
+                android:layout_below="@+id/LinearLayout2"/>
         </RelativeLayout>
     </ScrollView>
 </LinearLayout>
