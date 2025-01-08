@@ -13,10 +13,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.support.annotation.NonNull;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -81,6 +84,7 @@ public class GardenFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_garden, container, false);
 
+
         btn_add = view.findViewById(R.id.btn_add);
         recyclerView = view.findViewById(R.id.recyclerViewPlant);
 
@@ -91,13 +95,76 @@ public class GardenFragment extends Fragment {
         plantOfUserAdapter = new PlantOfUserAdapter(getActivity(), plantOfUserList);
         recyclerView.setAdapter(plantOfUserAdapter);
 
+
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
         String userId = sharedPreferences.getString("userId", null);
 
+        EditText editText = requireActivity().findViewById(R.id.searchBar);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (userId!=null && !userId.isEmpty()) {
+
+                    if (!s.toString().isEmpty()) {
+                        databaseReference = FirebaseDatabase.getInstance().getReference("PlantOfUser").child(userId);
+                        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                plantOfUserList.clear();
+                                for (DataSnapshot idPlantSnapshot : snapshot.getChildren()) {
+                                    PlantOfUser plantOfUser = idPlantSnapshot.getValue(PlantOfUser.class);
+                                    if (plantOfUser != null) {
+                                        if(plantOfUser.getNameplant().toLowerCase().contains(s.toString().toLowerCase())){
+                                            plantOfUserList.add(plantOfUser);
+                                        }
+                                    }
+                                }
+                                plantOfUserAdapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Log.e("FirebaseError", "Error: " + error.getMessage());
+                            }
+                        });
+                    } else {
+                        databaseReference = FirebaseDatabase.getInstance().getReference("PlantOfUser").child(userId);
+                        eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                plantOfUserList.clear();
+                                for (DataSnapshot idPlantSnapshot : snapshot.getChildren()) {
+                                    PlantOfUser plantOfUser = idPlantSnapshot.getValue(PlantOfUser.class);
+                                    if (plantOfUser != null) {
+                                        plantOfUserList.add(plantOfUser);
+                                    }
+                                }
+                                plantOfUserAdapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Log.e("FirebaseError", "Error: " + error.getMessage());
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
         if (userId == null) {
             Toast.makeText(requireContext(), "User ID is missing", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        } else {
 
             databaseReference = FirebaseDatabase.getInstance().getReference("PlantOfUser").child(userId);
             eventListener = databaseReference.addValueEventListener(new ValueEventListener() {

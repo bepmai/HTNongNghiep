@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -158,7 +159,7 @@ public class InfUserDetail extends AppCompatActivity {
             }
 
             if (userId != null) {
-                saveData(fullName,address,dateOfBirth, nameplant,gender,userId);
+                saveData(fullName,address,nameplant,dateOfBirth,gender,userId);
             } else {
                 Toast.makeText(InfUserDetail.this, "Không thể lấy userId để cập nhật!", Toast.LENGTH_SHORT).show();
             }
@@ -228,7 +229,7 @@ public class InfUserDetail extends AppCompatActivity {
                 taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         imageURL = task.getResult().toString();
-
+                        Log.d("Error",nameplant);
                         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("inforUser").child(userId);
 
                         Map<String, Object> updates = new HashMap<>();

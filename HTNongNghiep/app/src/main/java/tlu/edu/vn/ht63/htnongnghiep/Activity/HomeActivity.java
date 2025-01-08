@@ -5,7 +5,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
@@ -172,6 +175,7 @@ public class HomeActivity extends AppCompatActivity {
                 transaction.commit();
             }
         });
+
     }
 
     @Override
