@@ -451,7 +451,6 @@
                     android:textSize="13dp"
                     android:text="Xóa" />
             </LinearLayout>
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_sell"
                 android:textColor="@color/white"
