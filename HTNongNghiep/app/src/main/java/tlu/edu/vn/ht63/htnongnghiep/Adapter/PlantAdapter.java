@@ -1,5 +1,6 @@
 package tlu.edu.vn.ht63.htnongnghiep.Adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,16 +16,17 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import tlu.edu.vn.ht63.htnongnghiep.Activity.ItemDetailActivity;
+import tlu.edu.vn.ht63.htnongnghiep.Activity.PlantShopDetailActivity;
 import tlu.edu.vn.ht63.htnongnghiep.Model.Plant;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHolder> {
+    private Context context;
     private List<Plant> plantList;
-    private final OnItemClickListener listener;
 
-    public PlantAdapter(List<Plant> plantList, OnItemClickListener listener) {
+    public PlantAdapter(Context context,List<Plant> plantList) {
         this.plantList = plantList;
-        this.listener = listener;
+        this.context = context;
     }
 
     @NonNull
@@ -57,22 +59,10 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
         // Thiết lập sự kiện click trực tiếp trong adapter
         holder.itemView.setOnClickListener(v -> {
             // Tạo Intent để chuyển sang activity chi tiết
-            Intent intent = new Intent(holder.itemView.getContext(), ItemDetailActivity.class);
+            Intent intent = new Intent(context, PlantShopDetailActivity.class);
             intent.putExtra("plant",plant);
 
-            intent.putExtra("plant_name", plant.getName());
-            intent.putExtra("plant_price", plant.getPrice());
-            intent.putExtra("plant_rating", plant.getRating());
-            intent.putExtra("plant_image", plant.getImage());
-            intent.putExtra("plant_description", plant.getDescription());
-            intent.putExtra("plant_nameuser", plant.getNameuser());
-//            intent.putExtra("plant_idplant", plant.getIdplant());
-//            intent.putExtra("plant_iduser", plant.getUserid());
-//            intent.putExtra("plant_datesell", plant.getDatesell());
-//            intent.putExtra("plant_address", plant.getAddress());
-
-            // Start activity
-            holder.itemView.getContext().startActivity(intent);
+            context.startActivity(intent);
         });
     }
 
@@ -101,9 +91,5 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.PlantViewHol
 //            dateSell = itemView.findViewById(R.id.product_datesell);
 //            address = itemView.findViewById(R.id.product_address);
         }
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(Plant plant);
     }
 }

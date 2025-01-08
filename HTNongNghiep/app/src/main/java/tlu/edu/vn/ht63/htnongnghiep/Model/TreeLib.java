@@ -7,7 +7,7 @@ public class TreeLib implements Serializable {
     public TreeLib(){
 
     }
-    public TreeLib(String id, String name, String unique, String mean, String heightMean, String temperature, String distribution, String area, String enviromentLive, String suns, String waters, String discription, String lifecycle, String feature, String trunk,List<String> images) {
+    public TreeLib(String id, String name, String unique, String mean, String heightMean, String temperature, String distribution, String area, String environmentLive, String suns, String waters, String discription, String lifecycle, String feature, String trunk,List<String> images) {
         this.id = id;
         this.name = name;
         this.unique = unique;
@@ -16,7 +16,7 @@ public class TreeLib implements Serializable {
         this.temperature = temperature;
         this.distribution = distribution;
         this.area = area;
-        this.enviromentLive = enviromentLive;
+        this.environmentLive = environmentLive;
         this.suns = suns;
         this.waters = waters;
         this.discription = discription;
@@ -90,12 +90,12 @@ public class TreeLib implements Serializable {
         this.area = area;
     }
 
-    public String getEnviromentLive() {
-        return enviromentLive;
+    public String getEnvironmentLive() {
+        return environmentLive;
     }
 
     public void setEnviromentLive(String enviromentLive) {
-        this.enviromentLive = enviromentLive;
+        this.environmentLive = enviromentLive;
     }
 
     public String getSuns() {
@@ -154,7 +154,7 @@ public class TreeLib implements Serializable {
     private String temperature;
     private String distribution;
     private String area;
-    private String enviromentLive;
+    private String environmentLive;
     private String suns;
     private String waters;
     private String discription;

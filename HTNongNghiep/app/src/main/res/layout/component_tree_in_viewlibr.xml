@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="10dp"
     android:layout_weight="1"
     android:background="@drawable/border_radius_10dp"
     android:backgroundTint="#33A8B4CA">
@@ -17,16 +18,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/ImageTree"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="180dp"
             android:layout_height="180dp"
-            android:src="@drawable/congtao"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:cardCornerRadius="10dp"
+            app:layout_constraintVertical_bias="0.0">
+
+            <ImageView
+                android:id="@+id/ImageTree"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/congtao" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/nameTree"
@@ -38,7 +47,7 @@
             android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ImageTree" />
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/viewDetail"

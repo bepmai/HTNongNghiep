@@ -149,7 +149,7 @@ public class AddPlant extends AppCompatActivity {
         if (treelib != null) {
             Glide.with(image).load(treelib.getImages().get(0)).into(image);
             nameplant.setText(treelib.getName());
-            int position = adapter_environment.getPosition(treelib.getEnviromentLive());
+            int position = adapter_environment.getPosition(treelib.getEnvironmentLive());
             environment.setSelection(position);
             weeklyWatering.setText(treelib.getWaters());
             weeklySunExposure.setText(treelib.getSuns());
