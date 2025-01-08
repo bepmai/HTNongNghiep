@@ -166,28 +166,34 @@ public class AddPlant extends AppCompatActivity {
     }
 
     public void saveData() {
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("PlantImages")
-                .child(uri.getLastPathSegment());
         AlertDialog.Builder builder = new AlertDialog.Builder(AddPlant.this);
         builder.setCancelable(false);
         AlertDialog dialog = builder.create();
         dialog.show();
-        storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                while (!uriTask.isComplete()) ;
-                Uri urlImage = uriTask.getResult();
-                imageURL = urlImage.toString();
-                uploadData();
-                dialog.dismiss();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                dialog.dismiss();
-            }
-        });
+
+        if (uri!=null){
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("PlantImages")
+                    .child(uri.getLastPathSegment());
+            storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                    while (!uriTask.isComplete()) ;
+                    Uri urlImage = uriTask.getResult();
+                    imageURL = urlImage.toString();
+                    uploadData();
+                    dialog.dismiss();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    dialog.dismiss();
+                }
+            });
+        }else {
+            uploadData();
+            dialog.dismiss();
+        }
     }
 
     public void uploadData() {

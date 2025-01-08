@@ -34,6 +34,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.Date;
+
+import tlu.edu.vn.ht63.htnongnghiep.Model.Plant;
 import tlu.edu.vn.ht63.htnongnghiep.Model.PlantOfUser;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
@@ -45,6 +48,9 @@ public class DetailPlant extends AppCompatActivity {
     String imageUrl = "";
     private String currentImageUrl;
     Uri uri;
+    PlantOfUser plantOfUser;
+    String userId,fullName,adress;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -187,9 +193,9 @@ public class DetailPlant extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(DetailPlant.this)
-                        .setTitle("Xác nhận xóa")
-                        .setMessage("Bạn có chắc chắn muốn xóa cây này không?")
-                        .setPositiveButton("Xóa", (dialog, which) -> deletePlantData())
+                        .setTitle("Xác nhận bán")
+                        .setMessage("Bạn có chắc chắn muốn bán cây này không?")
+                        .setPositiveButton("Đồng ý", (dialog, which) -> sellPlantData())
                         .setNegativeButton("Hủy", null)
                         .show();
             }
@@ -208,6 +214,24 @@ public class DetailPlant extends AppCompatActivity {
                         Toast.makeText(DetailPlant.this, "Không có ảnh để cập nhật!", Toast.LENGTH_SHORT).show();
                     }
                 }
+            }
+        });
+        SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        userId = sharedPreferences.getString("userId", null);
+
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("inforUser");
+        userRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    fullName = dataSnapshot.child("fullName").getValue(String.class);
+                    adress = dataSnapshot.child("adress").getValue(String.class);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(DetailPlant.this, "Lỗi khi lấy dữ liệu: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -235,7 +259,7 @@ public class DetailPlant extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         String userId = sharedPreferences.getString("userId", null);
 
-        PlantOfUser plantOfUser = (PlantOfUser) getIntent().getSerializableExtra("plant");
+        plantOfUser = (PlantOfUser) getIntent().getSerializableExtra("plant");
 
         if (userId == null || plantOfUser.getId() == null) {
             Toast.makeText(this, "User ID hoặc Plant ID bị thiếu!", Toast.LENGTH_SHORT).show();
@@ -281,7 +305,7 @@ public class DetailPlant extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
         String userId = sharedPreferences.getString("userId", null);
 
-        PlantOfUser plantOfUser = (PlantOfUser) getIntent().getSerializableExtra("plant");
+        plantOfUser = (PlantOfUser) getIntent().getSerializableExtra("plant");
 
         if (userId == null || plantOfUser.getId() == null) {
             Toast.makeText(this, "User ID hoặc Plant ID bị thiếu!", Toast.LENGTH_SHORT).show();
@@ -334,7 +358,7 @@ public class DetailPlant extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(DetailPlant.this, "Xóa cây thành công!", Toast.LENGTH_SHORT).show();
-                        finish(); // Đóng Activity sau khi xóa
+                        finish();
                     }
                 })
                 .addOnFailureListener(e -> {
@@ -342,5 +366,34 @@ public class DetailPlant extends AppCompatActivity {
                 });
     }
 
+    private void sellPlantData() {
+        Plant plant = new Plant(
+                "",
+                "",
+                "",
+                "Không có",
+                new Date(),
+                "",
+                "",
+                "",
+                0f,
+                0f,
+                ""
+        );
+        plantOfUser = (PlantOfUser) getIntent().getSerializableExtra("plant");
+        if (plantOfUser!=null){
+            plant.setIdplant(plantOfUser.getId());
+            plant.setDescription(plantOfUser.getNote());
+            plant.setName(plantOfUser.getNameplant());
+            plant.setImage(plantOfUser.getImage());
+        }
 
+        plant.setNameuser(fullName);
+        plant.setAddress(adress);
+
+        Intent intent = new Intent(this, PlantDetailActivity.class);
+        intent.putExtra("plant",plant);
+
+        startActivity(intent);
+    }
 }
