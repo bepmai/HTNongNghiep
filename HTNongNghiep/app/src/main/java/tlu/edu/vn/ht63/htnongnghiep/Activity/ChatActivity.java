@@ -4,11 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,16 +24,19 @@ import java.util.List;
 
 import tlu.edu.vn.ht63.htnongnghiep.Adapter.ChatAdapter;
 import tlu.edu.vn.ht63.htnongnghiep.Model.InforUser;
+import tlu.edu.vn.ht63.htnongnghiep.Model.Search;
 import tlu.edu.vn.ht63.htnongnghiep.R;
 
 public class ChatActivity extends AppCompatActivity {
     private List<InforUser> chatList;
     private RecyclerView recyclerView;
 
-    private EditText searchInput;
+
     private ChatAdapter adapter;
     private ImageView imageView;
     private FirebaseDatabase database;
+    private List<Search> list;
+    private SearchView searchView;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -46,9 +50,11 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         // Initialize views
-        searchInput = findViewById(R.id.search);
+
         recyclerView = findViewById(R.id.chatRecyclerView);
         imageView = findViewById(R.id.menu_chat);
+        searchView = findViewById(R.id.chatSearch);
+        searchView.clearFocus();
 
         // Set up click listener for menu icon
         imageView.setOnClickListener(v -> {
@@ -64,6 +70,31 @@ public class ChatActivity extends AppCompatActivity {
 
         // Load chat data from Firebase
         loadChatData();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return false;
+            }
+        });
+    }
+    private void filterList(String text){
+        List<InforUser> filteredList = new ArrayList<>();
+        for (InforUser search: chatList){
+            if(search.getFullName().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(search);
+            }
+        }
+        if(filteredList.isEmpty()){
+//            Toast.makeText(this, "No data found", Toast.LENGTH_SHORT).show();
+        }else{
+            adapter.setFilteredList(filteredList);
+        }
     }
 
     private void initRecyclerView() {
