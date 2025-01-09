@@ -29,6 +29,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         this.list = list;
         this.context = context;
     }
+    public void setFilteredList(List<InforUser> filteredList){
+        this.list = filteredList;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override

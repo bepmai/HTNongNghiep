@@ -24,8 +24,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/search"
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/chatSearch"
                 android:layout_width="wrap_content"
                 app:layout_flexGrow="1"
                 android:layout_height="45dp"
@@ -34,9 +34,10 @@
                 android:drawableStart="@drawable/ic_search"
                 android:drawablePadding="8dp"
                 android:hint="Search"
-                android:inputType=""
+                android:inputType="text"
                 android:padding="10dp"
                 android:textSize="12sp"
+                app:queryHint="Tìm kiếm"
                 tools:ignore="HardcodedText,TextFields" />
 
             <ImageView
