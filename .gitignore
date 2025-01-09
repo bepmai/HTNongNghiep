@@ -1,0 +1,15 @@
+build/
+.idea/
+*.iml
+*.log
+*.tmp
+*.lock
+*.class
+.gradle/
+*.keystore
+local.properties
+*.env
+.DS_Store
+Thumbs.db
+desktop.ini
+google-services.json

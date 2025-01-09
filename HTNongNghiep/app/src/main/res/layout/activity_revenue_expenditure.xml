@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/green"
+    tools:context=".Activity.RevenueExpenditureActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/statusBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#3CC18E"
+            android:padding="10dp"
+            app:alignItems="center"
+            app:flexDirection="row"
+            app:justifyContent="flex_start">
+
+            <ImageButton
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                app:srcCompat="@drawable/ic_back_white" />
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/border_radius_5dp"
+                android:backgroundTint="@color/white"
+                android:padding="10dp"
+                app:alignItems="center"
+                app:flexDirection="row">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_search" />
+
+                <EditText
+                    android:id="@+id/searchBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Tìm kiếm"
+                    android:background="@color/white"
+                    app:layout_flexGrow="1"
+                    android:textColor="#817E7E" />
+            </com.google.android.flexbox.FlexboxLayout>
+        </com.google.android.flexbox.FlexboxLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/revenueBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:text="Báo cáo thu"
+                    android:textColor="@color/green"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/revenueBottomBolder"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/green" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/expenditureBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/white"
+                    android:text="Báo cáo chi"
+                    android:textColor="@color/white_black"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/expenditureBottomBolder"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/white" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/super_white_gray" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="40dp"
+                android:backgroundTint="@color/green"
+                android:src="@drawable/ic_baseline_add_24"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:tint="@color/white" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</FrameLayout>

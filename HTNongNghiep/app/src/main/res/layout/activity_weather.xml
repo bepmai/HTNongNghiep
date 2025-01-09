@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".Activity.Weather">
+    <ImageView
+        android:layout_marginTop="30dp"
+        android:id="@+id/idTVBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/ic_left" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/idTVCityName"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:text="City Name"
+        android:textAlignment="center"
+        android:textColor="@color/green"
+        android:textSize="18sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/idLLEdt"
+        android:layout_below="@+id/idTVCityName"
+        android:weightSum="5">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="8dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/idTILCity"
+            android:layout_margin="18dp"
+            android:layout_weight="4.5"
+            android:hint="Enter City Name"
+            android:padding="5dp"
+            app:hintTextColor="@color/gray"
+            android:textColorHint="@color/gray">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/idEdtCity"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="#23312A"
+                android:textSize="14sp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/idTVSearch"
+            android:layout_weight="0.5"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_search"
+            app:tint="@color/green"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/idTVTemperature"
+        android:layout_below="@+id/idLLEdt"
+        android:layout_margin="10dp"
+        android:gravity="center_horizontal"
+        android:padding="5dp"
+        android:text="23"
+        android:textColor="@color/green"
+        android:textSize="70dp"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/idTVIcon"
+        android:layout_below="@id/idTVTemperature"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="18dp"
+        android:src="@drawable/ic_farm"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/idTVCondition"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:text="Condition"
+        android:textColor="@color/green"
+        android:layout_below="@+id/idTVIcon"/>
+    <TextView
+        android:id="@+id/suggestionTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Gợi ý chăm sóc cây: "
+        android:layout_below="@id/idTVCondition"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="30dp"
+        android:textColor="#333"
+        android:textSize="16sp"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_suggestion"
+        android:drawablePadding="8dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/idRvWeather"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="18dp"
+        android:text="Thời tiết trong ngày"
+        android:textColor="@color/green"
+        android:textStyle="bold"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/idRvWeather"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+</RelativeLayout>
