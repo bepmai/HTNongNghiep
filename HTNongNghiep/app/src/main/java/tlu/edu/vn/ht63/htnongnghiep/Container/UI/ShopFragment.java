@@ -10,11 +10,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.support.annotation.NonNull;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -163,7 +166,66 @@ public class ShopFragment extends Fragment {
                 Log.e("FirebaseError", "Error: " + error.getMessage());
             }
         });
+        EditText edt = requireActivity().findViewById(R.id.searchBar);
+        edt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!s.toString().isEmpty()){
+                    eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            plantList.clear();
+                            for (DataSnapshot idPlantOfUserSnapshot : snapshot.getChildren()){
+                                for (DataSnapshot idPlantSnapshot : idPlantOfUserSnapshot.getChildren()) {
+                                    Plant plant = idPlantSnapshot.getValue(Plant.class);
+                                    if (plant != null && plant.getName().toLowerCase().contains(s.toString().toLowerCase())) {
+                                        plantList.add(plant);
+                                    }
+                                }
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Log.e("FirebaseError", "Error: " + error.getMessage());
+                        }
+                    });
+                }
+                else{
+                    eventListener = databaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            plantList.clear();
+                            for (DataSnapshot idPlantOfUserSnapshot : snapshot.getChildren()){
+                                for (DataSnapshot idPlantSnapshot : idPlantOfUserSnapshot.getChildren()) {
+                                    Plant plant = idPlantSnapshot.getValue(Plant.class);
+                                    if (plant != null) {
+                                        plantList.add(plant);
+                                    }
+                                }
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Log.e("FirebaseError", "Error: " + error.getMessage());
+                        }
+                    });
+                }
+            }
+        });
         return view;
     }
 }
