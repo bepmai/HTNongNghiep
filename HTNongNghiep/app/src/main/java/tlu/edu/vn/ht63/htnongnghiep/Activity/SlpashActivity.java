@@ -37,7 +37,13 @@ public class SlpashActivity extends AppCompatActivity {
             public void run() {
                 Intent intent;
                 if (isFirstTime) {
-                    intent = new Intent(SlpashActivity.this, LoginSignupActivity.class);
+                    SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+                    String userId = sharedPreferences.getString("userId", null);
+                    if (userId == null){
+                        intent = new Intent(SlpashActivity.this, LoginSignupActivity.class);
+                    }else {
+                        intent = new Intent(SlpashActivity.this, HomeActivity.class);
+                    }
                 } else {
                     intent = new Intent(SlpashActivity.this, NavigationActivity.class);
                     SharedPreferences.Editor editor = prefs.edit();
