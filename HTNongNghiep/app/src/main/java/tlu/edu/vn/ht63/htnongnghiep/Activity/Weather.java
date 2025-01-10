@@ -118,7 +118,7 @@ public class Weather extends AppCompatActivity {
                     cityNameTV.setText(cityName);
                     getWeatherInfo(city);
                 }
-                cityNameTV.setText(cityName);
+                cityNameTV.setText(city);
             }
         });
     }
