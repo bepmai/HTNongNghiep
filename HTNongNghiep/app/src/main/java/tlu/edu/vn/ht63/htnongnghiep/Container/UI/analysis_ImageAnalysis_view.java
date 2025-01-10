@@ -86,7 +86,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 
 public class analysis_ImageAnalysis_view extends Fragment {
-    private static final String API_KEY = "UmDqvHbclR4eRwZxjemq3tet2VtlksfGSZCTr3Hp2r40MtpP5A";
+    private static final String API_KEY = "pS6zAsWb7VeYLegrJi49JyvWR648agvOen2NaENabVet4e9S0n";
     private static final String API_URL_IDENTITY = "https://plant.id/api/v3/identification";
     private static final String API_URL_HEALTH = "https://plant.id/api/v3//api/v3/health_assessment?details=local_name,description,url,treatment,classification,common_names,cause";
     private static final String TAG = "CameraX";
