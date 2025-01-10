@@ -25,7 +25,7 @@
             <LinearLayout
                 android:id="@+id/formweather"
                 android:layout_width="match_parent"
-                android:layout_height="450px"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
@@ -40,12 +40,12 @@
                         android:id="@+id/textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Thời tiết:"
-                        android:textSize="35px"
+                        android:layout_marginTop="10dp"
+                        android:text="Thời tiết"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="15dp"
+                        android:textColor="@color/green"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@id/idTVIcon"
-                        app:layout_constraintHorizontal_bias="0.129"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,33 +53,34 @@
                         android:id="@+id/idTVCondition"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginEnd="150dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginStart="15dp"
                         android:text="Mây đen u ám"
-                        android:textSize="40px"
+                        android:textSize="16sp"
                         android:textStyle="bold|italic"
-                        app:layout_constraintEnd_toStartOf="@id/idTVIcon"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/textView" />
 
                     <ImageView
                         android:id="@+id/idTVIcon"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginRight="20dp"
+                        android:scaleType="centerCrop"
                         android:src="@drawable/baseline_cloud_24"
-                        app:layout_constraintBottom_toBottomOf="@id/idTVCondition"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/idTVCondition"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.571" />
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_marginTop="30px"
-                    android:layout_marginBottom="40px"
-                    android:background="#757575" />
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="20px"
+                    android:layout_marginBottom="30px"
+                    android:background="@color/green" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -122,7 +123,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
 
                     <ImageView
                         android:layout_width="0dp"
@@ -156,39 +158,43 @@
 
                     <TextView
                         android:id="@+id/idTVHumidity"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:paddingVertical="1dp"
                         android:gravity="center"
                         android:text="...%"
-                        android:textSize="40px" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/idTVTemperature"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:paddingVertical="1dp"
                         android:text="...C"
-                        android:textSize="40px" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/idTVWindSpeed"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:paddingVertical="1dp"
                         android:gravity="center"
                         android:text="...km/h"
-                        android:textSize="40px" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/idTVCityName"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:paddingVertical="1dp"
                         android:gravity="center"
                         android:text="..."
-                        android:textSize="40px" />
+                        android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
 

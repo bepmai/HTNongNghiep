@@ -2,17 +2,18 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginStart="12dp"
-    android:layout_marginEnd="12dp"
-    android:layout_marginVertical="10dp"
-    android:layout_marginHorizontal="10dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginVertical="8dp"
+    android:layout_marginHorizontal="8dp"
     app:cardCornerRadius="20dp"
     app:cardElevation="8dp"
     android:id="@+id/recCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/border_green">
@@ -21,56 +22,62 @@
             android:id="@+id/plantImage"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_tree" />
+            android:layout_margin="15dp"
+            android:src="@drawable/ic_tree"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_width="120dp"
-            android:layout_height="30dp"
             android:id="@+id/plantName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/plantImage"
             android:text="Name"
+            android:layout_margin="15dp"
+            android:textStyle="bold"
             android:textColor="@color/green"
-            android:textSize="20sp"
-            android:layout_marginTop="25dp"
-            android:layout_marginStart="50dp"
-            android:layout_toEndOf="@id/plantImage"/>
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/plantImage"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="30dp"
             android:id="@+id/plantAge"
-            android:text="0"
-            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_toEndOf="@id/plantName"
-            android:layout_marginTop="25dp"
-            android:layout_marginStart="70dp"
-            android:textColor="@color/green"/>
+            android:text="0"
+            android:layout_margin="15dp"
+            android:textColor="@color/green"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/plantName"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="30dp"
             android:id="@+id/plantHeight"
-            android:text="0"
-            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/plantAge"
+            android:layout_margin="15dp"
             android:layout_toEndOf="@id/plantName"
-            android:layout_marginTop="25dp"
-            android:layout_marginStart="70dp"
-            android:textColor="@color/green"/>
+            android:text="0"
+            android:textColor="@color/green"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/plantType"
+            app:layout_constraintTop_toBottomOf="@+id/plantAge" />
 
         <TextView
             android:id="@+id/plantType"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/plantName"
-            android:layout_marginStart="130dp"
-            android:layout_marginTop="22dp"
+            android:layout_margin="15dp"
             android:text="0"
             android:textColor="@color/green"
-            android:textSize="16sp" />
-    </RelativeLayout>
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/plantImage"
+            app:layout_constraintTop_toBottomOf="@+id/plantName" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
