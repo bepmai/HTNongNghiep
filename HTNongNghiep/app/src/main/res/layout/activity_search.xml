@@ -36,7 +36,7 @@
                     android:textSize="12sp"
                     tools:ignore="HardcodedText,TextFields"
                     android:autofillHints=""
-                    android:inputType="" />
+                    android:inputType="text" />
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
