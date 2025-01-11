@@ -170,7 +170,8 @@ public class home extends Fragment {
 
         // http://localhost:8088/superset/dashboard/p/4Q3qKZ2gpWJ/
         // superset/dashboard/p/27Wlg0RLPkE/
-        webView.loadUrl("http://192.168.154.178:8088/superset/dashboard/p/4Q3qKZ2gpWJ/");
+        // http://localhost:8088/superset/dashboard/p/27Wlg0RLPkE/
+        webView.loadUrl("http://192.168.169.178:8088/superset/dashboard/p/27Wlg0RLPkE/");
 
         detailButton.setOnClickListener(new View.OnClickListener() {
             @Override
